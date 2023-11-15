@@ -6,9 +6,9 @@ function list_catalog()
     return $result;
 }
 
-function add_catalog($name_catalog, $status_catalog)
+function add_catalog($name_catalog)
 {
-    $sql = "INSERT INTO loaisanpham(ten_lsp,trang_thai) VALUES('$name_catalog', $status_catalog)";
+    $sql = "INSERT INTO loaisanpham(ten_lsp) VALUES('$name_catalog')";
     pdo_execute($sql);
 }
 

@@ -16,8 +16,7 @@ include 'view/header.php';
             case 'add_catalog':
                 if (isset($_POST['add_catalog'])) {
                     $name_catalog = $_POST['name_catalog'];
-                    $status_catalog = $_POST['status_catalog'];
-                    add_catalog($name_catalog, $status_catalog);
+                    add_catalog($name_catalog);
                     echo "<script> window.location.href='index.php?act=list_catalog';</script>";
                 }
                 include '../admin/view/catalog/add_catalog.php';
@@ -42,14 +41,14 @@ include 'view/header.php';
                     echo "<script> window.location.href='index.php?act=list_catalog';</script>";
                 }
                 break;
-            
-                case 'search_catalog':
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-                        $name_catalog = $_POST['name_catalog'];
-                        $list_catalog=search_catalog($name_catalog);
-                    }
-                    include '../admin/view/catalog/list_catalog.php';
-                    break;
+
+            case 'search_catalog':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $name_catalog = $_POST['name_catalog'];
+                    $list_catalog = search_catalog($name_catalog);
+                }
+                include '../admin/view/catalog/list_catalog.php';
+                break;
 
                 // Product
             case 'list_product':
