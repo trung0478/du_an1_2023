@@ -1,8 +1,8 @@
 <div class="wrapper">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
-                <h3>Bình luận của sản phẩm: bàn</h3>
+            <div class="col-md-12">
+                <h3>Chi tiết bình luận</h3>
                 <table class="table mt-3">
                     <thead>
                         <tr>
@@ -10,27 +10,32 @@
                             <th scope="col">Nội dung</th>
                             <th scope="col">Người bình luận</th>
                             <th scope="col">Ngày bình luận</th>
-                            <th scope="col"></th>
+                            <th scope="col">Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php 
+                        $step = 0;
+                        foreach ($list_cmt_detail as $comment): ?>
+                            <?php extract($comment); ?>
                             <tr>
                                 <th scope="row">
-                                    1
+                                    <?= $step+= 1; ?>
                                 </th>
                                 <td>
-                                    đẹp
+                                    <?= $noi_dung ?>
                                 </td>
                                 <td>
-                                    trung
+                                    <?=$ho_ten?>
                                 </td>
                                 <td>
-                                    11-11-2023
+                                    <?= $ngay_bl?>
                                 </td>
                                 <td>
-                                    <a onclick="return confirm('Bạn có muốn xoá không?')" href="#" class="btn btn-danger">Xoá</a>
+                                    <a onclick="return confirm('Bạn có muốn xoá không?')" href="index.php?act=delete_cmt&id_cmt=<?=$ma_bl?>" class="btn btn-danger">Xoá</a>
                                 </td>
                             </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

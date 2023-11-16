@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="d-flex justify-content-between my-md-2 my-2">
                     <h3 class="fs-1">Danh sách người dùng</h3>
-                    <a href="?act=add_nd" class="btn btn-primary my-md-2 my-1">Thêm mới</a>
+                    <a href="?act=add_user" class="btn btn-primary my-md-2 my-1">Thêm mới</a>
                 </div>
                 <table class="table">
                     <thead>
@@ -22,42 +22,53 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php 
+                        foreach ($userAll as $user):?>
+                        <?php extract($user)?>
                         <tr>
                             <td class="text-center">
-                                1
+                                <?= $ma_nd?>
                             </td>
                             <td class="text-center">
-                                1
+                                <?= $ho_ten?>
                             </td>
                             <td class="text-center">
-                                1
+                            <?= $gioi_tinh?>
+                                
                             </td>
                             <td class="text-center">
-                                1
+                            <?= $sdt?>
+                                
                             </td>
                             <td class="text-center">
-                                1
+                            <?= $email?>
+                                
                             </td>
                             <td class="text-center">
-                                1
+                            <?= $dia_chi?>
+                                
                             </td>
                             <td class="text-center">
-                                1
+                            <?= $tai_khoan?>
+                                
                             </td>
                             <td class="text-center">
-                                1
+                            <?= $ma_quyen?>
+                                
                             </td>
                             <td class="text-center">
-                                1
+                            <?= $trang_thai?>
+                                
                             </td>
                             
                             <td class="text-center">
-                                <a href="?act=update_nd" class="btn btn-warning">Sửa</a>
-                                <a onclick="return confirm('Bạn có xoá không?')" href="" class="btn btn-danger">
-                                    Xóa
+                                <a href="?act=open_acount&id=<?=$ma_nd?>" class="btn btn-warning">Mở Khóa</a>
+                                <a onclick="return confirm('Bạn có Khóa tài khoản này không?')" href="?act=look_acount&id=<?=$ma_nd?>" class="btn btn-danger">
+                                    Khóa TK
                                 </a>
                             </td>
                         </tr>
+                        <?php endforeach ?>
                     </tbody>
                 </table>
             </div>

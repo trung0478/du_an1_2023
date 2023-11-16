@@ -1,34 +1,36 @@
+
 <div class="wrapper">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
-                <h3>Danh sách bình luận</h3>
-                <h4>Tổng số sản phẩm được bình luận là: 1</h4>
+            <div class="col-md-12">
+                <h3>Danh sách bình luận sản phẩm</h3>
                 <table class="table mt-3">
                     <thead>
                         <tr>
                             <th scope="col">STT</th>
-                            <th scope="col">Sản phẩm bình luận </th>
-                            <th scope="col">Số lượng </th>
-                            <th scope="col"></th>
+                            <th scope="col">Sản phẩm bình luận</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>
-                       
+                        <?php foreach ($list_cmt as $comment): ?>
+                            <?php extract($comment); ?>
                             <tr>
                                 <th scope="row">
-                                   1
+                                    <?= $ma_sp ?>
                                 </th>
                                 <td>
-                                   bàn
+                                    <?= $ten_sp ?>
                                 </td>
                                 <td>
-                                   1
+                                    <?= $soluong ?>
                                 </td>
                                 <td>
-                                    <a href="?act=detail_cmt" class="btn btn-primary">Xem chi tiết</a>
+                                    <a href="?act=detail_cmt&id_cmt=<?= $ma_sp?>" class="btn btn-primary">Xem chi tiết</a>
                                 </td>
                             </tr>
+                        <?php endforeach ?>
                     </tbody>
                 </table>
             </div>
