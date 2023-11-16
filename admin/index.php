@@ -1,6 +1,7 @@
 <?php
 include '../config/connectdb.php';
 include 'model/catalog.php';
+include "model/product.php";
 include 'view/header.php';
 ?>
    <?php
@@ -52,14 +53,68 @@ include 'view/header.php';
 
                 // Product
             case 'list_product':
+                $list_product = get_all_product();
+                include 'view/product/list_product.php';
+                break;
+            case 'search_product':
+                if (isset($_POST['btn_search']) && $_POST['btn_search']) {
+                    $keyword = $_POST['keyword'];
+                    $list_product = search_product($keyword);
+                }
                 include 'view/product/list_product.php';
                 break;
             case 'add_product':
+                if (isset($_POST['add_new'])) {
+                    $ma_lsp = $_POST['id_catalog'];
+                    $ten_sp = $_POST['name'];
+                    $gia_sp = $_POST['price'];
+                    $so_luong = $_POST['quantity'];
+                    $ma_km = $_POST['sale'];
+                    $mo_ta = $_POST['desc'];
+                    $hinh_anh = $_FILES['image']['name'];
+                    $target_dir = "../upload/" .basename($hinh_anh);
+                    move_uploaded_file($_FILES['image']['tmp_name'], $target_dir);
+                    
+                    add_product($ma_lsp, $ten_sp, $gia_sp, $so_luong, $hinh_anh, $ma_km, $mo_ta);
+                    $message = "Thêm thành công!";
+                    echo "<script> window.location.href='index.php?act=list_product';</script>";
+                }
+                $list_catalog = list_catalog();
                 include 'view/product/add_product.php';
                 break;
-            case 'update_product':
+            case 'edit_product':
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    $product_one = getone_product($_GET['id']);
+                }
+                $list_catalog = list_catalog();
                 include 'view/product/update_product.php';
                 break;
+            case 'update_product':
+                if (isset($_POST['update'])) {
+                    $ma_sp = $_POST['id'];
+                    $ma_lsp = $_POST['id_catalog'];
+                    $ten_sp = $_POST['name'];
+                    $gia_sp = $_POST['price'];
+                    $so_luong = $_POST['quantity'];
+                    $ma_km = $_POST['sale'];
+                    $mo_ta = $_POST['desc'];
+                    $hinh_anh = $_FILES['image']['name'];
+                    $target_dir = "../upload/" .basename($hinh_anh);
+                    move_uploaded_file($_FILES['image']['tmp_name'], $target_dir);
+
+                    update_product($ma_sp, $ma_lsp, $ten_sp, $gia_sp, $so_luong, $ma_km, $mo_ta ,$hinh_anh);
+                }
+                echo "<script> window.location.href='index.php?act=list_product';</script>";
+                include 'view/product/update_product.php';
+                break;
+            case 'del_product':
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    del_product($_GET['id']);
+                }
+                $list_product = get_all_product();
+                include 'view/product/list_product.php';
+                break;
+            
 
                 // User
             case 'list_user':
