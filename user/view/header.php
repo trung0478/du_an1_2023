@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Furns - Furniture eCommerce HTML Template</title>
+    <title>LTH Furniture</title>
     <meta name="description" content="240+ Best Bootstrap Templates are available on this website. Find your template for your project compatible with the most popular HTML library in the world." />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="profile" href="https://gmpg.org/xfn/11">
@@ -23,8 +23,8 @@
     <meta property="og:description" content="Furns - Responsive eCommerce HTML Template" />
     <meta name="robots" content="noindex, follow" />
     <!-- Add site Favicon -->
-    <link rel="icon" href="./user/public/assets/images/favicon/favicon.png" sizes="32x32" />
-    <link rel="icon" href="./user/public/assets/images/favicon/favicon.png" sizes="192x192" />
+    <!-- <link rel="icon" href="./user/public/assets/images/logo/logo.png" sizes="32x32" /> -->
+    <link rel="icon" href="./user/public/assets/images/logo/logo.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="./user/public/assets/images/favicon/favicon.png" />
     <meta name="msapplication-TileImage" content="./user/public/assets/images/favicon/favicon.png" />
     <!-- Structured Data  -->

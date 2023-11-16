@@ -29,28 +29,17 @@
                 <!-- Swiper -->
                 <div class="swiper-container zoom-top">
                     <div class="swiper-wrapper">
-
                         <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/1.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/2.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/3.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/4.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/5.jpg" alt="">
+                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/<?= $product_detail['hinh_anh'] ?>" alt="">
                         </div>
                     </div>
                 </div>
+
+                <!-- slide -->
                 <div class="swiper-container zoom-thumbs slider-nav-style-1 small-nav mt-15px mb-15px">
-                    <div class="swiper-wrapper">
+                    <!-- <div class="swiper-wrapper"> 
                         <div class="swiper-slide">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/1.jpg" alt="">
+                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/<?= $product_detail['hinh_anh'] ?>" alt="">
                         </div>
                         <div class="swiper-slide">
                             <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/2.jpg" alt="">
@@ -63,39 +52,45 @@
                         </div>
                         <div class="swiper-slide">
                             <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/5.jpg" alt="">
-                        </div>
-                    </div>
-                    <!-- Add Arrows -->
-                    <div class="swiper-buttons">
+                        </div> 
+                    </div> -->
+                    <!-- Add Arrows  -->
+                    <!-- <div class="swiper-buttons">
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="col-lg-7 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
                 <div class="product-details-content quickview-content">
-                    <h2>Originals Kaval Windbr</h2>
+                    <h2><?= $product_detail['ten_sp'] ?></h2>
                     <p class="reference">Reference:<span> demo_17</span></p>
 
                     <div class="pricing-meta">
                         <ul>
-                            <li class="old-price not-cut">$18.90</li>
+                            <li class="old-price not-cut"><?= number_format($product_detail['gia_sp'], 0, '.', '.') ?>vnd</li>
                         </ul>
                     </div>
-                    <p class="quickview-para">Lorem ipsum dolor sit amet, consectetur adipisic elit eiusm tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim venialo quis nostrud exercitation ullamco</p>
+                    <p class="quickview-para"><?= $product_detail['mo_ta'] ?></p>
                     <div class="pro-details-size-color d-flex">
                         <div class="pro-details-color-wrap">
                             <span>Color</span>
-                            <div class="pro-details-color-content">
+                            <select class="form-control" >
+                                <option disabled selected>Chọn màu</option>
+                                <option value="1">Trắng</option>
+                                <option value="2">Đen</option>
+                            </select>
+                            <!-- <div class="pro-details-color-content">
                                 <ul>
                                     <li class="blue"></li>
                                     <li class="maroon active"></li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="product-size">
                             <span>Size</span>
-                            <select>
+                            <select class="form-control" >
+                                <option disabled selected>Chọn size</option>
                                 <option value="1">S</option>
                                 <option value="2">M</option>
                                 <option value="3">L</option>
