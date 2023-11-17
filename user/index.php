@@ -2,6 +2,7 @@
 include "config/connectdb.php";
 include "user/model/product.php";
 include "view/header.php";
+include "global/global.php";
 // Load product - Our product
 $list_product = load_product();
 

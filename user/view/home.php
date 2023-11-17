@@ -85,8 +85,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>" class="image">
-                                                <img src="./user/public/assets/images/product-image/<?=$hinh_anh;?>" alt="Product" />
-                                                <img class="hover-image" src="./user/public/assets/images/product-image/<?=$hinh_anh;?>" alt="Product" />
+                                                <img src="<?=$link_img.$hinh_anh;?>" alt="Product" />
+                                                <img class="hover-image" src="<?=$link_img.$hinh_anh;?>" alt="Product" />
                                             </a>
                                             
                                             <div class="actions">

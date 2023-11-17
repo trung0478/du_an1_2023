@@ -30,7 +30,8 @@
                 <div class="swiper-container zoom-top">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/<?= $product_detail['hinh_anh'] ?>" alt="">
+                            <!-- ./user/public/assets/images/product-image/zoom-image/ -->
+                            <img class="img-responsive m-auto" src="<?= $link_img . $product_detail['hinh_anh'] ?>" alt="">
                         </div>
                     </div>
                 </div>
@@ -39,7 +40,7 @@
                 <div class="swiper-container zoom-thumbs slider-nav-style-1 small-nav mt-15px mb-15px">
                     <!-- <div class="swiper-wrapper"> 
                         <div class="swiper-slide">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/<?= $product_detail['hinh_anh'] ?>" alt="">
+                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/" alt="">
                         </div>
                         <div class="swiper-slide">
                             <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/2.jpg" alt="">
@@ -75,7 +76,7 @@
                     <div class="pro-details-size-color d-flex">
                         <div class="pro-details-color-wrap">
                             <span>Color</span>
-                            <select class="form-control" >
+                            <select class="form-control">
                                 <option disabled selected>Chọn màu</option>
                                 <option value="1">Trắng</option>
                                 <option value="2">Đen</option>
@@ -89,7 +90,7 @@
                         </div>
                         <div class="product-size">
                             <span>Size</span>
-                            <select class="form-control" >
+                            <select class="form-control">
                                 <option disabled selected>Chọn size</option>
                                 <option value="1">S</option>
                                 <option value="2">M</option>

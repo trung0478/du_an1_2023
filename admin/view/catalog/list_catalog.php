@@ -36,7 +36,7 @@
                     <tbody>
                         
                         <?php
-                        if ($list_catalog==null) {
+                        if ($list_catalog == null) {
                             echo '<tr>
                                     <td class="text-danger" colspan="4">Không có danh mục bạn vừa tìm !!</td>
                                   </tr>';
@@ -55,7 +55,7 @@
                                     <a href="?act=delete_catalog&id_catalog=<?= $ma_lsp ?>" onclick="return confirm('Bạn có xoá không?')" href="#" class="btn btn-danger">Xóa </a>
                                 </td>
                             </tr>
-                        <?php endforeach; }; ?>
+                            <?php endforeach; }; ?>
                     </tbody>
                 </table>
             </div>
