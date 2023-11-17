@@ -7,8 +7,8 @@
                         <!-- Start single blog -->
                         <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px" data-aos="fade-up" data-aos-delay="200">
                             <div class="single-wedge">
-                                <h4 class="footer-herading">about us</h4>
-                                <p class="about-text">Lorem ipsum dolor sit amet cons adipisicing elit sed do eiusm tempor incididunt ut labor et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                <h4 class="footer-herading">Về chúng tôi</h4>
+                                <p class="about-text">LTH Furniture là trang web bán đồ nội thất đa dạng và chất lượng.Với sự kết hợp giữa thiết kế tinh tế và chất liệu đẳng cấp, chúng tôi cam kết mang đến không gian sống đẹp và tiện nghi cho khách hàng.
                                 </p>
                                 <ul class="link-follow">
                                     <li class="li">
@@ -33,15 +33,15 @@
                         <!-- Start single blog -->
                         <div class="col-md-6 col-sm-6 col-lg-3 mb-md-30px mb-lm-30px" data-aos="fade-up" data-aos-delay="400">
                             <div class="single-wedge">
-                                <h4 class="footer-herading">information</h4>
+                                <h4 class="footer-herading">Thông tin</h4>
                                 <div class="footer-links">
                                     <div class="footer-row">
                                         <ul class="align-items-center">
-                                            <li class="li"><a class="single-link" href="about.html">About us</a></li>
-                                            <li class="li"><a class="single-link" href="#">Delivery Information</a></li>
-                                            <li class="li"><a class="single-link" href="privacy-policy.html">Privacy & Policy</a></li>
-                                            <li class="li"><a class="single-link" href="#">Terms & Condition</a></li>
-                                            <li class="li"><a class="single-link" href="#">Manufactures</a></li>
+                                            <li class="li"><a class="single-link" href="about.html">Về chúng tôi</a></li>
+                                            <li class="li"><a class="single-link" href="#">Thông tin giao hàng</a></li>
+                                            <li class="li"><a class="single-link" href="privacy-policy.html">Chính sách & Bảo mật</a></li>
+                                            <li class="li"><a class="single-link" href="#">Điều khoản </a></li>
+                                            <li class="li"><a class="single-link" href="#">Nhà sản xuất</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -51,15 +51,15 @@
                         <!-- Start single blog -->
                         <div class="col-md-6 col-lg-2 col-sm-6 mb-lm-30px" data-aos="fade-up" data-aos-delay="600">
                             <div class="single-wedge">
-                                <h4 class="footer-herading">my account</h4>
+                                <h4 class="footer-herading">Tài khoản</h4>
                                 <div class="footer-links">
                                     <div class="footer-row">
                                         <ul class="align-items-center">
-                                            <li class="li"><a class="single-link" href="my-account.html">MyAccount</a></li>
-                                            <li class="li"><a class="single-link" href="cart.html">My Cart</a></li>
-                                            <li class="li"><a class="single-link" href="login.html">Login</a></li>
+                                            <li class="li"><a class="single-link" href="my-account.html">Tài khoản của tôi</a></li>
+                                            <li class="li"><a class="single-link" href="cart.html">Giỏ hàng</a></li>
+                                            <li class="li"><a class="single-link" href="login.html">Đăng nhập</a></li>
                                             <li class="li"><a class="single-link" href="wishlist.html">Yêu thích</a></li>
-                                            <li class="li"><a class="single-link" href="checkout.html">Checkout</a></li>
+                                            <li class="li"><a class="single-link" href="checkout.html">Thanh toán</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -69,19 +69,19 @@
                         <!-- Start single blog -->
                         <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="800">
                             <div class="single-wedge">
-                                <h4 class="footer-herading">newsletter</h4>
+                                <h4 class="footer-herading">Bản tin</h4>
                                 <div class="footer-links">
                                     <!-- News letter area -->
                                     <div id="mc_embed_signup" class="subscribe-form">
                                         <form id="mc-embedded-subscribe-form" class="validate" novalidate="" target="_blank" name="mc-embedded-subscribe-form" method="post" action="http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef">
                                             <div id="mc_embed_signup_scroll" class="mc-form">
-                                                <input class="email" type="email" required="" placeholder="Your Mail*" name="EMAIL" value="" />
+                                                <input class="email" type="email" required="" placeholder="Email của bạn*" name="EMAIL" value="" />
                                                 <div class="mc-news" aria-hidden="true">
                                                     <input type="text" value="" tabindex="-1" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef" />
                                                 </div>
                                                 <div class="clear">
                                                     <button id="mc-embedded-subscribe" class="button btn-primary" type="submit" name="subscribe" value=""><i
-                                                            class="icon-cursor"></i> Send Mail</button>
+                                                            class="icon-cursor"></i> Gửi mail</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -103,8 +103,8 @@
                             </div>
                         </div>
                         <div class="col-md-6 text-start">
-                            <p class="copy-text"> © 2021 <strong>Furns</strong> Made With <i class="ion-heart" aria-hidden="true"></i> By <a class="company-name" href="https://hasthemes.com/">
-                                <strong> HasThemes</strong></a>.</p>
+                            <p class="copy-text"> © 2023 <strong>Furns</strong> Made With <i class="ion-heart" aria-hidden="true"></i> By <a class="company-name" href="https://hasthemes.com/">
+                                <strong>LTH Furniture</strong></a>.</p>
                         </div>
                     </div>
                 </div>
