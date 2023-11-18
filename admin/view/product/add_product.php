@@ -23,20 +23,6 @@
                         <label for="name" class="form-label mt-3">Tên sản phẩm</label>
                         <input type="text" name="name" class="form-control" placeholder="Nhập tên sản phẩm" />
 
-                        <label for="name" class="form-label mt-3">Giá sản phẩm</label>
-                        <input type="text" name="price" class="form-control" placeholder="Nhập giá sản phẩm" />
-
-                        <label for="name" class="form-label mt-3">Hình ảnh</label>
-                        <input type="file" name="image" class="form-control" />
-
-                        <label for="name" class="form-label mt-3">Số lượng sản phẩm</label>
-                        <input type="text" name="quantity" class="form-control" />
-
-                        <label for="name" class="form-label mt-3">Khuyến mãi</label>
-                        <input type="text" name="sale" class="form-control" />
-
-                        <label for="name" class="form-label mt-3">Mô tả</label>
-                        <input type="text" name="desc" class="form-control" />
                         <br>
                          <button type="submit" name="add_new" class="btn btn-primary">Thêm mới</button>
                         <?php

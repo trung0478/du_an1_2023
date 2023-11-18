@@ -35,30 +35,9 @@
                         <label for="name" class="form-label mt-3">Tên sản phẩm</label>
                         <input type="text" name="name" class="form-control" value="<?=$ten_sp?>" placeholder="Nhập tên sản phẩm" />
 
-                        <label for="name" class="form-label mt-3">Giá sản phẩm</label>
-                        <input type="text" name="price" class="form-control" value="<?=$gia_sp?>" placeholder="Nhập giá sản phẩm" />
-
-                        <label for="name" class="form-label mt-3">Hình ảnh</label>
-                        <input type="file" name="image" class="form-control" />
-                        <?=$img?> <br>
-
-                        <label for="name" class="form-label mt-3">Số lượng sản phẩm</label>
-                        <input type="text" name="quantity" class="form-control" value="<?=$so_luong?>"/>
-
-                        <label for="name" class="form-label mt-3">Mã biến thể</label>
-                        <input type="text" name="variant" class="form-control" value="<?=$ma_bien_the?>"/>
-
-                        <label for="name" class="form-label mt-3">Mã khuyến mãi</label>
-                        <input type="text" name="sale" class="form-control" value="<?=$ma_km?>"/>
-
-                        <label for="name" class="form-label mt-3">Mô tả</label>
-                        <input type="text" name="desc" class="form-control" value="<?=$mo_ta?>"/>
                         <input type="hidden" name="id" value="<?=$ma_sp?>">
                         <br>
                          <button type="submit" name="update" class="btn btn-primary">Lưu thay đổi</button>
-                        <?php
-                            if (isset($message) && $message != "") echo $message;
-                        ?>  
                     </div>
                 </form>
             </div>
