@@ -55,19 +55,17 @@ include 'view/header.php';
                 // Product
             case 'list_product':
                 $list_product = get_all_product();
-                include '../admin/view/product/list_product.php';
+                include 'view/product/list_product.php';
                 break;
-            
             case 'search_product':
-                if ($_SERVER['REQUEST_METHOD'] === "POST") {
-                    $btn_product = $_POST['btn_product'];
-                    $search_product = search_product($btn_product);
+                if (isset($_POST['btn_search']) && $_POST['btn_search']) {
+                    $keyword = $_POST['keyword'];
+                    $list_product = search_product($keyword);
                 }
-                $list_product = get_all_product();
                 include 'view/product/list_product.php';
                 break;
             case 'add_product':
-                if (isset($_POST['add_new']) ) {
+                if (isset($_POST['add_new'])) {
                     $ma_lsp = $_POST['id_catalog'];
                     $ten_sp = $_POST['name'];
                     $gia_sp = $_POST['price'];
@@ -75,39 +73,18 @@ include 'view/header.php';
                     $ma_km = $_POST['sale'];
                     $mo_ta = $_POST['desc'];
                     $hinh_anh = $_FILES['image']['name'];
-                    $target_dir ='../upload/';
-                    $target_file = $target_dir .basename($_FILES["image"]["name"]);
-                    if(move_uploaded_file($_FILES["image"]["tmp_name"],$target_file));
+                    $target_dir = "../upload/" .basename($hinh_anh);
+                    move_uploaded_file($_FILES['image']['tmp_name'], $target_dir);
                     
                     add_product($ma_lsp, $ten_sp, $gia_sp, $so_luong, $hinh_anh, $ma_km, $mo_ta);
                     $message = "Thêm thành công!";
+                    echo "<script> window.location.href='index.php?act=list_product';</script>";
                 }
                 $list_catalog = list_catalog();
                 include 'view/product/add_product.php';
                 break;
-                case 'add_atribute':
-               
-                    if (isset($_POST['product_variant'])) {
-                        $ma_sp = $_POST['product_id'];
-                        $mau_sac = $_POST['product_color'];
-                        $kick_co = $_POST['product_size'];
-                        $gia_sp = $_POST['product_price'];
-                        $so_luong = $_POST['product_quantity'];
-                        $mo_ta = $_POST['product_describe'];
-                
-                        add_product_variant($ma_sp, $mau_sac, $kick_co, $gia_sp, $so_luong, $mo_ta);
-                
-                        $message = "Thêm thành công";
-                    }
-                    include '../admin/view/product/product_variant/add_atribute.php';
-                    break;
-            case 'list_atribute':
-                $product_variant = get_all_product_variant();
-                include '../admin/view/product/product_variant/list_atribute.php';
-                break;
-            case 'update_atribute':
-                include '../admin/view/product/product_variant/update_atribute.php';
-                break;
+            
+            
 
                 // User
             case 'list_user':
