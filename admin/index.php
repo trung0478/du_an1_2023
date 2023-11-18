@@ -149,7 +149,7 @@ include 'view/header.php';
                     $file_name = "../upload/" .time() .basename($hinh_anh);
                     move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $file_name);
 
-                    update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $file_name);
+                    update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $file_name, $hinh_anh);
                 }
                 echo "<script> window.location.href='index.php?act=list_product';</script>";
                 include 'view/product/update_atribute.php';
