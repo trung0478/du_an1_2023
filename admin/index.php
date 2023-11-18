@@ -61,7 +61,7 @@ include 'view/header.php';
                 $list_product = get_all_product($keyword);
                 include 'view/product/list_product.php';
                 break;
-            case 'list_added':
+            case 'list_atribute':
                 if (isset($_POST['btn_search']) && $_POST['btn_search']) {
                     $keyword = $_POST['keyword'];
                 } else {
@@ -69,7 +69,7 @@ include 'view/header.php';
                 }
                 
                 $list_product = get_product();
-                include 'view/product/list_added.php';
+                include 'view/product/list_atribute.php';
                 break;
             // case 'search_product':
             //     if (isset($_POST['btn_search']) && $_POST['btn_search']) {
@@ -87,7 +87,7 @@ include 'view/header.php';
                     
                     add_product($ma_lsp, $ten_sp);
                     $message = "Thêm thành công!";
-                    echo "<script> window.location.href='index.php?act=list_added';</script>";
+                    echo "<script> window.location.href='index.php?act=list_atribute';</script>";
                 }
                 $list_catalog = list_catalog();
                 include 'view/product/add_product.php';
@@ -170,7 +170,7 @@ include 'view/header.php';
 
                     update_product($ma_sp, $ma_lsp, $ten_sp);
                 }
-                echo "<script> window.location.href='index.php?act=list_added';</script>";
+                echo "<script> window.location.href='index.php?act=list_atribute';</script>";
                 include 'view/product/update_product.php';
                 break;
             case 'del_product':
@@ -178,7 +178,7 @@ include 'view/header.php';
                     del_product($_GET['id']);
                 }
                 $list_product = get_product();
-                include 'view/product/list_added.php';
+                include 'view/product/list_atribute.php';
                 break;
             
 

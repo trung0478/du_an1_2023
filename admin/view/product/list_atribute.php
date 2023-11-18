@@ -6,7 +6,7 @@
                     <h3 class="fs-1">Sản phẩm đã thêm</h3>
                         <div class="row my-2">
                             <div class="col-md-20">
-                                <form method="POST" action="index.php?act=list_added" style="display: inline-block;">
+                                <form method="POST" action="index.php?act=list_atribute" style="display: inline-block;">
                                 <input type="text" name="keyword" class="form-control" placeholder="Tìm kiếm sản phẩm" />
                             </div>
                             <input class="btn btn-primary my-md-0 my-1" style="height: 38px; margin-left: 10px" name="btn_search" type="submit" value="Tìm kiếm">
