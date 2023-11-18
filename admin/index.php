@@ -61,7 +61,7 @@ include 'view/header.php';
                 $list_product = get_all_product($keyword);
                 include 'view/product/list_product.php';
                 break;
-            case 'list_added':
+            case 'list_atribute':
                 if (isset($_POST['btn_search']) && $_POST['btn_search']) {
                     $keyword = $_POST['keyword'];
                 } else {
@@ -69,25 +69,17 @@ include 'view/header.php';
                 }
                 
                 $list_product = get_product();
-                include 'view/product/list_added.php';
+                include 'view/product/list_atribute.php';
                 break;
-            // case 'search_product':
-            //     if (isset($_POST['btn_search']) && $_POST['btn_search']) {
-                    
-            //     }
-            //     include 'view/product/list_product.php';
-            //     break;
+            
             case 'add_product':
                 if (isset($_POST['add_new'])) {
                     $ma_lsp = $_POST['id_catalog'];
                     $ten_sp = $_POST['name'];
-                    // $hinh_anh = $_FILES['image']['name'];
-                    // $target_dir = "../upload/" .basename($hinh_anh);
-                    // move_uploaded_file($_FILES['image']['tmp_name'], $target_dir);
                     
                     add_product($ma_lsp, $ten_sp);
                     $message = "Thêm thành công!";
-                    echo "<script> window.location.href='index.php?act=list_added';</script>";
+                    echo "<script> window.location.href='index.php?act=list_atribute';</script>";
                 }
                 $list_catalog = list_catalog();
                 include 'view/product/add_product.php';
@@ -109,9 +101,9 @@ include 'view/header.php';
                         if ($check_variant) {
                             $message = "Thuộc tính sản phẩm đã tồn tại!"; 
                         } else {
-                            $target_dir = "../upload/" .basename($hinh_anh);
-                            move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $target_dir);
-                            add_atribute($ma_sp, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $hinh_anh, $so_luong, $mo_ta);
+                            $file_name = "../upload/" .time() .basename($hinh_anh);
+                            move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $file_name);
+                            add_atribute($ma_sp, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $file_name, $so_luong, $mo_ta);
                             echo "<script> window.location.href='index.php?act=list_product';</script>";
                         }
                 }
@@ -154,10 +146,10 @@ include 'view/header.php';
                     $mo_ta = $_POST['mo_ta'];
 
                     $hinh_anh = $_FILES['hinh_anh']['name'];
-                    $target_dir = "../upload/" .basename($hinh_anh);
-                    move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $target_dir);
+                    $file_name = "../upload/" .time() .basename($hinh_anh);
+                    move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $file_name);
 
-                    update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $hinh_anh);
+                    update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $file_name);
                 }
                 echo "<script> window.location.href='index.php?act=list_product';</script>";
                 include 'view/product/update_atribute.php';
@@ -170,7 +162,7 @@ include 'view/header.php';
 
                     update_product($ma_sp, $ma_lsp, $ten_sp);
                 }
-                echo "<script> window.location.href='index.php?act=list_added';</script>";
+                echo "<script> window.location.href='index.php?act=list_atribute';</script>";
                 include 'view/product/update_product.php';
                 break;
             case 'del_product':
@@ -178,7 +170,7 @@ include 'view/header.php';
                     del_product($_GET['id']);
                 }
                 $list_product = get_product();
-                include 'view/product/list_added.php';
+                include 'view/product/list_atribute.php';
                 break;
             
 

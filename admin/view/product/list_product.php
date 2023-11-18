@@ -12,7 +12,7 @@
                             <input class="btn btn-primary my-md-0 my-1" style="height: 38px; margin-left: 10px" name="btn_search" type="submit" value="Tìm kiếm">
                         </div>
                         </form>
-                    <a href="index.php?act=list_added" class="btn btn-primary my-md-2 my-1">Sản phẩm</a>
+                    <a href="index.php?act=list_atribute" class="btn btn-primary my-md-2 my-1">Sản phẩm</a>
                     <a href="index.php?act=add_product" class="btn btn-primary my-md-2 my-1">Thêm mới sản phẩm</a>
                 </div>
                 <table class="table">
