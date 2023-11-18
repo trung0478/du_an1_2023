@@ -57,6 +57,8 @@
 
                         <br>
                         <button type="submit" name="add_user" class="btn btn-primary">Thêm mới</button>
+                       
+                        <a href="index.php?act=list_user" class="btn btn-primary">Danh sách</a>
                 </form> <br>
                 <h6>
                 <?php
