@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../config/connectdb.php';
+include '../global/global.php';
 include 'model/catalog.php';
 include "model/product.php";
 include 'view/header.php';
@@ -52,24 +53,24 @@ include 'view/header.php';
                 break;
 
                 // Product
-            case 'list_product':
-                if (isset($_POST['btn_search']) && $_POST['btn_search']) {
-                    $keyword = $_POST['keyword'];
-                } else {
-                    $keyword = "";
-                }
-                $list_product = get_all_product($keyword);
-                include 'view/product/list_product.php';
-                break;
             case 'list_atribute':
                 if (isset($_POST['btn_search']) && $_POST['btn_search']) {
                     $keyword = $_POST['keyword'];
                 } else {
                     $keyword = "";
                 }
-                
-                $list_product = get_product();
+                $list_product = get_all_product($keyword);
                 include 'view/product/list_atribute.php';
+                break;
+            case 'list_product':
+                if (isset($_POST['btn_search']) && $_POST['btn_search']) {
+                    $keyword = $_POST['keyword'];
+                } else {
+                    $keyword = "";
+                }
+                
+                $list_product = get_product($keyword);
+                include 'view/product/list_product.php';
                 break;
             
             case 'add_product':
@@ -79,7 +80,7 @@ include 'view/header.php';
                     
                     add_product($ma_lsp, $ten_sp);
                     $message = "Thêm thành công!";
-                    echo "<script> window.location.href='index.php?act=list_atribute';</script>";
+                    echo "<script> window.location.href='index.php?act=list_product';</script>";
                 }
                 $list_catalog = list_catalog();
                 include 'view/product/add_product.php';
@@ -101,10 +102,10 @@ include 'view/header.php';
                         if ($check_variant) {
                             $message = "Thuộc tính sản phẩm đã tồn tại!"; 
                         } else {
-                            $file_name = "../upload/" .time() .basename($hinh_anh);
+                            $file_name = $dir_img .time() .basename($hinh_anh);
                             move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $file_name);
                             add_atribute($ma_sp, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $file_name, $so_luong, $mo_ta);
-                            echo "<script> window.location.href='index.php?act=list_product';</script>";
+                            echo "<script> window.location.href='index.php?act=list_atribute';</script>";
                         }
                 }
                 $list_product = get_product();
@@ -117,7 +118,7 @@ include 'view/header.php';
                     del_atribute($_GET['id']);
                 }
                 $list_product = get_all_product();
-                include 'view/product/list_product.php';
+                include 'view/product/list_atribute.php';
                 break;
             case 'edit_atribute':
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -146,13 +147,13 @@ include 'view/header.php';
                     $mo_ta = $_POST['mo_ta'];
 
                     $hinh_anh = $_FILES['hinh_anh']['name'];
-                    $file_name = "../upload/" .time() .basename($hinh_anh);
+                    $file_name = $dir_img .time() .basename($hinh_anh);
                     move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $file_name);
 
                     // $file_name: tên ảnh từ upload, $hinh_anh: tên ảnh nhập từ form
                     update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $file_name, $hinh_anh);
                 }
-                echo "<script> window.location.href='index.php?act=list_product';</script>";
+                echo "<script> window.location.href='index.php?act=list_atribute';</script>";
                 include 'view/product/update_atribute.php';
                 break;
             case 'update_product':
@@ -163,7 +164,7 @@ include 'view/header.php';
 
                     update_product($ma_sp, $ma_lsp, $ten_sp);
                 }
-                echo "<script> window.location.href='index.php?act=list_atribute';</script>";
+                echo "<script> window.location.href='index.php?act=list_product';</script>";
                 include 'view/product/update_product.php';
                 break;
             case 'del_product':
@@ -171,7 +172,7 @@ include 'view/header.php';
                     del_product($_GET['id']);
                 }
                 $list_product = get_product();
-                include 'view/product/list_atribute.php';
+                include 'view/product/list_product.php';
                 break;
             
 

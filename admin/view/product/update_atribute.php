@@ -9,7 +9,7 @@
                             if (is_array($atribute_one)) {
                                 extract($atribute_one);
                             }
-                            $target_file = "../upload/" .$hinh_anh;
+                            $target_file = $dir_img .$hinh_anh;
                             if (is_file($target_file)) {
                                 $hinh_anh = '<img class="mt-1" src="'.$target_file.'" height="50" alt="">';
                             } else {

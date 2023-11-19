@@ -58,6 +58,11 @@
     }
     function del_atribute($ma_bien_the) {
         $sql = "DELETE FROM bienthe WHERE ma_bien_the = $ma_bien_the";
+        $product = getone_atribute($ma_bien_the);
+        if ($product['hinh_anh'] !== "") {
+            $anh_cu = "../upload/" .$product['hinh_anh'];
+            unlink($anh_cu);
+        }
         pdo_query($sql);
     }
 
