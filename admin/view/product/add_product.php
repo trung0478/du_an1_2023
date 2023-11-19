@@ -8,11 +8,7 @@
                         <div class="d-flex justify-content-between">
                             <div>
                                 <label for="name" class="form-label mt-3">Loại sản phẩm</label>
-<<<<<<< HEAD
                                 <select class="form-contro" name="id_catalog" aria-label="Default select example">
-=======
-                                <select class="form-select" name="id_catalog" aria-label="Default select example">
->>>>>>> trung
                                     <option value="0" selected>Chọn loại</option>
                                     <?php
                                         foreach ($list_catalog as $catalog) {
@@ -43,13 +39,7 @@
                         <input type="text" name="desc" class="form-control" />
                         <br>
                          <button type="submit" name="add_new" class="btn btn-primary">Thêm mới</button>
-<<<<<<< HEAD
                         
-=======
-                        <?php
-                            if (isset($message) && $message != "") echo $message;
-                        ?>  
->>>>>>> trung
                     </div>
                 </form>
                 <?php
