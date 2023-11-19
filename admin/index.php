@@ -104,10 +104,8 @@ include 'view/header.php';
                     $status = $_POST['status'];
                     insert_User($name, $gender, $phone, $email, $address, $name_acount, $permission, $status);
 
-                    $thongbao = "Thêm thành công";
-                    
+                    $thongbao = "Thêm thành công";         
                 }
-
                 include '../admin/view/user/add_user.php';
                 break;
             case 'look_acount':
