@@ -4,6 +4,7 @@ include '../config/connectdb.php';
 include 'model/catalog.php';
 include "model/comment.php";
 include "model/user.php";
+include "model/product.php";
 include 'view/header.php';
 ?>
    <?php
@@ -54,6 +55,130 @@ include 'view/header.php';
 
                 // Product
             
+               
+            case 'list_product':
+                if (isset($_POST['btn_search']) && $_POST['btn_search']) {
+                    $keyword = $_POST['keyword'];
+                } else {
+                    $keyword = "";
+                }
+                $list_product = get_all_product($keyword);
+                include 'view/product/list_product.php';
+                break;
+            case 'list_atribute':
+                if (isset($_POST['btn_search']) && $_POST['btn_search']) {
+                    $keyword = $_POST['keyword'];
+                } else {
+                    $keyword = "";
+                }
+                
+                $list_product = get_product();
+                include 'view/product/list_atribute.php';
+                break;
+            
+            case 'add_product':
+                if (isset($_POST['add_new'])) {
+                    $ma_lsp = $_POST['id_catalog'];
+                    $ten_sp = $_POST['name'];
+                    
+                    add_product($ma_lsp, $ten_sp);
+                    $message = "Thêm thành công!";
+                    echo "<script> window.location.href='index.php?act=list_atribute';</script>";
+                }
+                $list_catalog = list_catalog();
+                include 'view/product/add_product.php';
+                break;
+            case 'add_atribute':
+                $product_one = getone_product($_GET['id']);
+                if (isset($_POST['add_variant'])) {
+                        $ma_sp = $_POST['ma_sp'];
+                        $product = getone_product($ma_sp);
+                        $ma_mau = $_POST['ma_mau'];
+                        $ma_kich_co = $_POST['ma_kich_co'];
+                        $gia_sp = $_POST['gia_sp'];
+                        $gia_km = $_POST['gia_km'];
+                        $so_luong = $_POST['so_luong'];
+                        $mo_ta = $_POST['mo_ta'];
+                        $hinh_anh = $_FILES['hinh_anh']['name'];
+
+                        $check_variant = check_query($ma_sp, $ma_mau, $ma_kich_co);
+                        if ($check_variant) {
+                            $message = "Thuộc tính sản phẩm đã tồn tại!"; 
+                        } else {
+                            $file_name = "../upload/" .time() .basename($hinh_anh);
+                            move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $file_name);
+                            add_atribute($ma_sp, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $file_name, $so_luong, $mo_ta);
+                            echo "<script> window.location.href='index.php?act=list_product';</script>";
+                        }
+                }
+                $list_product = get_product();
+                $list_color = get_all_color();
+                $list_size = get_all_size();
+                include 'view/product/add_atribute.php';
+                break;
+            case 'del_atribute':
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    del_atribute($_GET['id']);
+                }
+                $list_product = get_all_product();
+                include 'view/product/list_product.php';
+                break;
+            case 'edit_atribute':
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    $atribute_one = getone_atribute($_GET['id']);
+                }
+                // $list_product = get_all_product($keyword);
+                $list_color = get_all_color();
+                $list_size = get_all_size();
+                include 'view/product/update_atribute.php';
+                break;
+            case 'edit_product':
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    $product_one = getone_product($_GET['id']);
+                }
+                $list_catalog = list_catalog();
+                include 'view/product/update_product.php';
+                break;
+            case 'update_atribute':
+                if (isset($_POST['update_atribute'])) {
+                    $ma_bien_the = $_POST['ma_bien_the'];
+                    $ma_mau = $_POST['ma_mau'];
+                    $ma_kich_co = $_POST['ma_kich_co'];
+                    $gia_sp = $_POST['gia_sp'];
+                    $gia_km = $_POST['gia_km'];
+                    $so_luong = $_POST['so_luong'];
+                    $mo_ta = $_POST['mo_ta'];
+
+                    $hinh_anh = $_FILES['hinh_anh']['name'];
+                    $file_name = "../upload/" .time() .basename($hinh_anh);
+                    move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $file_name);
+
+                    update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $file_name);
+                }
+                echo "<script> window.location.href='index.php?act=list_product';</script>";
+                include 'view/product/update_atribute.php';
+                break;
+            case 'update_product':
+                if (isset($_POST['update'])) {
+                    $ma_sp = $_POST['id'];
+                    $ma_lsp = $_POST['id_catalog'];
+                    $ten_sp = $_POST['name'];
+
+                    update_product($ma_sp, $ma_lsp, $ten_sp);
+                }
+                echo "<script> window.location.href='index.php?act=list_atribute';</script>";
+                include 'view/product/update_product.php';
+                break;
+            case 'del_product':
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    del_product($_GET['id']);
+                }
+                $list_product = get_product();
+                include 'view/product/list_atribute.php';
+                break;
+            
+
+                // User
                 case 'list_user':
                     $userAll = loadAll_user();
                     include '../admin/view/user/list_user.php';
@@ -94,25 +219,25 @@ include 'view/header.php';
                     break;
     
                 // Comment
-                case 'list_cmt':
-                    $list_cmt = list_comment();
-                    include '../admin/view/comment/list_cmt.php';
-                    break;
-                case 'detail_cmt':
-                    if(($_GET['id_cmt']) && ($_GET['id_cmt']>0)){
-                        $id = $_GET['id_cmt'];
-                        $list_cmt_detail = loadAll_comment($id);
-                    }
-                    include '../admin/view/comment/detail_cmt.php';
-                    break;
-                case 'delete_cmt':
-                    if(($_GET['id_cmt']) && ($_GET['id_cmt']>0)){
-                        $id = $_GET['id_cmt'];
-                        delete_commet($id);
-                    }
+            case 'list_cmt':
+                $list_cmt = list_comment();
+                include '../admin/view/comment/list_cmt.php';
+                break;
+            case 'detail_cmt':
+                if(($_GET['id_cmt']) && ($_GET['id_cmt']>0)){
+                    $id = $_GET['id_cmt'];
                     $list_cmt_detail = loadAll_comment($id);
-                    include '../admin/view/comment/detail_cmt.php';
-                    break;
+                }
+                include '../admin/view/comment/detail_cmt.php';
+                break;
+            case 'delete_cmt':
+                if(($_GET['id_cmt']) && ($_GET['id_cmt']>0)){
+                    $id = $_GET['id_cmt'];
+                    delete_commet($id);
+                }
+                $list_cmt_detail = loadAll_comment($id);
+                include '../admin/view/comment/detail_cmt.php';
+                break;
 
                 // Staff
             case 'list_staff':
