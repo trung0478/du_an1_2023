@@ -71,7 +71,7 @@
         $atribute = pdo_query_one($sql, $ma_bien_the);
         return $atribute;
     }
-
+    // $file_name: tên ảnh từ upload, $hinh_anh: tên ảnh nhập từ form
     function update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $file_name, $hinh_anh) {
         $product = getone_atribute($ma_bien_the);
         if($hinh_anh != "") {
