@@ -31,20 +31,31 @@
                 <div class="swiper-container zoom-top">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide zoom-image-hover">
-                            <!-- ./user/public/assets/images/product-image/zoom-image/ -->
                             <img class="img-responsive m-auto" src="<?= $link_img . $product_detail['hinh_anh'] ?>" alt="">
+                        </div>
+                        <div class="swiper-slide zoom-image-hover">
+                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/1.jpg" alt="">
+                        </div>
+                        <div class="swiper-slide zoom-image-hover">
+                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/3.jpg" alt="">
+                        </div>
+                        <div class="swiper-slide zoom-image-hover">
+                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/4.jpg" alt="">
+                        </div>
+                        <div class="swiper-slide zoom-image-hover">
+                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/5.jpg" alt="">
                         </div>
                     </div>
                 </div>
 
                 <!-- slide -->
                 <div class="swiper-container zoom-thumbs slider-nav-style-1 small-nav mt-15px mb-15px">
-                    <!-- <div class="swiper-wrapper"> 
-                        <div class="swiper-slide">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/" alt="">
-                        </div>
+                    <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/2.jpg" alt="">
+                        </div>
+                        <div class="swiper-slide">
+                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/1.jpg" alt="">
                         </div>
                         <div class="swiper-slide">
                             <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/3.jpg" alt="">
@@ -54,13 +65,13 @@
                         </div>
                         <div class="swiper-slide">
                             <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/5.jpg" alt="">
-                        </div> 
-                    </div> -->
-                    <!-- Add Arrows  -->
-                    <!-- <div class="swiper-buttons">
+                        </div>
+                    </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-buttons">
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             <div class="col-lg-7 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
@@ -155,7 +166,7 @@
         <div class="description-review-wrapper">
             <div class="description-review-topbar nav">
                 <a data-bs-toggle="tab" href="#des-details2">Mô tả</a>
-                <a class="active" data-bs-toggle="tab" href="#des-details3">Bình luận ()</a>
+                <a class="active" data-bs-toggle="tab" href="#des-details3">Bình luận (<?php echo $count_comment['comment_count'] ?>)</a>
             </div>
             <div class="tab-content description-review-bottom">
                 <div id="des-details2" class="tab-pane ">
@@ -198,16 +209,16 @@
                                                 </div>
                                             </div><?= $ngay_bl ?>
                                             <div class="review-bottom">
-                                                <p><?=$noi_dung ?>
+                                                <p><?= $noi_dung ?>
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
                                 <?php
-                                        if (isset($message_noComment) && $message_noComment != null) {
-                                            echo '<span class="text-danger text-center">' . $message_noComment . '</span>';
-                                        }
+                                if (isset($message_noComment) && $message_noComment != null) {
+                                    echo '<span class="text-danger text-center">' . $message_noComment . '</span>';
+                                }
                                 ?>
                                 <!-- <div class="single-review child-review">
                                     <div class="review-img">

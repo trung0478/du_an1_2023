@@ -15,6 +15,10 @@ $list_product_discount = load_product(1);
 if (isset($_GET['act']) && $_GET['act'] != "") {
     switch ($_GET['act']) {
         case 'home':
+            if (isset($_GET['id_pro'])) {
+                // load product_detail by id_pro
+            $product_detail = load_detail_product($_GET['id_pro']);
+            }
             include "view/home.php";
             break;
 
@@ -72,11 +76,11 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 $product_thesame_catalog = products_in_the_same_catalog($_GET['id_pro'], $product_detail['ma_lsp']);
 
                 // load 10 prouct most view
-                $product_most_view= product_most_view();
+                $product_most_view = product_most_view();
 
                 //count comment
-                $count_comment=count_comment_by_idpro($_GET['id_pro']);
-                
+                $count_comment = count_comment_by_idpro($_GET['id_pro']);
+
                 include "view/product_detail.php";
             }
             break;
@@ -88,6 +92,10 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
         case 'login':
             include "view/login.php";
             break;
+
+            case 'test':
+                include "view/test.php";
+                break;
 
         default:
             include "view/home.php";
