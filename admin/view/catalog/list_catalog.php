@@ -20,7 +20,7 @@
                             </form>
                         </div>
                         <div class="col-md-2 offset-md-5 d-flex justify-content-end">
-                            <a href="?act=add_catalog" class="btn btn-primary ">Thêm mới</a>
+                            <a href="?act=add_catalog" class="btn btn-primary">Thêm mới</a>
                         </div>
                     </div>
                 </div>
