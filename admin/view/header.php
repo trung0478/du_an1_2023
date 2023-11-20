@@ -9,7 +9,7 @@
     <meta content="Admin Dashboard" name="description">
     <meta content="Mannatthemes" name="author">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="../user/public/assets/images/favicon/favicon.png">
+    <link rel="shortcut icon" href="public/assets_admin/images/logo.png">
     <link href="../admin/public/assets_admin/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../admin/public/assets_admin/css/icons.css" rel="stylesheet" type="text/css">
     <link href="../admin/public/assets_admin/css/style.css" rel="stylesheet" type="text/css">
@@ -106,7 +106,7 @@
                                 <i class="fa-regular fa-comment"></i></i>Bình luận </a>
                         </li>
                         <li class="has-submenu">
-                            <a href="?act=list_sale">
+                            <a href="?act=list_voucher">
                                 <i class="fa-solid fa-gift"></i>Khuyến mại</a>
                         </li>
                         <li class="has-submenu">
