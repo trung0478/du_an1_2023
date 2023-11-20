@@ -25,6 +25,14 @@ function load_detail_product($id_product)
     return $result;
 }
 
+function load_img_by_idpro($id_product)  {
+    $sql = "SELECT sanpham.*, bienthe.*  FROM sanpham 
+    JOIN bienthe ON sanpham.ma_sp = bienthe.ma_sp 
+    WHERE bienthe.ma_sp=$id_product";
+    $result = pdo_query($sql);
+    return $result;
+}
+
 function load_color_size($id_pro)
 {
     $sql = "SELECT DISTINCT kich_co.*, mau_sac.* FROM kich_co

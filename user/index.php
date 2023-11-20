@@ -17,7 +17,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
         case 'home':
             if (isset($_GET['id_pro'])) {
                 // load product_detail by id_pro
-            $product_detail = load_detail_product($_GET['id_pro']);
+                $product_detail = load_detail_product($_GET['id_pro']);
             }
             include "view/home.php";
             break;
@@ -66,6 +66,9 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 // load product_detail by id_pro
                 $product_detail = load_detail_product($_GET['id_pro']);
 
+                // load img
+                $list_img_pro = load_img_by_idpro(($_GET['id_pro']));
+
                 // load color size
                 $load_color_size = load_color_size($_GET['id_pro']);
 
@@ -93,9 +96,9 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             include "view/login.php";
             break;
 
-            case 'test':
-                include "view/test.php";
-                break;
+        case 'test':
+            include "view/test.php";
+            break;
 
         default:
             include "view/home.php";
