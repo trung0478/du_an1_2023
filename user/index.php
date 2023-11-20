@@ -39,15 +39,15 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
         case 'account':
             include "view/account.php";
             break;
-
+            
         case 'register':
             if (isset($_POST['add_account'])) {
                 $email = $_POST['email'];
                 $username = $_POST['username'];
+                $full_name = $username;
                 $pass = $_POST['pass'];
-                add_account($email, $username, $pass); 
-                echo "<script> window.location.href='index.php?act=login';</script>";
-                
+                add_account($full_name, $email, $username, $pass); 
+                $message = "Đăng ký thành công!";
             }
             include "view/account/register.php";
             break;
