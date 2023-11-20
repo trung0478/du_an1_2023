@@ -21,6 +21,7 @@
         </div>
     </div>
 </div>
+
 <!-- Product Details Area Start -->
 <div class="product-details-area pt-100px pb-100px">
     <div class="container">

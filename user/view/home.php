@@ -76,13 +76,17 @@
                         <!-- 1st tab start -->
                         <div class="tab-pane fade show active" id="tab-product-new-arrivals">
                             <div class="row">
+                                <?php
+                                foreach ($list_product as $value) :
+                                   extract($value)
+                                ?>
                                 <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up" data-aos-delay="200">
-                                    <!-- Single Prodect -->
+                                    <!-- Single Product -->
                                     <div class="product">
                                         <div class="thumb">
-                                            <a href="index.php?act=product_detail" class="image">
-                                                <img src="./user/public/assets/images/product-image/1.jpg" alt="Product" />
-                                                <img class="hover-image" src="./user/public/assets/images/product-image/2.jpg" alt="Product" />
+                                            <a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>" class="image">
+                                            <img src="./user/public/assets/images/product-image/3.jpg" alt="Product" />
+                                                <img class="hover-image" src="./user/public/assets/images/product-image/4.jpg" alt="Product" />
                                             </a>
                                             
                                             <div class="actions">
@@ -93,19 +97,30 @@
                                                 <a href="compare.html" class="action compare" title="Compare"><i
                                                         class="icon-refresh"></i></a>
                                             </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
+                                            <form action="index.php?act=addtocart" method="post">
+                                                <input type="hidden" name="ma_sp" value="<?=$ma_sp?>">
+                                                <input type="hidden" name="ten_sp" value="<?=$ten_sp?>">
+                                                <input type="hidden" name="hinh_anh" value="<?=$hinh_anh?>">
+                                                <input type="hidden" name="gia_sp" value="<?=$gia_sp?>">
+                                                <input type="hidden" name="so_luong" value="<?=$so_luong?>">
+                                                <input type="hidden" name="ten_mau" value="<?=$ten_mau?>">
+                                                <input type="hidden" name="ten_kich_co" value="<?=$ten_kich_co?>">
+                                                <button title="Add To Cart" class=" add-to-cart" name="addtocart">Add
                                                 To Cart</button>
+                                            </form>
+                                            
                                         </div>
                                         <div class="content">
-                                            <h5 class="title"><a href="index.php?act=product_detail">Simple minimal Chair </a></h5>
+                                            <h5 class="title"><a href="index.php?act=product_detail"><?=$ten_sp;?></a></h5>
                                             <span class="price">
-                                                <span class="new">$38.50</span>
+                                                <span class="new">200.33vnd</span>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up" data-aos-delay="400">
-                                    <!-- Single Prodect -->
+                                <?php endforeach; ?>
+                                <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up" data-aos-delay="400">
+                                    Single Prodect 
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="index.php?act=product_detail" class="image">
@@ -132,10 +147,10 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up" data-aos-delay="600">
-                                    <!-- Single Prodect -->
+                                     Single Prodect
+                                </div> -->
+                                <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up" data-aos-delay="600">
+                                    Single Prodect 
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="index.php?act=product_detail" class="image">
@@ -162,9 +177,9 @@
                                             </span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up" data-aos-delay="800">
-                                    <!-- Single Prodect -->
+                                </div> -->
+                                <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up" data-aos-delay="800">
+                                    Single Prodect 
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="index.php?act=product_detail" class="image">
@@ -190,10 +205,10 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-md-30px mb-lm-30px" data-aos="fade-up" data-aos-delay="200">
-                                    <!-- Single Prodect -->
+                                    Single Prodect 
+                                </div> -->
+                                <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-md-30px mb-lm-30px" data-aos="fade-up" data-aos-delay="200">
+                                    Single Prodect
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="index.php?act=product_detail" class="image">
@@ -220,9 +235,9 @@
                                             </span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6  mb-md-30px mb-lm-30px" data-aos="fade-up" data-aos-delay="400">
-                                    <!-- Single Prodect -->
+                                </div> -->
+                                <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6  mb-md-30px mb-lm-30px" data-aos="fade-up" data-aos-delay="400">
+                                    Single Prodect 
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="index.php?act=product_detail" class="image">
@@ -248,10 +263,10 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-es-30px" data-aos="fade-up" data-aos-delay="600">
-                                    <!-- Single Prodect -->
+                                    Single Prodect 
+                                </div> -->
+                                <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-es-30px" data-aos="fade-up" data-aos-delay="600">
+                                    Single Prodect
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="index.php?act=product_detail" class="image">
@@ -277,9 +292,9 @@
                                             </span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 " data-aos="fade-up" data-aos-delay="800">
-                                    <!-- Single Prodect -->
+                                </div> -->
+                                <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 " data-aos="fade-up" data-aos-delay="800">
+                                     Single Prodect 
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="index.php?act=product_detail" class="image">
@@ -305,8 +320,8 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <!-- Single Prodect -->
-                                </div>
+                                    Single Prodect 
+                                </div> -->
                             </div>
                         </div>
                         <!-- 1st tab end -->
