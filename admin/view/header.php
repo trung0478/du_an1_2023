@@ -58,10 +58,10 @@
                                 <div class="dropdown-item noti-title">
                                     <h5>Welcome</h5>
                                 </div>
-                                <a class="dropdown-item" href="#">
-                                    <i class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="mdi mdi-logout m-r-5 text-muted"></i> Logout </a>
+                                <a class="dropdown-item" href="../index.php?act=edit_account">
+                                    <i class="mdi mdi-account-circle m-r-5 text-muted"></i> Xem thông tin </a>
+                                <a class="dropdown-item" href="?act=logout">
+                                    <i class="mdi mdi-logout m-r-5 text-muted"></i> Đăng xuất </a>
                             </div>
                         </li>
                         <li class="menu-item">
@@ -114,8 +114,8 @@
                                 <i class="dripicons-copy"></i>Đơn hàng</a>
                         </li>
                         <li class="has-submenu">
-                            <a href="?act=list_user">
-                                <i class="fa-regular fa-user"></i>Tài khoản khách hàng</a>
+                            <a href="?act=list_account">
+                                <i class="fa-regular fa-user"></i>Tài khoản</a>
                         </li>
                         <li class="has-submenu">
                             <a href="?act=list_staff">

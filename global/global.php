@@ -1,5 +1,5 @@
 <?php
-$link_img = "upload/";
+$img_path = "upload/";
 $dir_img = "../upload/";
 
 ?>
