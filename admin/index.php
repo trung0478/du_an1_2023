@@ -6,6 +6,7 @@ include 'model/catalog.php';
 include "model/comment.php";
 include "model/account.php";
 include "model/product.php";
+include "model/voucher.php";
 include 'view/header.php';
 ?>
    <?php
@@ -71,15 +72,15 @@ include 'view/header.php';
             case 'add_atribute':
                 $product_one = getone_product($_GET['id']);
                 if (isset($_POST['add_variant'])) {
-                        $ma_sp = $_POST['ma_sp'];
-                        $product = getone_product($ma_sp);
-                        $ma_mau = $_POST['ma_mau'];
-                        $ma_kich_co = $_POST['ma_kich_co'];
-                        $gia_sp = $_POST['gia_sp'];
-                        $gia_km = $_POST['gia_km'];
-                        $so_luong = $_POST['so_luong'];
-                        $mo_ta = $_POST['mo_ta'];
-                        $hinh_anh = $_FILES['hinh_anh']['name'];
+                    $ma_sp = $_POST['ma_sp'];
+                    $product = getone_product($ma_sp);
+                    $ma_mau = $_POST['ma_mau'];
+                    $ma_kich_co = $_POST['ma_kich_co'];
+                    $gia_sp = $_POST['gia_sp'];
+                    $gia_km = $_POST['gia_km'];
+                    $so_luong = $_POST['so_luong'];
+                    $mo_ta = $_POST['mo_ta'];
+                    $hinh_anh = $_FILES['hinh_anh']['name'];
 
                         $check_variant = check_query($ma_sp, $ma_mau, $ma_kich_co);
                         if ($check_variant) {
@@ -181,7 +182,7 @@ include 'view/header.php';
                 $list_product = get_product();
                 include 'view/product/list_product.php';
                 break;
-            
+
 
                 // Account
                 case 'list_account':
@@ -275,15 +276,56 @@ include 'view/header.php';
                 include '../admin/view/staff/update_staff.php';
                 break;
 
-                // Discount
-            case 'list_sale':
-                include 'view/sale/list_sale.php';
+                // Comment
+            case 'list_cmt':
+                include 'view/comment/list_cmt.php';
                 break;
-            case 'add_sale':
-                include 'view/sale/add_sale.php';
+            case 'detail_cmt':
+                include 'view/comment/detail_cmt.php';
                 break;
-            case 'update_sale':
-                include 'view/sale/update_sale.php';
+
+                // Order
+            case 'list_order':
+                include 'view/order/list_order.php';
+                break;
+
+                // voucher
+            case 'list_voucher':
+                $list_voucher = list_voucher();
+                include 'view/voucher/list_voucher.php';
+                break;
+            case 'add_voucher':
+                if (isset($_POST['add_voucher'])) {
+                    $name_voucher = $_POST['name_voucher'];
+                    $discount = $_POST['discount'];
+                    $quantity = $_POST['quantity'];
+                    add_voucher($name_voucher, $discount, $quantity);
+                    echo "<script> window.location.href='index.php?act=list_voucher';</script>";
+                }
+                include 'view/voucher/add_voucher.php';
+                break;
+            case 'update_voucher':
+                if (isset($_GET['id_voucher'])) {
+                    $voucher = get_one_voucher($_GET['id_voucher']);
+                }
+
+                if (isset($_POST['update_voucher'])) {
+                    $id_voucher = $_POST['id_voucher'];
+                    $name_voucher = $_POST['name_voucher'];
+                    $discount = $_POST['discount'];
+                    $quantity = $_POST['quantity'];
+                    $status = $_POST['status'];
+                    update_voucher($id_voucher, $name_voucher, $discount, $quantity, $status);
+                    echo "<script> window.location.href='index.php?act=list_voucher';</script>";
+                }
+                include 'view/voucher/update_voucher.php';
+                break;
+
+            case 'delete_voucher':
+                if (isset($_GET['id_voucher'])) {
+                    delete_voucher($_GET['id_voucher']);
+                    echo "<script> window.location.href='index.php?act=list_voucher';</script>";
+                }
                 break;
         }
     } else {
