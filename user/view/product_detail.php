@@ -5,14 +5,13 @@
             <div class="col-12">
                 <div class="row breadcrumb_box  align-items-center">
                     <div class="col-lg-6 col-md-6 col-sm-12 text-center text-md-start">
-                        <h2 class="breadcrumb-title">Shop</h2>
+                        <h2 class="breadcrumb-title">LTH Furniture</h2>
                     </div>
                     <div class="col-lg-6  col-md-6 col-sm-12">
                         <!-- breadcrumb-list start -->
                         <ul class="breadcrumb-list text-center text-md-end">
-                            <li><a href="#">Home/ </a></li>
-                            <li><a href="#">Shop/ </a></li>
-                            <li class="active">Product Details</li>
+                            <li><a href="#">Trang chủ/ </a></li>
+                            <li class="active">Chi tiết sản phẩm</li>
                         </ul>
                         <!-- breadcrumb-list end -->
                     </div>
@@ -21,6 +20,8 @@
         </div>
     </div>
 </div>
+
+
 <!-- Product Details Area Start -->
 <div class="product-details-area pt-100px pb-100px">
     <div class="container">
@@ -29,41 +30,28 @@
                 <!-- Swiper -->
                 <div class="swiper-container zoom-top">
                     <div class="swiper-wrapper">
-
-                        <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/1.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/2.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/3.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/4.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/zoom-image/5.jpg" alt="">
-                        </div>
+                        <?php
+                        foreach ($list_img_pro as $value) :
+                            extract($value);
+                        ?>
+                            <div class="swiper-slide zoom-image-hover">
+                                <img class="img-responsive m-auto" src="<?= $link_img . $hinh_anh ?>" alt="">
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
+
+                <!-- slide -->
                 <div class="swiper-container zoom-thumbs slider-nav-style-1 small-nav mt-15px mb-15px">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/1.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/2.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/3.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/4.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="img-responsive m-auto" src="./user/public/assets/images/product-image/5.jpg" alt="">
-                        </div>
+                        <?php
+                        foreach ($list_img_pro as $value) :
+                            extract($value);
+                        ?>
+                            <div class="swiper-slide">
+                                <img class="img-responsive m-auto" src="<?= $link_img . $hinh_anh ?>" alt="">
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                     <!-- Add Arrows -->
                     <div class="swiper-buttons">
@@ -74,32 +62,38 @@
             </div>
             <div class="col-lg-7 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
                 <div class="product-details-content quickview-content">
-                    <h2>Originals Kaval Windbr</h2>
-                    <p class="reference">Reference:<span> demo_17</span></p>
+                    <h2><?= $product_detail['ten_sp'] ?></h2>
+                    <p class="reference">Lượt xem: <span><?= $product_detail['luot_xem'] ?></span></p>
 
                     <div class="pricing-meta">
                         <ul>
-                            <li class="old-price not-cut">$18.90</li>
+                            <li class="old-price not-cut"><?= number_format($product_detail['gia_sp'], 0, '.', '.') ?>vnd</li>
                         </ul>
                     </div>
-                    <p class="quickview-para">Lorem ipsum dolor sit amet, consectetur adipisic elit eiusm tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim venialo quis nostrud exercitation ullamco</p>
+                    <p class="quickview-para"><?= $product_detail['mo_ta'] ?></p>
                     <div class="pro-details-size-color d-flex">
                         <div class="pro-details-color-wrap">
-                            <span>Color</span>
-                            <div class="pro-details-color-content">
+                            <span>Màu</span>
+                            <select class="form-control">
+                                <option disabled selected>Chọn màu</option>
+                                <?php foreach ($load_color_size as $value) : ?>
+                                    <option value="<?= $value['ma_mau'] ?>"><?= $value['ten_mau'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <!-- <div class="pro-details-color-content">
                                 <ul>
                                     <li class="blue"></li>
                                     <li class="maroon active"></li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="product-size">
-                            <span>Size</span>
-                            <select>
-                                <option value="1">S</option>
-                                <option value="2">M</option>
-                                <option value="3">L</option>
-                                <option value="4">XL</option>
+                            <span>Kích thước</span>
+                            <select class="form-control">
+                                <option disabled selected>Chọn kích thước</option>
+                                <?php foreach ($load_color_size as $value) : ?>
+                                    <option value="<?= $value['ma_kich_co'] ?>"><?= $value['ten_kich_co'] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -108,21 +102,19 @@
                             <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
                         </div>
                         <div class="pro-details-cart">
-                            <button class="add-cart btn btn-primary btn-hover-primary ml-4" href="#"> Add To
-                                Cart</button>
+                            <button class="add-cart btn btn-primary btn-hover-primary ml-4" href="#">Thêm vào giỏ</button>
                         </div>
                     </div>
                     <div class="pro-details-wish-com">
                         <div class="pro-details-wishlist">
-                            <a href="wishlist.html"><i class="ion-android-favorite-outline"></i>Add to
-                                wishlist</a>
+                            <a href="#"><i class="ion-android-favorite-outline"></i>Yêu thích</a>
                         </div>
                         <div class="pro-details-compare">
-                            <a href="compare.html"><i class="ion-ios-shuffle-strong"></i>Add to compare</a>
+                            <a href="#"><i class="ion-ios-shuffle-strong"></i>Yêu thích</a>
                         </div>
                     </div>
                     <div class="pro-details-social-info">
-                        <span>Share</span>
+                        <span>Chia sẻ</span>
                         <div class="social-info">
                             <ul class="d-flex">
                                 <li>
@@ -142,12 +134,9 @@
                     </div>
                     <div class="pro-details-policy">
                         <ul>
-                            <li><img src="./user/public/assets/images/icons/policy.png" alt="" /><span>Security Policy (Edit With
-                                    Customer Reassurance Module)</span></li>
-                            <li><img src="./user/public/assets/images/icons/policy-2.png" alt="" /><span>Delivery Policy (Edit
-                                    With Customer Reassurance Module)</span></li>
-                            <li><img src="./user/public/assets/images/icons/policy-3.png" alt="" /><span>Return Policy (Edit With
-                                    Customer Reassurance Module)</span></li>
+                            <li><img src="./user/public/assets/images/icons/policy.png" alt="" /><span>Chính sách bảo mật</span></li>
+                            <li><img src="./user/public/assets/images/icons/policy-2.png" alt="" /><span>Chính sách giao hàng</span></li>
+                            <li><img src="./user/public/assets/images/icons/policy-3.png" alt="" /><span>Chính sách phân phối</span></li>
                         </ul>
                     </div>
                 </div>
@@ -162,54 +151,62 @@
     <div class="container">
         <div class="description-review-wrapper">
             <div class="description-review-topbar nav">
-                <a class="active" data-bs-toggle="tab" href="#des-details2">Description</a>
-                <a data-bs-toggle="tab" href="#des-details3">Reviews (2)</a>
+                <a data-bs-toggle="tab" href="#des-details2">Mô tả</a>
+                <a class="active" data-bs-toggle="tab" href="#des-details3">Bình luận (<?php echo $count_comment['comment_count'] ?>)</a>
             </div>
             <div class="tab-content description-review-bottom">
-                <div id="des-details2" class="tab-pane active">
+                <div id="des-details2" class="tab-pane ">
                     <div class="product-description-wrapper">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                        </p>
-                        <p>
-                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commo consequat. Duis aute irure dolor in reprehend in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                            occaecat cupidatat non proident, sunt in culpa qui officia deserunt 1
-                        </p>
+                        <p><?= $product_detail['mo_ta'] ?></p>
+
                     </div>
                 </div>
-                <div id="des-details3" class="tab-pane">
+                <div id="des-details3" class="tab-pane active">
                     <div class="row">
                         <div class="col-lg-7">
                             <div class="review-wrapper">
-                                <div class="single-review">
-                                    <div class="review-img">
-                                        <img src="./user/public/assets/images/review-image/1.png" alt="" />
-                                    </div>
-                                    <div class="review-content">
-                                        <div class="review-top-wrap">
-                                            <div class="review-left">
-                                                <div class="review-name">
-                                                    <h4>White Lewis</h4>
+                                <?php
+                                if (!$product_comment) {
+                                    $message_noComment = "Chưa có bình luận nào!!!";
+                                }
+                                foreach ($product_comment as $value) :
+                                    extract($value);
+                                ?>
+                                    <div class="single-review">
+                                        <div class="review-img">
+                                            <img src="./user/public/assets/images/review-image/1.png" alt="" />
+                                        </div>
+                                        <div class="review-content">
+                                            <div class="review-top-wrap">
+                                                <div class="review-left">
+                                                    <div class="review-name">
+                                                        <h4><?= $tai_khoan; ?></h4>
+                                                    </div>
+                                                    <div class="rating-product">
+                                                        <i class="ion-android-star"></i>
+                                                        <i class="ion-android-star"></i>
+                                                        <i class="ion-android-star"></i>
+                                                        <i class="ion-android-star"></i>
+                                                        <i class="ion-android-star"></i>
+                                                    </div>
                                                 </div>
-                                                <div class="rating-product">
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
+                                                <div class="review-left">
+                                                    <a href="#"></a>
                                                 </div>
-                                            </div>
-                                            <div class="review-left">
-                                                <a href="#">Reply</a>
+                                            </div><?= $ngay_bl ?>
+                                            <div class="review-bottom">
+                                                <p><?= $noi_dung ?>
+                                                </p>
                                             </div>
                                         </div>
-                                        <div class="review-bottom">
-                                            <p>
-                                                Vestibulum ante ipsum primis aucibus orci luctustrices posuere cubilia Curae Suspendisse viverra ed viverra. Mauris ullarper euismod vehicula. Phasellus quam nisi, congue id nulla.
-                                            </p>
-                                        </div>
                                     </div>
-                                </div>
-                                <div class="single-review child-review">
+                                <?php endforeach; ?>
+                                <?php
+                                if (isset($message_noComment) && $message_noComment != null) {
+                                    echo '<span class="text-danger text-center">' . $message_noComment . '</span>';
+                                }
+                                ?>
+                                <!-- <div class="single-review child-review">
                                     <div class="review-img">
                                         <img src="./user/public/assets/images/review-image/2.png" alt="" />
                                     </div>
@@ -235,43 +232,26 @@
                                             <p>Vestibulum ante ipsum primis aucibus orci luctustrices posuere cubilia Curae Sus pen disse viverra ed viverra. Mauris ullarper euismod vehicula.</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-lg-5">
                             <div class="ratting-form-wrapper pl-50">
-                                <h3>Add a Review</h3>
+                                <h3>Thêm bình luận</h3>
                                 <div class="ratting-form">
-                                    <form action="#">
-                                        <div class="star-box">
-                                            <span>Your rating:</span>
-                                            <div class="rating-product">
-                                                <i class="ion-android-star"></i>
-                                                <i class="ion-android-star"></i>
-                                                <i class="ion-android-star"></i>
-                                                <i class="ion-android-star"></i>
-                                                <i class="ion-android-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="rating-form-style">
-                                                    <input placeholder="Name" type="text" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="rating-form-style">
-                                                    <input placeholder="Email" type="email" />
-                                                </div>
-                                            </div>
+                                    <form method="post" action="?act=product_detail&id_pro=<?= $product_detail['ma_sp'] ?>">
+                                        <div class="row mt-3">
                                             <div class="col-md-12">
                                                 <div class="rating-form-style form-submit">
-                                                    <textarea name="Your Review" placeholder="Message"></textarea>
-                                                    <button class="btn btn-primary btn-hover-color-primary " type="submit" value="Submit">Submit</button>
+                                                    <textarea name="comment" placeholder="Nội dung"></textarea>
+                                                    <button class="btn btn-primary btn-hover-color-primary" name="add_comment" type="submit" value="Submit">Gửi bình luận</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
+                                    <?php if (isset($message_noLogin) && $message_noLogin != null) {
+                                        echo $message_noLogin . "<a href='index.php?act=dangnhap'>Đăng nhập ngay!</a>";
+                                    } ?>
                                 </div>
                             </div>
                         </div>
@@ -283,14 +263,17 @@
 </div>
 <!-- product details description area end -->
 
-<!-- New Product Start -->
-<div class="section pb-100px" data-aos="fade-up" data-aos-delay="200">
+
+<!-- sản phẩm cùng danh mục -->
+<div class="section pb-100px">
     <div class="container">
         <!-- section title start -->
         <div class="row">
-            <div class="col-md-12">
-                <div class="section-title text-start mb-11">
-                    <h2 class="title">You Might Also Like</h2>
+            <div class="col-md-12" data-aos="fade-up">
+                <div class="section-title text-center mb-11">
+                    <h2 class="title">Sản phẩm cùng loại</h2>
+                    <p class="sub-title">Sự đồng đều trong chất lượng - Sản phẩm cùng loại làm nổi bật mọi không gian.
+                    </p>
                 </div>
             </div>
         </div>
@@ -298,36 +281,45 @@
         <div class="new-product-slider swiper-container slider-nav-style-1" data-aos="fade-up" data-aos-delay="200">
             <div class="new-product-wrapper swiper-wrapper">
                 <!-- Single Prodect -->
-                <div class="new-product-item swiper-slide">
-                    <div class="product">
-                        <div class="thumb">
-                            <a href="shop-left-sidebar.html" class="image">
-                                <img src="./user/public/assets/images/product-image/1.jpg" alt="Product" />
-                                <img class="hover-image" src="./user/public/assets/images/product-image/2.jpg" alt="Product" />
-                            </a>
+                <?php
+                foreach ($product_thesame_catalog as $value) :
+                    extract($value)
+                ?>
+                    <div class="new-product-item swiper-slide">
+                        <div class="product">
+                            <div class="thumb">
+                                <a href="index.php?act=product_detail" class="image">
+                                    <img src="<?= $link_img . $hinh_anh ?>" alt="Product" />
+                                    <img class="hover-image" src="<?= $link_img . $hinh_anh ?>" alt="Product" />
+                                </a>
 
-                            <div class="actions">
-                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
-                                <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
+                                <div class="actions">
+                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
+                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
+                                    <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
+                                </div>
+                                <button title="Add To Cart" class=" add-to-cart">Thêm vào giỏ hàng</button>
                             </div>
-                            <button title="Add To Cart" class=" add-to-cart">Add
-                                To Cart</button>
-                        </div>
-                        <div class="content">
-                            <h5 class="title"><a href="shop-left-sidebar.html">Simple minimal Chair </a></h5>
-                            <span class="price">
-                                <span class="new">$18.50</span>
-                                <span class="old">$28.50</span>
-                            </span>
+                            <div class="content">
+                                <h5 class="title"><a href="index.php?act=product_detail"><?= $ten_sp ?></a></h5>
+                                <span class="price">
+                                    <?php
+                                    if ($gia_km == 0) {   ?>
+                                        <span class="new fs-5"><?= number_format($gia_sp, 0, '.', '.') ?>vnd</span>
+                                    <?php } else { ?>
+                                        <span class="new fs-5 mx-3"><?= number_format($gia_km, 0, '.', '.') ?>vnd</span>
+                                        <span style="text-decoration: line-through; opacity:.5;" class="new"><?= number_format($gia_sp, 0, '.', '.') ?>vnd</span>
+                                    <?php } ?>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?php endforeach; ?>
                 <!-- Single Prodect -->
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="shop-left-sidebar.html" class="image">
+                            <a href="index.php?act=product_detail" class="image">
                                 <img src="./user/public/assets/images/product-image/3.jpg" alt="Product" />
                                 <img class="hover-image" src="./user/public/assets/images/product-image/4.jpg" alt="Product" />
                             </a>
@@ -341,10 +333,9 @@
                                 To Cart</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="shop-left-sidebar.html">Wooden decorations</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail">Wooden decorations</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
-                                <span class="old">$43.50</span>
                             </span>
                         </div>
                     </div>
@@ -353,9 +344,9 @@
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="shop-left-sidebar.html" class="image">
+                            <a href="index.php?act=product_detail" class="image">
                                 <img src="./user/public/assets/images/product-image/5.jpg" alt="Product" />
-                                <img class="hover-image" src="./user/public/assets/images/product-image/6.jpg" alt="Product" />
+                                <img class="hover-image" src="./user/public/assets/images/product-image/5.jpg" alt="Product" />
                             </a>
 
                             <div class="actions">
@@ -367,7 +358,7 @@
                                 To Cart</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="shop-left-sidebar.html">High quality vase bottle</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail">High quality vase bottle</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
                             </span>
@@ -378,32 +369,7 @@
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="shop-left-sidebar.html" class="image">
-                                <img src="./user/public/assets/images/product-image/7.jpg" alt="Product" />
-                                <img class="hover-image" src="./user/public/assets/images/product-image/8.jpg" alt="Product" />
-                            </a>
-
-                            <div class="actions">
-                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
-                                <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
-                            </div>
-                            <button title="Add To Cart" class=" add-to-cart">Add
-                                To Cart</button>
-                        </div>
-                        <div class="content">
-                            <h5 class="title"><a href="shop-left-sidebar.html">Living & Bedroom Chair</a></h5>
-                            <span class="price">
-                                <span class="new">$38.50</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Prodect -->
-                <div class="new-product-item swiper-slide">
-                    <div class="product">
-                        <div class="thumb">
-                            <a href="shop-left-sidebar.html" class="image">
+                            <a href="index.php?act=product_detail" class="image">
                                 <img src="./user/public/assets/images/product-image/9.jpg" alt="Product" />
                                 <img class="hover-image" src="./user/public/assets/images/product-image/10.jpg" alt="Product" />
                             </a>
@@ -417,10 +383,34 @@
                                 To Cart</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="shop-left-sidebar.html">Living & Bedroom Table</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail">Living & Bedroom Chair</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
-                                <span class="old">$40.50</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Prodect -->
+                <div class="new-product-item swiper-slide">
+                    <div class="product">
+                        <div class="thumb">
+                            <a href="index.php?act=product_detail" class="image">
+                                <img src="./user/public/assets/images/product-image/9.jpg" alt="Product" />
+                                <img class="hover-image" src="./user/public/assets/images/product-image/10.jpg" alt="Product" />
+                            </a>
+
+                            <div class="actions">
+                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
+                                <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
+                                <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
+                            </div>
+                            <button title="Add To Cart" class=" add-to-cart">Add
+                                To Cart</button>
+                        </div>
+                        <div class="content">
+                            <h5 class="title"><a href="index.php?act=product_detail">Living & Bedroom Table</a></h5>
+                            <span class="price">
+                                <span class="new">$38.50</span>
                             </span>
                         </div>
                     </div>
@@ -436,16 +426,17 @@
     </div>
 </div>
 
-<!-- New Product End -->
 
-<!-- New Product Start -->
-<div class="section pb-100px" data-aos="fade-up" data-aos-delay="200">
+<!-- top 10 sản phẩm có lượt xem nhiều nhất -->
+<div class="section pb-100px">
     <div class="container">
         <!-- section title start -->
         <div class="row">
-            <div class="col-md-12">
-                <div class="section-title text-start mb-11">
-                    <h2 class="title">12 Other Products In The Same Category:</h2>
+            <div class="col-md-12" data-aos="fade-up">
+                <div class="section-title text-center mb-11">
+                    <h2 class="title">Sản phẩm được yêu thích</h2>
+                    <p class="sub-title">Nguyên tắc đơn giản: Yêu thích của bạn là chúng tôi chọn lựa - Sản phẩm độc đáo, được yêu thích mọi lúc.
+                    </p>
                 </div>
             </div>
         </div>
@@ -453,36 +444,45 @@
         <div class="new-product-slider swiper-container slider-nav-style-1" data-aos="fade-up" data-aos-delay="200">
             <div class="new-product-wrapper swiper-wrapper">
                 <!-- Single Prodect -->
-                <div class="new-product-item swiper-slide">
-                    <div class="product">
-                        <div class="thumb">
-                            <a href="shop-left-sidebar.html" class="image">
-                                <img src="./user/public/assets/images/product-image/1.jpg" alt="Product" />
-                                <img class="hover-image" src="./user/public/assets/images/product-image/2.jpg" alt="Product" />
-                            </a>
+                <?php
+                foreach ($product_most_view as $value) :
+                    extract($value)
+                ?>
+                    <div class="new-product-item swiper-slide">
+                        <div class="product">
+                            <div class="thumb">
+                                <a href="index.php?act=product_detail" class="image">
+                                    <img src="<?= $link_img . $hinh_anh ?>" alt="Product" />
+                                    <img class="hover-image" src="<?= $link_img . $hinh_anh ?>" alt="Product" />
+                                </a>
 
-                            <div class="actions">
-                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
-                                <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
+                                <div class="actions">
+                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
+                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
+                                    <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
+                                </div>
+                                <button title="Add To Cart" class=" add-to-cart">Thêm vào giỏ hàng</button>
                             </div>
-                            <button title="Add To Cart" class=" add-to-cart">Add
-                                To Cart</button>
-                        </div>
-                        <div class="content">
-                            <h5 class="title"><a href="shop-left-sidebar.html">Simple minimal Chair </a></h5>
-                            <span class="price">
-                                <span class="new">$18.50</span>
-                                <span class="old">$28.50</span>
-                            </span>
+                            <div class="content">
+                                <h5 class="title"><a href="index.php?act=product_detail"><?= $ten_sp ?></a></h5>
+                                <span class="price">
+                                    <?php
+                                    if ($gia_km == 0) {   ?>
+                                        <span class="new fs-5"><?= number_format($gia_sp, 0, '.', '.') ?>vnd</span>
+                                    <?php } else { ?>
+                                        <span class="new fs-5 mx-3"><?= number_format($gia_km, 0, '.', '.') ?>vnd</span>
+                                        <span style="text-decoration: line-through; opacity:.5;" class="new"><?= number_format($gia_sp, 0, '.', '.') ?>vnd</span>
+                                    <?php } ?>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?php endforeach; ?>
                 <!-- Single Prodect -->
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="shop-left-sidebar.html" class="image">
+                            <a href="index.php?act=product_detail" class="image">
                                 <img src="./user/public/assets/images/product-image/3.jpg" alt="Product" />
                                 <img class="hover-image" src="./user/public/assets/images/product-image/4.jpg" alt="Product" />
                             </a>
@@ -492,14 +492,12 @@
                                 <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
                                 <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
                             </div>
-                            <button title="Add To Cart" class=" add-to-cart">Add
-                                To Cart</button>
+                            <button title="Add To Cart" class=" add-to-cart">Thêm vào giỏ hàng</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="shop-left-sidebar.html">Wooden decorations</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail">Wooden decorations</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
-                                <span class="old">$43.50</span>
                             </span>
                         </div>
                     </div>
@@ -508,7 +506,7 @@
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="shop-left-sidebar.html" class="image">
+                            <a href="index.php?act=product_detail" class="image">
                                 <img src="./user/public/assets/images/product-image/5.jpg" alt="Product" />
                                 <img class="hover-image" src="./user/public/assets/images/product-image/6.jpg" alt="Product" />
                             </a>
@@ -522,7 +520,7 @@
                                 To Cart</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="shop-left-sidebar.html">High quality vase bottle</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail">High quality vase bottle</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
                             </span>
@@ -533,7 +531,7 @@
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="shop-left-sidebar.html" class="image">
+                            <a href="index.php?act=product_detail" class="image">
                                 <img src="./user/public/assets/images/product-image/7.jpg" alt="Product" />
                                 <img class="hover-image" src="./user/public/assets/images/product-image/8.jpg" alt="Product" />
                             </a>
@@ -547,7 +545,7 @@
                                 To Cart</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="shop-left-sidebar.html">Living & Bedroom Chair</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail">Living & Bedroom Chair</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
                             </span>
@@ -558,7 +556,7 @@
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="shop-left-sidebar.html" class="image">
+                            <a href="index.php?act=product_detail" class="image">
                                 <img src="./user/public/assets/images/product-image/9.jpg" alt="Product" />
                                 <img class="hover-image" src="./user/public/assets/images/product-image/10.jpg" alt="Product" />
                             </a>
@@ -572,10 +570,9 @@
                                 To Cart</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="shop-left-sidebar.html">Living & Bedroom Table</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail">Living & Bedroom Table</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
-                                <span class="old">$40.50</span>
                             </span>
                         </div>
                     </div>
@@ -590,5 +587,3 @@
         </div>
     </div>
 </div>
-
-<!-- New Product End -->
