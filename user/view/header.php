@@ -27,6 +27,7 @@
     <!-- <link rel="icon" href="./user/public/assets/images/logo/logo.png" sizes="32x32" /> -->
     <link rel="icon" href="./user/public/assets/images/logo/logo.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="./user/public/assets/images/favicon/favicon.png" />
+    <script src="https://kit.fontawesome.com/8e3c294816.js" crossorigin="anonymous"></script>
     <meta name="msapplication-TileImage" content="./user/public/assets/images/favicon/favicon.png" />
     <!-- Structured Data  -->
     <script type="application/ld+json">
@@ -93,11 +94,22 @@
                             <div class="header-bottom-set dropdown">
                                 <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i class="icon-user"></i></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a class="dropdown-item" href="index.php?act=account">Tài khoản </a></li>
-                                    <li><a class="dropdown-item" href="index.php?act=checkout">Thanh toán</a></li>
-                                    <li><a class="dropdown-item" href="index.php?act=login">Đăng nhập</a></li>
-                                    <li><a class="dropdown-item" href="index.php?act=login">Đăng ký</a></li>
+                                    <?php
+                                        if(isset($_SESSION['account'])){
+                                            extract($_SESSION['account']);
+                                    ?>
+                                        <li><a class="dropdown-item" href="index.php?act=edit_account">Tài khoản</a></li>
+                                        <?php if($vai_tro == 1) {?>
+                                            <li><a class="dropdown-item" href="./admin/index.php">Quản trị</a></li>
+                                        <?php }?>
+                                            <li><a class="dropdown-item" href="index.php?act=order">Đơn hàng</a></li>
+                                            <li><a class="dropdown-item" href="index.php?act=logout">Đăng xuất</a></li>
+                                    <?php } else {?>
+                                        <li><a class="dropdown-item" href="index.php?act=login">Đăng nhập</a></li>
+                                        <li><a class="dropdown-item" href="index.php?act=register">Đăng ký</a></li>
                                 </ul>
+                                    <?php }?>
+                                
                             </div>
                             <!-- Single Wedge End -->
                             <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">

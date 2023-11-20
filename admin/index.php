@@ -1,7 +1,10 @@
 <?php
 session_start();
 include '../config/connectdb.php';
+include '../global/global.php';
 include 'model/catalog.php';
+include "model/comment.php";
+include "model/account.php";
 include "model/product.php";
 include "model/voucher.php";
 include 'view/header.php';
@@ -10,6 +13,9 @@ include 'view/header.php';
     if (isset($_GET['act']) && $_GET['act'] != "") {
         $act = $_GET['act'];
         switch ($act) {
+            case 'home':
+                include 'view/home.php';
+                break;
                 // Catalog
             case 'list_catalog':
                 $list_catalog = list_catalog();
@@ -52,39 +58,17 @@ include 'view/header.php';
                 include '../admin/view/catalog/list_catalog.php';
                 break;
 
-                // Product
-            case 'list_product':
-                if (isset($_POST['btn_search']) && $_POST['btn_search']) {
-                    $keyword = $_POST['keyword'];
-                } else {
-                    $keyword = "";
-                }
-                $list_product = get_all_product($keyword);
-                include 'view/product/list_product.php';
-                break;
+            // Product_atribute
             case 'list_atribute':
                 if (isset($_POST['btn_search']) && $_POST['btn_search']) {
                     $keyword = $_POST['keyword'];
                 } else {
                     $keyword = "";
                 }
-
-                $list_product = get_product();
+                $list_product = get_all_product($keyword);
                 include 'view/product/list_atribute.php';
                 break;
-
-            case 'add_product':
-                if (isset($_POST['add_new'])) {
-                    $ma_lsp = $_POST['id_catalog'];
-                    $ten_sp = $_POST['name'];
-
-                    add_product($ma_lsp, $ten_sp);
-                    $message = "Thêm thành công!";
-                    echo "<script> window.location.href='index.php?act=list_atribute';</script>";
-                }
-                $list_catalog = list_catalog();
-                include 'view/product/add_product.php';
-                break;
+            
             case 'add_atribute':
                 $product_one = getone_product($_GET['id']);
                 if (isset($_POST['add_variant'])) {
@@ -98,15 +82,15 @@ include 'view/header.php';
                     $mo_ta = $_POST['mo_ta'];
                     $hinh_anh = $_FILES['hinh_anh']['name'];
 
-                    $check_variant = check_query($ma_sp, $ma_mau, $ma_kich_co);
-                    if ($check_variant) {
-                        $message = "Thuộc tính sản phẩm đã tồn tại!";
-                    } else {
-                        $file_name = "../upload/" . time() . basename($hinh_anh);
-                        move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $file_name);
-                        add_atribute($ma_sp, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $file_name, $so_luong, $mo_ta);
-                        echo "<script> window.location.href='index.php?act=list_product';</script>";
-                    }
+                        $check_variant = check_query($ma_sp, $ma_mau, $ma_kich_co);
+                        if ($check_variant) {
+                            $message = "Thuộc tính sản phẩm đã tồn tại!"; 
+                        } else {
+                            $file_name = $dir_img .time() .basename($hinh_anh);
+                            move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $file_name);
+                            add_atribute($ma_sp, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $file_name, $so_luong, $mo_ta);
+                            echo "<script> window.location.href='index.php?act=list_atribute';</script>";
+                        }
                 }
                 $list_product = get_product();
                 $list_color = get_all_color();
@@ -118,7 +102,7 @@ include 'view/header.php';
                     del_atribute($_GET['id']);
                 }
                 $list_product = get_all_product();
-                include 'view/product/list_product.php';
+                include 'view/product/list_atribute.php';
                 break;
             case 'edit_atribute':
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -128,6 +112,30 @@ include 'view/header.php';
                 $list_color = get_all_color();
                 $list_size = get_all_size();
                 include 'view/product/update_atribute.php';
+                break;
+
+            // Product
+            case 'list_product':
+                if (isset($_POST['btn_search']) && $_POST['btn_search']) {
+                    $keyword = $_POST['keyword'];
+                } else {
+                    $keyword = "";
+                }
+                
+                $list_product = get_product($keyword);
+                include 'view/product/list_product.php';
+                break;
+            case 'add_product':
+                if (isset($_POST['add_new'])) {
+                    $ma_lsp = $_POST['id_catalog'];
+                    $ten_sp = $_POST['name'];
+                    
+                    add_product($ma_lsp, $ten_sp);
+                    $message = "Thêm thành công!";
+                    echo "<script> window.location.href='index.php?act=list_product';</script>";
+                }
+                $list_catalog = list_catalog();
+                include 'view/product/add_product.php';
                 break;
             case 'edit_product':
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -147,12 +155,13 @@ include 'view/header.php';
                     $mo_ta = $_POST['mo_ta'];
 
                     $hinh_anh = $_FILES['hinh_anh']['name'];
-                    $file_name = "../upload/" . time() . basename($hinh_anh);
+                    $file_name = $dir_img .time() .basename($hinh_anh);
                     move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $file_name);
 
-                    update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $file_name);
+                    // $file_name: tên ảnh từ upload, $hinh_anh: tên ảnh nhập từ form
+                    update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $file_name, $hinh_anh);
                 }
-                echo "<script> window.location.href='index.php?act=list_product';</script>";
+                echo "<script> window.location.href='index.php?act=list_atribute';</script>";
                 include 'view/product/update_atribute.php';
                 break;
             case 'update_product':
@@ -163,7 +172,7 @@ include 'view/header.php';
 
                     update_product($ma_sp, $ma_lsp, $ten_sp);
                 }
-                echo "<script> window.location.href='index.php?act=list_atribute';</script>";
+                echo "<script> window.location.href='index.php?act=list_product';</script>";
                 include 'view/product/update_product.php';
                 break;
             case 'del_product':
@@ -171,19 +180,89 @@ include 'view/header.php';
                     del_product($_GET['id']);
                 }
                 $list_product = get_product();
-                include 'view/product/list_atribute.php';
+                include 'view/product/list_product.php';
                 break;
 
 
-                // User
-            case 'list_user':
-                include 'view/user/list_user.php';
+                // Account
+                case 'list_account':
+                    if (isset($_POST['search']) && $_POST['search']) {
+                        $keyword = $_POST['keyword'];
+                    } else {
+                        $keyword = "";
+                    }
+                    $list_account = getAll_account($keyword);
+                    include '../admin/view/account/list_account.php';
+                    break;
+
+                case 'edit_account':
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        $getone_account = getone_account($_GET['id']);
+                    }
+                    $list_account = getAll_account();
+                    include 'view/account/update_account.php';
+                    break;
+
+                case 'update_account':
+                    if (isset($_POST['update'])) {
+                        $id_user = $_POST['id_user'];
+                        $role = $_POST['role'];
+                        $status = $_POST['status'];
+    
+                        update_account($id_user, $role, $status);
+                    }
+                    echo "<script> window.location.href='index.php?act=list_account';</script>";
+                    include 'view/product/update_account.php';
+                    break;
+                
+                case 'logout':
+                    session_unset();
+                    echo "<script> window.location.href='../index.php?act=login';</script>";
+                    break;
+
+                case 'del_account':
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        del_account($_GET['id']);
+                    }
+                    $list_account = getAll_account();
+                    include 'view/account/list_account.php';
+                    break;
+                // case 'add_account':
+                //     if (isset($_POST['add_account'])) {
+                //         $name = $_POST['name'];
+                //         $gender = $_POST['gender'];
+                //         $phone = $_POST['phone'];
+                //         $email = $_POST['email'];
+                //         $address = $_POST['address'];
+                //         $name_acount = $_POST['name_acount'];
+                //         $password = $_POST['password'];
+                //         $permission = $_POST['permission'];
+                //         $status = $_POST['status'];
+                //         insert_account($name, $gender, $phone, $email, $address, $name_acount, $permission, $status);
+    
+                //         $thongbao = "Thêm thành công";         
+                //     }
+                //     include '../admin/view/account/add_account.php';
+                //     break;
+                // Comment
+            case 'list_cmt':
+                $list_cmt = list_comment();
+                include '../admin/view/comment/list_cmt.php';
                 break;
-            case 'add_user':
-                include 'view/user/add_user.php';
+            case 'detail_cmt':
+                if(($_GET['id_cmt']) && ($_GET['id_cmt']>0)){
+                    $id = $_GET['id_cmt'];
+                    $list_cmt_detail = loadAll_comment($id);
+                }
+                include '../admin/view/comment/detail_cmt.php';
                 break;
-            case 'update_user':
-                include 'view/user/update_user.php';
+            case 'delete_cmt':
+                if(($_GET['id_cmt']) && ($_GET['id_cmt']>0)){
+                    $id = $_GET['id_cmt'];
+                    delete_commet($id);
+                }
+                $list_cmt_detail = loadAll_comment($id);
+                include '../admin/view/comment/detail_cmt.php';
                 break;
 
                 // Staff
