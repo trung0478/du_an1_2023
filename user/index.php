@@ -116,14 +116,14 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             if (isset($_POST['update'])) {
                 $id = $_POST['id'];
                 $pass = $_POST['pass'];
-                $repass = $_POST['repass'];
-                $newpass = $_POST['newpass'];
+                $newPass = $_POST['newpass'];
+                $newRepass = $_POST['newrepass'];
                 
                 $check_account = check_account("", $pass);
-                if (is_array($check_account)) {
-                    if ($pass === $repass) {
+                if ($check_account) {
+                    if ($newPass === $newRepass) {
                         $_SESSION['account'] = $check_account;
-                        update_password($id, $newpass);
+                        update_password($id, $newPass);
                         $message = '<p class="alert alert-success">Đổi mật khẩu thành công</p>';
                     } else {
                         $message = '<p class="alert alert-danger">Mật khẩu không trùng khớp!</p>';

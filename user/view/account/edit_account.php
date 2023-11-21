@@ -127,14 +127,14 @@
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
-                                                        <label>Xác nhận mật khẩu</label>
-                                                        <input type="password" name="repass"/>
+                                                        <label>Mật khẩu mới</label>
+                                                        <input type="password" name="newpass"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
-                                                        <label>Mật khẩu mới</label>
-                                                        <input type="password" name="newpass"/>
+                                                        <label>Xác nhận mật khẩu mới</label>
+                                                        <input type="password" name="newrepass"/>
                                                     </div>
                                                 </div>
                                             </div>

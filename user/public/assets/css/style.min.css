@@ -2972,13 +2972,14 @@ body.offcanvas-open {
 }
 .pro-details-size-color .product-size {
   margin-left: 20px;
+  margin-top: 2px;
 }
 .pro-details-size-color .product-size span {
   display: block;
   color: #212121;
   font-size: 15px;
   font-weight: 600;
-  margin-bottom: 7px;
+  margin-bottom: 8px;
 }
 .product-details-table.pro-details-quality {
   display: block;
