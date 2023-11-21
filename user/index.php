@@ -1,6 +1,6 @@
 <?php
-session_start();
-$_SESSION['user'] = 'Trung';
+// session_start();
+// $_SESSION['user'] = 'Trung';
 include "config/connectdb.php";
 include "user/model/product.php";
 include "user/model/comment.php";
@@ -59,12 +59,13 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 $check_account = check_account($username, $pass);
                 if (is_array($check_account)) {
                     if ($check_account['trang_thai'] == 1) {
-                        if ($check_account['vai_tro'] == 1) {
+                        if ($check_account['vai_tro'] == 2) {
                             $_SESSION['account'] = $check_account;
                             echo "<script> window.location.href='./admin/index.php';</script>";
                         } else {
                             echo "<script> window.location.href='index.php?act=home';</script>";
                             $_SESSION['account'] = $check_account;
+                            $_SESSION['id_account'] = $check_account['ma_nd'];
                         }
                     } else {
                         $message = "Tài khoản đã bị khóa";
@@ -159,9 +160,8 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             // add comment
             if (isset($_POST['add_comment'])) {
                 $noi_dung = $_POST['comment'];
-                $id_nguoidung = 1;
-                if (isset($_SESSION['user'])) {
-                    insert_comment($_GET['id_pro'], $id_nguoidung, $noi_dung);
+                if (isset($_SESSION['account'])) {
+                    insert_comment($_GET['id_pro'],  $_SESSION['id_account'], $noi_dung);
                 } else {
                     $message_noLogin = "Bạn chưa đăng nhập - Vui lòng đăng nhập để thực hiện bình luận";
                 }

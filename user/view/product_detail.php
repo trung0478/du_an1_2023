@@ -250,7 +250,7 @@
                                         </div>
                                     </form>
                                     <?php if (isset($message_noLogin) && $message_noLogin != null) {
-                                        echo $message_noLogin . "<a href='index.php?act=dangnhap'>Đăng nhập ngay!</a>";
+                                        echo $message_noLogin . " " . "<a href='index.php?act=login'>Đăng nhập ngay!</a>";
                                     } ?>
                                 </div>
                             </div>
