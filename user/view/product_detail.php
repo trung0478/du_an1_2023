@@ -180,7 +180,7 @@
                                             <div class="review-top-wrap">
                                                 <div class="review-left">
                                                     <div class="review-name">
-                                                        <h4><?= $tai_khoan; ?></h4>
+                                                        <h4><?=(isset($ho_ten) && $ho_ten!="")?$ho_ten:$tai_khoan; ?></h4>
                                                     </div>
                                                     <div class="rating-product">
                                                         <i class="ion-android-star"></i>

@@ -1,5 +1,5 @@
 <?php
-// session_start();
+session_start();
 // $_SESSION['user'] = 'Trung';
 include "config/connectdb.php";
 include "user/model/product.php";

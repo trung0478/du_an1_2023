@@ -99,7 +99,7 @@
                                             extract($_SESSION['account']);
                                     ?>
                                         <li><a class="dropdown-item" href="index.php?act=edit_account">Tài khoản</a></li>
-                                        <?php if($vai_tro == 1) {?>
+                                        <?php if($vai_tro == 2) {?>
                                             <li><a class="dropdown-item" href="./admin/index.php">Quản trị</a></li>
                                         <?php }?>
                                             <li><a class="dropdown-item" href="index.php?act=order">Đơn hàng</a></li>
