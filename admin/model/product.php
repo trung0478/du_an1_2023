@@ -58,6 +58,11 @@
     }
     function del_atribute($ma_bien_the) {
         $sql = "DELETE FROM bienthe WHERE ma_bien_the = $ma_bien_the";
+        $product = getone_atribute($ma_bien_the);
+        if ($product['hinh_anh'] !== "") {
+            $anh_cu = "../upload/" .$product['hinh_anh'];
+            unlink($anh_cu);
+        }
         pdo_query($sql);
     }
 
@@ -71,15 +76,15 @@
         $atribute = pdo_query_one($sql, $ma_bien_the);
         return $atribute;
     }
-
-    function update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $hinh_anh) {
+    // $file_name: tên ảnh từ upload, $hinh_anh: tên ảnh nhập từ form
+    function update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $file_name, $hinh_anh) {
         $product = getone_atribute($ma_bien_the);
-        if(!empty($hinh_anh)) {
-            if (!empty($product['hinh_anh'])) {
+        if($hinh_anh != "") {
+            if ($product['hinh_anh'] !== "") {
                 $anh_cu = "../upload/" .$product['hinh_anh'];
                 unlink($anh_cu);
             }
-            $sql = "UPDATE bienthe SET ma_bien_the = '".$ma_bien_the."', ma_mau = '".$ma_mau."',ma_kich_co = '".$ma_kich_co."',gia_sp = '".$gia_sp."',gia_km = '".$gia_km."',so_luong = '".$so_luong."',mo_ta = '".$mo_ta."',hinh_anh = '".$hinh_anh."' WHERE ma_bien_the = ?";
+            $sql = "UPDATE bienthe SET ma_bien_the = '".$ma_bien_the."', ma_mau = '".$ma_mau."',ma_kich_co = '".$ma_kich_co."',gia_sp = '".$gia_sp."',gia_km = '".$gia_km."',so_luong = '".$so_luong."',mo_ta = '".$mo_ta."',hinh_anh = '".$file_name."' WHERE ma_bien_the = ?";
         } else {
             $sql = "UPDATE bienthe SET ma_bien_the = '".$ma_bien_the."', ma_mau = '".$ma_mau."',ma_kich_co = '".$ma_kich_co."',gia_sp = '".$gia_sp."',gia_km = '".$gia_km."',so_luong = '".$so_luong."',mo_ta = '".$mo_ta."' WHERE ma_bien_the = ?";
         }

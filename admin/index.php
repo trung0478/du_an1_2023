@@ -1,16 +1,21 @@
 <?php
 session_start();
 include '../config/connectdb.php';
+include '../global/global.php';
 include 'model/catalog.php';
 include "model/comment.php";
-include "model/user.php";
+include "model/account.php";
 include "model/product.php";
+include "model/voucher.php";
 include 'view/header.php';
 ?>
    <?php
     if (isset($_GET['act']) && $_GET['act'] != "") {
         $act = $_GET['act'];
         switch ($act) {
+            case 'home':
+                include 'view/home.php';
+                break;
                 // Catalog
             case 'list_catalog':
                 $list_catalog = list_catalog();
@@ -53,62 +58,38 @@ include 'view/header.php';
                 include '../admin/view/catalog/list_catalog.php';
                 break;
 
-                // Product
-            
-               
-            case 'list_product':
-                if (isset($_POST['btn_search']) && $_POST['btn_search']) {
-                    $keyword = $_POST['keyword'];
-                } else {
-                    $keyword = "";
-                }
-                $list_product = get_all_product($keyword);
-                include 'view/product/list_product.php';
-                break;
+            // Product_atribute
             case 'list_atribute':
                 if (isset($_POST['btn_search']) && $_POST['btn_search']) {
                     $keyword = $_POST['keyword'];
                 } else {
                     $keyword = "";
                 }
-                
-                $list_product = get_product();
+                $list_product = get_all_product($keyword);
                 include 'view/product/list_atribute.php';
                 break;
             
-            case 'add_product':
-                if (isset($_POST['add_new'])) {
-                    $ma_lsp = $_POST['id_catalog'];
-                    $ten_sp = $_POST['name'];
-                    
-                    add_product($ma_lsp, $ten_sp);
-                    $message = "Thêm thành công!";
-                    echo "<script> window.location.href='index.php?act=list_atribute';</script>";
-                }
-                $list_catalog = list_catalog();
-                include 'view/product/add_product.php';
-                break;
             case 'add_atribute':
                 $product_one = getone_product($_GET['id']);
                 if (isset($_POST['add_variant'])) {
-                        $ma_sp = $_POST['ma_sp'];
-                        $product = getone_product($ma_sp);
-                        $ma_mau = $_POST['ma_mau'];
-                        $ma_kich_co = $_POST['ma_kich_co'];
-                        $gia_sp = $_POST['gia_sp'];
-                        $gia_km = $_POST['gia_km'];
-                        $so_luong = $_POST['so_luong'];
-                        $mo_ta = $_POST['mo_ta'];
-                        $hinh_anh = $_FILES['hinh_anh']['name'];
+                    $ma_sp = $_POST['ma_sp'];
+                    $product = getone_product($ma_sp);
+                    $ma_mau = $_POST['ma_mau'];
+                    $ma_kich_co = $_POST['ma_kich_co'];
+                    $gia_sp = $_POST['gia_sp'];
+                    $gia_km = $_POST['gia_km'];
+                    $so_luong = $_POST['so_luong'];
+                    $mo_ta = $_POST['mo_ta'];
+                    $hinh_anh = $_FILES['hinh_anh']['name'];
 
                         $check_variant = check_query($ma_sp, $ma_mau, $ma_kich_co);
                         if ($check_variant) {
                             $message = "Thuộc tính sản phẩm đã tồn tại!"; 
                         } else {
-                            $file_name = "../upload/" .time() .basename($hinh_anh);
+                            $file_name = $dir_img .time() .basename($hinh_anh);
                             move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $file_name);
                             add_atribute($ma_sp, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $file_name, $so_luong, $mo_ta);
-                            echo "<script> window.location.href='index.php?act=list_product';</script>";
+                            echo "<script> window.location.href='index.php?act=list_atribute';</script>";
                         }
                 }
                 $list_product = get_product();
@@ -121,7 +102,7 @@ include 'view/header.php';
                     del_atribute($_GET['id']);
                 }
                 $list_product = get_all_product();
-                include 'view/product/list_product.php';
+                include 'view/product/list_atribute.php';
                 break;
             case 'edit_atribute':
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -131,6 +112,30 @@ include 'view/header.php';
                 $list_color = get_all_color();
                 $list_size = get_all_size();
                 include 'view/product/update_atribute.php';
+                break;
+
+            // Product
+            case 'list_product':
+                if (isset($_POST['btn_search']) && $_POST['btn_search']) {
+                    $keyword = $_POST['keyword'];
+                } else {
+                    $keyword = "";
+                }
+                
+                $list_product = get_product($keyword);
+                include 'view/product/list_product.php';
+                break;
+            case 'add_product':
+                if (isset($_POST['add_new'])) {
+                    $ma_lsp = $_POST['id_catalog'];
+                    $ten_sp = $_POST['name'];
+                    
+                    add_product($ma_lsp, $ten_sp);
+                    $message = "Thêm thành công!";
+                    echo "<script> window.location.href='index.php?act=list_product';</script>";
+                }
+                $list_catalog = list_catalog();
+                include 'view/product/add_product.php';
                 break;
             case 'edit_product':
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -150,12 +155,13 @@ include 'view/header.php';
                     $mo_ta = $_POST['mo_ta'];
 
                     $hinh_anh = $_FILES['hinh_anh']['name'];
-                    $file_name = "../upload/" .time() .basename($hinh_anh);
+                    $file_name = $dir_img .time() .basename($hinh_anh);
                     move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $file_name);
 
-                    update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $file_name);
+                    // $file_name: tên ảnh từ upload, $hinh_anh: tên ảnh nhập từ form
+                    update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $file_name, $hinh_anh);
                 }
-                echo "<script> window.location.href='index.php?act=list_product';</script>";
+                echo "<script> window.location.href='index.php?act=list_atribute';</script>";
                 include 'view/product/update_atribute.php';
                 break;
             case 'update_product':
@@ -166,7 +172,7 @@ include 'view/header.php';
 
                     update_product($ma_sp, $ma_lsp, $ten_sp);
                 }
-                echo "<script> window.location.href='index.php?act=list_atribute';</script>";
+                echo "<script> window.location.href='index.php?act=list_product';</script>";
                 include 'view/product/update_product.php';
                 break;
             case 'del_product':
@@ -174,50 +180,70 @@ include 'view/header.php';
                     del_product($_GET['id']);
                 }
                 $list_product = get_product();
-                include 'view/product/list_atribute.php';
+                include 'view/product/list_product.php';
                 break;
-            
 
-                // User
-                case 'list_user':
-                    $userAll = loadAll_user();
-                    include '../admin/view/user/list_user.php';
+
+                // Account
+                case 'list_account':
+                    if (isset($_POST['search']) && $_POST['search']) {
+                        $keyword = $_POST['keyword'];
+                    } else {
+                        $keyword = "";
+                    }
+                    $list_account = getAll_account($keyword);
+                    include '../admin/view/account/list_account.php';
                     break;
-                case 'add_user':
-                    if (isset($_POST['add_user'])) {
-                        $name = $_POST['name'];
-                        $gender = $_POST['gender'];
-                        $phone = $_POST['phone'];
-                        $email = $_POST['email'];
-                        $address = $_POST['address'];
-                        $name_acount = $_POST['name_acount'];
-                        $password = $_POST['password'];
-                        $permission = $_POST['permission'];
+
+                case 'edit_account':
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        $getone_account = getone_account($_GET['id']);
+                    }
+                    $list_account = getAll_account();
+                    include 'view/account/update_account.php';
+                    break;
+
+                case 'update_account':
+                    if (isset($_POST['update'])) {
+                        $id_user = $_POST['id_user'];
+                        $role = $_POST['role'];
                         $status = $_POST['status'];
-                        insert_User($name, $gender, $phone, $email, $address, $name_acount, $permission, $status);
     
-                        $thongbao = "Thêm thành công";         
+                        update_account($id_user, $role, $status);
                     }
-                    include '../admin/view/user/add_user.php';
+                    echo "<script> window.location.href='index.php?act=list_account';</script>";
+                    include 'view/product/update_account.php';
                     break;
-                case 'look_acount':
-                    if(isset($_GET['id']) && ($_GET['id'] > 0)){
-                        $id = $_GET['id'];
-                        look_Acout($id);
+                
+                case 'logout':
+                    session_unset();
+                    echo "<script> window.location.href='../index.php?act=login';</script>";
+                    break;
+
+                case 'del_account':
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        del_account($_GET['id']);
                     }
-                    $userAll = loadAll_user($id);
-                    include '../admin/view/user/list_user.php';
+                    $list_account = getAll_account();
+                    include 'view/account/list_account.php';
                     break;
-                case 'open_acount':
-                    if(isset($_GET['id']) && ($_GET['id'] > 0)){
-                        $id = $_GET['id'];
-                        open_acount($id);
+                // case 'add_account':
+                //     if (isset($_POST['add_account'])) {
+                //         $name = $_POST['name'];
+                //         $gender = $_POST['gender'];
+                //         $phone = $_POST['phone'];
+                //         $email = $_POST['email'];
+                //         $address = $_POST['address'];
+                //         $name_acount = $_POST['name_acount'];
+                //         $password = $_POST['password'];
+                //         $permission = $_POST['permission'];
+                //         $status = $_POST['status'];
+                //         insert_account($name, $gender, $phone, $email, $address, $name_acount, $permission, $status);
     
-                    }
-                    $userAll = loadAll_user($id);
-                    include '../admin/view/user/list_user.php';
-                    break;
-    
+                //         $thongbao = "Thêm thành công";         
+                //     }
+                //     include '../admin/view/account/add_account.php';
+                //     break;
                 // Comment
             case 'list_cmt':
                 $list_cmt = list_comment();
@@ -250,15 +276,56 @@ include 'view/header.php';
                 include '../admin/view/staff/update_staff.php';
                 break;
 
-                // Discount
-            case 'list_sale':
-                include 'view/sale/list_sale.php';
+                // Comment
+            case 'list_cmt':
+                include 'view/comment/list_cmt.php';
                 break;
-            case 'add_sale':
-                include 'view/sale/add_sale.php';
+            case 'detail_cmt':
+                include 'view/comment/detail_cmt.php';
                 break;
-            case 'update_sale':
-                include 'view/sale/update_sale.php';
+
+                // Order
+            case 'list_order':
+                include 'view/order/list_order.php';
+                break;
+
+                // voucher
+            case 'list_voucher':
+                $list_voucher = list_voucher();
+                include 'view/voucher/list_voucher.php';
+                break;
+            case 'add_voucher':
+                if (isset($_POST['add_voucher'])) {
+                    $name_voucher = $_POST['name_voucher'];
+                    $discount = $_POST['discount'];
+                    $quantity = $_POST['quantity'];
+                    add_voucher($name_voucher, $discount, $quantity);
+                    echo "<script> window.location.href='index.php?act=list_voucher';</script>";
+                }
+                include 'view/voucher/add_voucher.php';
+                break;
+            case 'update_voucher':
+                if (isset($_GET['id_voucher'])) {
+                    $voucher = get_one_voucher($_GET['id_voucher']);
+                }
+
+                if (isset($_POST['update_voucher'])) {
+                    $id_voucher = $_POST['id_voucher'];
+                    $name_voucher = $_POST['name_voucher'];
+                    $discount = $_POST['discount'];
+                    $quantity = $_POST['quantity'];
+                    $status = $_POST['status'];
+                    update_voucher($id_voucher, $name_voucher, $discount, $quantity, $status);
+                    echo "<script> window.location.href='index.php?act=list_voucher';</script>";
+                }
+                include 'view/voucher/update_voucher.php';
+                break;
+
+            case 'delete_voucher':
+                if (isset($_GET['id_voucher'])) {
+                    delete_voucher($_GET['id_voucher']);
+                    echo "<script> window.location.href='index.php?act=list_voucher';</script>";
+                }
                 break;
         }
     } else {

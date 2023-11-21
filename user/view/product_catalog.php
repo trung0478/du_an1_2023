@@ -91,8 +91,7 @@
                                                 <input type="hidden" name="so_luong" value="<?=$so_luong?>">
                                                 <input type="hidden" name="ten_mau" value="<?=$ten_mau?>">
                                                 <input type="hidden" name="ten_kich_co" value="<?=$ten_kich_co?>">
-                                                <button title="Add To Cart" class=" add-to-cart" name="addtocart">Add
-                                                To Cart</button>
+                                                <button title="Add To Cart" class=" add-to-cart" name="addtocart">Thêm vào giỏ hàng</button>
                                             </form>
                                 
                                 </div>

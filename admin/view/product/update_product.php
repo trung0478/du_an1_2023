@@ -2,7 +2,7 @@
     if (is_array($product_one)) {
         extract($product_one);
     }
-    $target_file = "../upload/" .$hinh_anh;
+    $target_file = $dir_img .$hinh_anh;
     if (is_file($target_file)) {
         $img = '<img class="mt-1" src="'.$target_file.'" alt="No photo" height="50">';
     } else {
