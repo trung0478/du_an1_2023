@@ -1,7 +1,7 @@
 <?php
-function add_account($email, $username, $pass){
-    $sql = "INSERT INTO nguoidung (email, tai_khoan, mat_khau) VALUES(?, ?, ?)";
-    pdo_execute($sql, $email, $username, $pass);
+function add_account($full_name, $email, $username, $pass){
+    $sql = "INSERT INTO nguoidung (ho_ten, email, tai_khoan, mat_khau) VALUES(?, ?, ?, ?)";
+    pdo_execute($sql, $full_name, $email, $username, $pass);
 }
 
 function check_account($username="", $pass) {

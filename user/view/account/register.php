@@ -35,11 +35,16 @@
                                 <div class="login-form-container">
                                     <div class="login-register-form">
                                         <form action="?act=register" method="post">
-                                            <input type="text" name="email" placeholder="Email" />
+                                            <input type="email" name="email" placeholder="Email" />
                                             <input type="text" name="username" placeholder="Tài khoản" />
                                             <input type="password" name="pass" placeholder="Mật khẩu" />
                                             <input type="password" name="repass" placeholder="Nhập lại mật khẩu" />
-                                            <div class="button-box">
+                                            <?php 
+                                                if (isset($message)) {
+                                                    echo '<p class="text-danger">'.$message.'</p>';
+                                                }
+                                            ?>
+                                            <div class="button-box mt-15px">
                                                 <button type="submit" name="add_account">Đăng ký</button>
                                             </div>
                                         </form>
