@@ -1,13 +1,17 @@
 <?php
+ob_start();
 session_start();
-// $_SESSION['user'] = 'Trung';
+$_SESSION['user'] = 'Trung';
 include "config/connectdb.php";
 include "user/model/product.php";
+include "model/product_catalog.php";
 include "user/model/comment.php";
 include "model/account.php";
 include "view/header.php";
 include "global/global.php";
 // Load product - Our product
+
+if(!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
 $list_product = load_product(0);
 
 // Load product discount
@@ -18,7 +22,8 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
         case 'home':
             if (isset($_GET['id_pro'])) {
                 // load product_detail by id_pro
-                $product_detail = load_detail_product($_GET['id_pro']);
+                $productone = getone_product($_GET['id_pro']);
+                $productOne = load_detail_product($_GET['id_pro']);
             }
             include "view/home.php";
             break;
@@ -34,6 +39,93 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
         case 'contact':
             include "view/contact.php";
             break;
+            // Giỏ hàng
+            case 'addtocart':
+                if(isset($_POST['addtocart'])){
+                    if (!isset($_POST['namecolor']) && !isset($_POST['namesize'])) {
+                        $message = '<p class="alert alert-danger">Vui lòng chọn màu sắc và kích thước để thêm vào giỏ hàng!</p>';
+                    } else {
+                        if (!isset($_POST['namecolor'])) {
+                            $message = '<p class="alert alert-danger">Vui lòng chọn màu sắc để thêm vào giỏ hàng!</p>';
+                        } else {
+                            if (!isset($_POST['namesize'])) {
+                                $message = '<p class="alert alert-danger">Vui lòng chọn kích cỡ để thêm vào giỏ hàng!</p>';
+                            } else {
+                                $idpro = $_POST['idpro'];
+                                $name = $_POST['name'];
+                                $image = $_POST['image'];
+                                $price = $_POST['price'];
+                                $quantity = $_POST['quantity'];
+                                $name_color = $_POST['namecolor'];
+                                $name_size = $_POST['namesize'];
+                                $total = $price * $quantity;
+                                $product_exists = false;
+                                $i = 0;
+                                foreach ($_SESSION['mycart'] as $item) {
+                                    if ($item[5] == $name_color && $item[6] == $name_size) {
+                                        $_SESSION['mycart'][$i][4] += $quantity;
+                                        $product_exists = true;
+                                        break;
+                                    }
+                                    $i++;
+                                }
+                                if ($product_exists == false) {
+                                    $add_product = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total];
+                                    // array_push($_SESSION['mycart'], $add_product);
+                                    $_SESSION['mycart'][] = $add_product;
+                                }
+                                echo '<script>window.location.href = window.location.href;</script>';
+                            }
+                        }
+                    }
+                    
+                }
+                include "view/cart/cart.php";
+                break;
+                case 'del_cart':
+                    if(isset($_GET['idcart'])){
+                        array_splice($_SESSION['mycart'], $_GET['idcart'], 1);
+                    }else{
+                        $_SESSION['mycart'] = [];
+                    }
+                    if (count($_SESSION['mycart']) > 0) {
+                        header('location: index.php?act=viewcart');
+                    }else {
+                        header('location: index.php?act=empty_cart');
+                    }
+                    // header('Location: index.php?act=viewcart');
+                    break;
+                case 'pockup':
+                    if (isset($_GET['idpro']) && $_GET['idpro'] > 0) {
+                        // load product_detail by id_pro
+                        $one_product = get_one_product($_GET['idpro']);
+                        $one_color_size = load_color_size($_GET['idpro']);
+                        $img_product = load_img_by_idpro(($_GET['idpro']));
+                    }
+                    include 'view/pockup.php';
+                    break;
+                case 'viewcart':
+                    include 'view/cart/cart.php';
+                    break;
+                case 'checkout':
+                    if (isset($_POST['update'])) {
+                        $full_name = $_POST['full_name'];
+                        $gender = $_POST['gender'];
+                        $email = $_POST['email'];
+                        $address = $_POST['address'];
+                        $telephone = $_POST['telephone'];
+                        $id = $_POST['id'];
+        
+                        update_account($id, $full_name, $gender, $email, $address, $telephone);
+                        $getOne_account = getOne_account($id);
+                        $_SESSION['account'] = $getOne_account;
+                        $message = "Đã cập nhật thành công!";
+                    }
+                    include 'view/cart/checkout.php';
+                    break;
+                case 'empty_cart':
+                    include 'view/cart/empty_cart.php';
+                    break;
             
         // Begin-> Account
         case 'account':
@@ -175,7 +267,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 $list_img_pro = load_img_by_idpro(($_GET['id_pro']));
 
                 // load color size
-                $load_color_size = load_color_size($_GET['id_pro']);
+                $one_color_size = load_color_size($_GET['id_pro']);
 
                 // load comments by id_pro
                 $product_comment = load_comment($_GET['id_pro']);
@@ -192,9 +284,11 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             }
             break;
 
-        case 'product_catalog':
-            include "view/product_catalog.php";
-            break;
+            case 'product_catalog':
+                $product_catalog = getAll_product_catalog();
+                $product = getAll_product();
+                include "view/product_catalog.php";
+                break;
 
         case 'login':
             include "view/login.php";

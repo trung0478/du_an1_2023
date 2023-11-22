@@ -25,6 +25,15 @@ function load_detail_product($id_product)
     return $result;
 }
 
+function get_one_product($id_product)
+{
+    $sql = "SELECT sanpham.*, bienthe.*  FROM sanpham 
+    JOIN bienthe ON sanpham.ma_sp = bienthe.ma_sp 
+    WHERE bienthe.ma_sp=$id_product";
+    $result = pdo_query_one($sql);
+    return $result;
+}
+
 function load_img_by_idpro($id_product)  {
     $sql = "SELECT sanpham.*, bienthe.*  FROM sanpham 
     JOIN bienthe ON sanpham.ma_sp = bienthe.ma_sp 
@@ -35,9 +44,9 @@ function load_img_by_idpro($id_product)  {
 
 function load_color_size($id_pro)
 {
-    $sql = "SELECT DISTINCT kich_co.*, mau_sac.* FROM kich_co
-    JOIN bienthe ON bienthe.ma_kich_co = kich_co.ma_kich_co 
-    JOIN mau_sac ON mau_sac.ma_mau= bienthe.ma_mau WHERE bienthe.ma_sp = $id_pro";
+    $sql = "SELECT DISTINCT kich_co.*, mau_sac.* FROM bienthe
+    JOIN kich_co ON bienthe.ma_kich_co = kich_co.ma_kich_co 
+    JOIN mau_sac ON bienthe.ma_mau= mau_sac.ma_mau WHERE bienthe.ma_sp = $id_pro";
     $result = pdo_query($sql);
     return $result;
 }
@@ -53,3 +62,5 @@ function product_most_view(){
     $result = pdo_query($sql);
     return $result;
 }
+
+//luan

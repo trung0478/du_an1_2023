@@ -114,7 +114,7 @@
                             <!-- Single Wedge End -->
                             <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                                 <i class="icon-handbag"></i>
-                                <span class="header-action-num">01</span>
+                                <span class="header-action-num"><?php $count = count($_SESSION['mycart']); echo $count ?></span>
                                 <!-- <span class="cart-amount">€30.00</span> -->
                             </a>
                             <a href="#offcanvas-mobile-menu" class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
@@ -165,7 +165,7 @@
                             <!-- Single Wedge End -->
                             <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                                 <i class="icon-handbag"></i>
-                                <span class="header-action-num">01</span>
+                                <span class="header-action-num"><?php count($_SESSION['mycart'])?></span>
                                 <!-- <span class="cart-amount">€30.00</span> -->
                             </a>
                             <a href="#offcanvas-mobile-menu" class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
@@ -223,69 +223,71 @@
         <!-- Main Menu End -->
 
         <!-- OffCanvas Cart Start -->
-        <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
-            <div class="inner">
-                <div class="head">
-                    <span class="title">Giỏ hàng</span>
-                    <button class="offcanvas-close">×</button>
-                </div>
-                <div class="body customScroll">
-                    <ul class="minicart-product-list">
-                        <li>
-                            <a href="single-product.html" class="image"><img src="./user/public/assets/images/product-image/1.jpg" alt="Cart product Image"></a>
-                            <div class="content">
-                                <a href="single-product.html" class="title">Tên sản phẩm</a>
-                                <span class="quantity-price">1 x <span class="amount">$91.86</span></span>
-                                <a href="#" class="remove">×</a>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="single-product.html" class="image"><img src="./user/public/assets/images/product-image/2.jpg" alt="Cart product Image"></a>
-                            <div class="content">
-                                <a href="single-product.html" class="title">Tên sản phẩm</a>
-                                <span class="quantity-price">1 x <span class="amount">$453.28</span></span>
-                                <a href="#" class="remove">×</a>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="single-product.html" class="image"><img src="./user/public/assets/images/product-image/3.jpg" alt="Cart product Image"></a>
-                            <div class="content">
-                                <a href="single-product.html" class="title">Tên sản phẩmt</a>
-                                <span class="quantity-price">1 x <span class="amount">$87.34</span></span>
-                                <a href="#" class="remove">×</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="foot">
-                    <div class="sub-total">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="text-start">Tổng phụ :</td>
-                                    <td class="text-end">$523.30</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-start">Phí vận chuyển :</td>
-                                    <td class="text-end">$4.52</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-start">Thuế VAT :</td>
-                                    <td class="text-end">$104.66</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-start">Tổng :</td>
-                                    <td class="text-end theme-color">$632.48</td>
-                                </tr>
-                            </tbody>
-                        </table>
+    <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
+        <div class="inner">
+            <div class="head">
+                <span class="title">Giỏ hàng</span>
+                <button class="offcanvas-close">×</button>
+            </div>
+            <?php
+                $sum = 0;
+                $i = 0;
+                $total =0 ;
+                $shippingFee = 30000; // Phí vận chuyển
+                foreach ($_SESSION['mycart'] as $cart) {
+                    $img = "upload/" . $cart[2];
+                    $thanhtien = $cart[3] * $cart[4];
+                    $sum += $thanhtien;
+                    
+                    $total = $sum + $shippingFee;
+                    ?>
+                    <div class="body customScroll">
+                        <ul style="margin-bottom: 20px;" class="minicart-product-list">
+                            <li>
+                                <a href="single-product.html" class="image"><img src="<?= $img ?>" alt="Cart product Image"></a>
+                                <div class="content">
+                                    <a href="single-product.html" class="title"><?= $cart[1] ?></a>
+                                    <span class="quantity-price"><?= $cart[4] ?> x <span class="amount"><?=number_format($cart[3], 0, '.', '.')?></span></span>
+                                    <a href="index.php?act=del_cart&idcart=<?=$i?>" class="remove">×</a>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="buttons">
-                        <a href="index.php?act=cart" class="btn btn-dark btn-hover-primary mb-30px">Xem giỏ hàng</a>
-                        <a href="index.php?act=checkout" class="btn btn-outline-dark current-btn">Thanh toán</a>
-                    </div>
-                    <p class="minicart-message">Giao hàng miễn phí cho đơn hàng trên 1.000.000 vnd</p>
+                    
+                <?php $i++;} ?>
+
+            
+            <div class="foot">
+                <div class="sub-total">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-start">Tổng phụ :</td>
+                                <td class="text-end"><?=number_format($sum, 0, '.', '.')?></td>
+                            </tr>
+                            <tr>
+                                <td class="text-start">Phí ship :</td>
+                                <td class="text-end"><?=number_format($shippingFee, 0, '.', '.')?></td>
+                            </tr>
+                           
+                            <tr>
+                                <td class="text-start">Tổng tiền :</td>
+                                <td class="text-end theme-color"><?=number_format($total, 0, '.', '.')?></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <div class="buttons">
+                    <?php
+                        if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                            echo '<a href="?act=viewcart" class="btn btn-dark btn-hover-primary mb-30px">Xem giỏ hàng</a>';
+                        } else {
+                            echo '<a href="?act=empty_cart" class="btn btn-dark btn-hover-primary mb-30px">Xem giỏ hàng</a>';
+                        }
+                    ?>
+                    <a href="?act=cart_pay" class="btn btn-outline-dark current-btn">Tiến hành thanh toán</a>
+                </div>
+                <p class="minicart-message">Giao hàng miễn phí cho $100!</p>
             </div>
         </div>
         <!-- OffCanvas Cart End -->
