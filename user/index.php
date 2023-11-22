@@ -59,7 +59,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 $check_account = check_account($username, $pass);
                 if (is_array($check_account)) {
                     if ($check_account['trang_thai'] == 1) {
-                        if ($check_account['vai_tro'] == 2) {
+                        if ($check_account['vai_tro'] == 1) {
                             $_SESSION['account'] = $check_account;
                             echo "<script> window.location.href='./admin/index.php';</script>";
                         } else {

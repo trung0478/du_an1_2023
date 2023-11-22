@@ -64,7 +64,7 @@
         <div class="row">
             <div class="col-md-12 text-center" data-aos="fade-up">
                 <div class="section-title mb-0">
-                    <h2 class="title">Sản phẩm của chúng tôi</h2>
+                    <h2 class="title">Sản phẩm phổ biến</h2>
                     <p class="sub-title mb-30px">Chuyên nghiệp, Sang trọng, Tiện nghi - Nơi hoàn hảo cho không gian sống của bạn.</p>
                 </div>
             </div>
@@ -762,7 +762,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
@@ -891,7 +891,7 @@
             </div>
         </div>
     </div>
-<!-- Modal end -->
+    <!-- Modal end -->
 
 
 
@@ -966,7 +966,7 @@
 
                                 <div class="actions">
                                     <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
+                                    <a href="?act=home&id_pro=<?=$ma_sp; ?>"><a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a></a> 
                                     <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
                                 </div>
                                 <button title="Add To Cart" class=" add-to-cart">Thêm vào giỏ hàng</button>
