@@ -761,7 +761,6 @@
 <!-- Product tab Area End -->
 
 
-<<<<<<< HEAD
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -896,8 +895,6 @@
     <!-- Modal end -->
 
 
-=======
->>>>>>> main
 
 <!-- Banner Section Start -->
 <div class="section pb-100px pt-100px">

@@ -5,11 +5,7 @@
             <div class="col-12">
                 <div class="row breadcrumb_box  align-items-center">
                     <div class="col-lg-6 col-md-6 col-sm-12 text-center text-md-start">
-<<<<<<< HEAD
                         <h2 class="breadcrumb-title">Sản phẩm</h2>
-=======
-                        <h2 class="breadcrumb-title">Sản Phẩm</h2>
->>>>>>> main
                     </div>
                     <div class="col-lg-6  col-md-6 col-sm-12">
                         <!-- breadcrumb-list start -->
@@ -112,13 +108,8 @@
                         </div>
                             
                         <div class="product-size">
-<<<<<<< HEAD
                             <span style="margin-bottom: 10px;">Kích thước</span>
                             <select class="form-control">
-=======
-                            <span>Kích thước</span>
-                            <select name="namesize" class="form-control">
->>>>>>> main
                                 <option disabled selected>Chọn kích thước</option>
                                 <?php
                                     foreach ($one_color_size as $size) {
