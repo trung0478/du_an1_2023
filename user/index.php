@@ -233,6 +233,9 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             case 'product_catalog':
                 $product_catalog = getAll_product_catalog();
                 $product = getAll_product();
+
+                // Đếm tất cả sản phẩm
+                $product_count = product_Count();
                 include "view/product_catalog.php";
                 break;
 

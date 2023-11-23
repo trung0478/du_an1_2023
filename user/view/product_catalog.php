@@ -139,13 +139,15 @@
                             <div class="sidebar-widget-category">
                                 
                                 <ul>
-                                    <li><a href="#" class="selected">Tất cả <span>(4)</span> </a></li>
+                                <?php foreach ($product_count as $value) {
+                                    echo ' <li><a href="#" class="selected">Tất cả <span>'.$value['total_count'].'</span> </a></li>';
+                                    }?>
                                     <?php
                                     foreach ($product_catalog as $catalog) {
                                         extract($catalog);
                                     
                                     echo '
-                                    <li><a href="#" class="">'.$ten_lsp.' <span>(3)</span> </a></li>
+                                    <li><a href="#" class="">'.$ten_lsp.' <span>('.$soluong.')</span> </a></li>
                                     ';
                                     }
                                     ?>

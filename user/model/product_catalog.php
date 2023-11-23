@@ -14,4 +14,9 @@
         $result = pdo_query($sql);
         return $result;
     }
+    function product_Count(){
+        $sql = "SELECT COUNT(*) AS total_count FROM sanpham";
+        $product_count = pdo_query($sql);
+        return $product_count;
+    }
 ?>
