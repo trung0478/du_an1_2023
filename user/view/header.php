@@ -99,7 +99,7 @@
                                             extract($_SESSION['account']);
                                     ?>
                                         <li><a class="dropdown-item" href="index.php?act=edit_account">Tài khoản</a></li>
-                                        <?php if($vai_tro == 2) {?>
+                                        <?php if($vai_tro == 1) {?>
                                             <li><a class="dropdown-item" href="./admin/index.php">Quản trị</a></li>
                                         <?php }?>
                                             <li><a class="dropdown-item" href="index.php?act=order">Đơn hàng</a></li>
@@ -114,7 +114,7 @@
                             <!-- Single Wedge End -->
                             <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                                 <i class="icon-handbag"></i>
-                                <span class="header-action-num"><?php $count = count($_SESSION['mycart']); echo $count ?></span>
+                                <span class="header-action-num"></span>
                                 <!-- <span class="cart-amount">€30.00</span> -->
                             </a>
                             <a href="#offcanvas-mobile-menu" class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">

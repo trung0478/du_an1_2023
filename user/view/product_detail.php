@@ -5,12 +5,12 @@
             <div class="col-12">
                 <div class="row breadcrumb_box  align-items-center">
                     <div class="col-lg-6 col-md-6 col-sm-12 text-center text-md-start">
-                        <h2 class="breadcrumb-title">Sản Phẩm</h2>
+                        <h2 class="breadcrumb-title">Sản phẩm</h2>
                     </div>
                     <div class="col-lg-6  col-md-6 col-sm-12">
                         <!-- breadcrumb-list start -->
                         <ul class="breadcrumb-list text-center text-md-end">
-                            <li><a href="#">Trang chủ/ </a></li>
+                            <li><a href="?act=home">Trang chủ/ </a></li>
                             <li class="active">Chi tiết sản phẩm</li>
                         </ul>
                         <!-- breadcrumb-list end -->
@@ -108,8 +108,8 @@
                         </div>
                             
                         <div class="product-size">
-                            <span>Kích thước</span>
-                            <select name="namesize" class="form-control">
+                            <span style="margin-bottom: 10px;">Kích thước</span>
+                            <select class="form-control">
                                 <option disabled selected>Chọn kích thước</option>
                                 <?php
                                     foreach ($one_color_size as $size) {
@@ -197,7 +197,7 @@
                 </div>
                 <div id="des-details3" class="tab-pane ">
                     <div class="row">
-                        <div class="col-lg-7">
+                        <div class="col-lg-6">
                             <div class="review-wrapper">
                                 <?php
                                 if (!$product_comment) {
@@ -206,9 +206,9 @@
                                 foreach ($product_comment as $value) :
                                     extract($value);
                                 ?>
-                                    <div class="single-review">
+                                    <div class="single-review d-flex align-items-center">
                                         <div class="review-img">
-                                            <img src="./user/public/assets/images/review-image/1.png" alt="" />
+                                            <img width="90px" src="./user/public/assets/images/review-image/1.png" alt="" />
                                         </div>
                                         <div class="review-content">
                                             <div class="review-top-wrap">
@@ -269,7 +269,7 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-6">
                             <div class="ratting-form-wrapper pl-50">
                                 <h3>Thêm bình luận</h3>
                                 <div class="ratting-form">
