@@ -36,7 +36,7 @@
                     <tbody>
                         
                         <?php
-                        if (!isset($list_catalog) || $list_catalog == null) {
+                        if ($list_catalog == null) {
                             echo '<tr>
                                     <td class="text-danger" colspan="4">Không có danh mục bạn vừa tìm !!</td>
                                   </tr>';

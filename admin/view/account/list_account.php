@@ -31,7 +31,7 @@
                         <?php 
                         if (!isset($list_account) || $list_account == null) {
                             echo '<tr>
-                                    <td class="text-danger" colspan=10>Không có tài khoản bạn vừa tìm!</td>
+                                    <td class="text-danger" colspan=10>Không tìm thấy sản phẩm!</td>
                                 </tr>';
                         } else {
                         foreach ($list_account as $account):?>
