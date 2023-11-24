@@ -1,11 +1,12 @@
 <?php
 ob_start();
 session_start();
-$_SESSION['user'] = 'Trung'; 
+$_SESSION['user'] = 'Trung';
 include "config/connectdb.php";
 include "user/model/product.php";
 include "model/product_catalog.php";
 include "user/model/comment.php";
+include "user/model/checkout.php";
 include "model/account.php";
 include "view/header.php";
 include "global/global.php";
@@ -106,24 +107,49 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
         case 'viewcart':
             include 'view/cart/cart.php';
             break;
-        case 'checkout':
-            if (isset($_POST['update'])) {
-                $full_name = $_POST['full_name'];
-                $gender = $_POST['gender'];
-                $email = $_POST['email'];
-                $address = $_POST['address'];
-                $telephone = $_POST['telephone'];
-                $id = $_POST['id'];
 
-                update_account($id, $full_name, $gender, $email, $address, $telephone);
-                $getOne_account = getOne_account($id);
-                $_SESSION['account'] = $getOne_account;
-                $message = "Đã cập nhật thành công!";
-            }
-            include 'view/cart/checkout.php';
-            break;
         case 'empty_cart':
-            include 'view/cart/empty_cart.php';
+            include 'view/checkout/empty_cart.php';
+            break;
+
+
+            // checkout 
+        case 'checkout_info':
+            // if (isset($_POST['update'])) {
+            //     $full_name = $_POST['full_name'];
+            //     $gender = $_POST['gender'];
+            //     $email = $_POST['email'];
+            //     $address = $_POST['address'];
+            //     $telephone = $_POST['telephone'];
+            //     $id = $_POST['id'];
+
+            //     update_account($id, $full_name, $gender, $email, $address, $telephone);
+            //     $getOne_account = getOne_account($id);
+            //     $_SESSION['account'] = $getOne_account;
+            //     $message = "Đã cập nhật thành công!";
+            // }
+            include 'view/checkout/checkout_info.php';
+            break;
+
+        case 'checkout':
+            if (isset($_POST['checkout'])) {
+                if (isset($_POST['checkout_delivery)'])) {
+                    # code...
+                } elseif (isset($_POST['redirect'])) {
+                    $tong_gia = "200000";
+                    execPostRequest($url, $data);
+                    include 'view/checkout/checkout_vnpay.php';
+                } elseif (isset($_POST['payUrl'])) {
+                    $tong_gia = "200000";
+                    execPostRequest($url, $data);
+                    include 'view/checkout/checkout_momo.php';
+                }
+            }
+            break;
+
+            // thanks
+        case 'thanks':
+            include 'view/thanks.php';
             break;
 
             // Begin-> Account

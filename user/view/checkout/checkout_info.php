@@ -119,7 +119,7 @@
             <div class="col-lg-5 mt-md-30px mt-lm-30px ">
                 <div class="your-order-area">
                     <h3>Đơn hàng của bạn</h3>
-                    <form action="" method="post">
+                    <form action="?act=checkout" method="post">
                         <div class="your-order-wrap gray-bg-4">
                             <div class="your-order-product-info">
                                 <div class="your-order-top">
@@ -181,21 +181,28 @@
                                             </div>
 
                                             <div class="d-flex align-items-center">
-                                                <input style="width: 20px;" type="radio" name="checkout_type" />
+                                                <input style="width: 20px;" type="radio" name="checkout_delivery" />
                                                 <label class="mb-0 mx-2">Thanh toán khi nhận hàng</label>
                                             </div>
 
                                             <div class="d-flex align-items-center">
-                                                <input style="width: 20px;" type="radio" name="checkout_type" />
+                                                <input style="width: 20px;" type="radio" name="redirect" />
                                                 <span class="mb-0 mx-2">Thanh toán VNPay</span>
                                             </div>
+
+                                            <div class="d-flex align-items-center">
+                                                <input style="width: 20px;" type="radio" name="payUrl" />
+                                                <span class="mb-0 mx-2">Thanh toán Momo</span>
+                                            </div>
+
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="Place-order mt-25">
-                            <input style="background-color: #FF7004;" type="submit" class="btn-hover text-center text-white border-0" value="Đặt hàng">
+                            <input style="background-color: #FF7004;" name="checkout" type="submit" class="btn-hover text-center text-white border-0" value="Đặt hàng">
                         </div>
                     </form>
                 </div>
@@ -204,3 +211,17 @@
     </div>
 </div>
 <!-- checkout area end -->
+<script>
+    const checkboxes = document.querySelectorAll('input[type="radio"]');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                checkboxes.forEach(function(otherCheckbox) {
+                    if (otherCheckbox !== checkbox) {
+                        otherCheckbox.checked = false;
+                    }
+                });
+            }
+        });
+    });
+</script>

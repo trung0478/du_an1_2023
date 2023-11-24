@@ -13,7 +13,7 @@ function loadAll_comment($id){
     $sql = "SELECT bl.*, tk.ma_nd, tk.ho_ten
     FROM binhluan bl
     JOIN nguoidung tk ON bl.ma_nd = tk.ma_nd
-    WHERE bl.ma_nd = $id";
+    WHERE bl.ma_sp = $id";
     $resut = pdo_query($sql);
     return $resut;
 

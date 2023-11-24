@@ -278,14 +278,6 @@ include 'view/header.php';
                 include '../admin/view/staff/update_staff.php';
                 break;
 
-                // Comment
-            case 'list_cmt':
-                include 'view/comment/list_cmt.php';
-                break;
-            case 'detail_cmt':
-                include 'view/comment/detail_cmt.php';
-                break;
-
                 // Order
             case 'list_order':
                 include 'view/order/list_order.php';
