@@ -114,7 +114,7 @@
                             <!-- Single Wedge End -->
                             <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                                 <i class="icon-handbag"></i>
-                                <span class="header-action-num">01</span>
+                                <span class="header-action-num"></span>
                                 <!-- <span class="cart-amount">€30.00</span> -->
                             </a>
                             <a href="#offcanvas-mobile-menu" class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
@@ -165,7 +165,7 @@
                             <!-- Single Wedge End -->
                             <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                                 <i class="icon-handbag"></i>
-                                <span class="header-action-num">01</span>
+                                <span class="header-action-num"><?php count($_SESSION['mycart'])?></span>
                                 <!-- <span class="cart-amount">€30.00</span> -->
                             </a>
                             <a href="#offcanvas-mobile-menu" class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
@@ -233,14 +233,13 @@
                 $sum = 0;
                 $i = 0;
                 $total =0 ;
-                $shippingFee = 20000; // Phí vận chuyển
+                $shippingFee = 30000; // Phí vận chuyển
                 foreach ($_SESSION['mycart'] as $cart) {
                     $img = "upload/" . $cart[2];
                     $thanhtien = $cart[3] * $cart[4];
                     $sum += $thanhtien;
                     
-                    $total = $sum - $shippingFee;
-                    $i ++;
+                    $total = $sum + $shippingFee;
                     ?>
                     <div class="body customScroll">
                         <ul style="margin-bottom: 20px;" class="minicart-product-list">
@@ -248,14 +247,14 @@
                                 <a href="single-product.html" class="image"><img src="<?= $img ?>" alt="Cart product Image"></a>
                                 <div class="content">
                                     <a href="single-product.html" class="title"><?= $cart[1] ?></a>
-                                    <span class="quantity-price"><?= $cart[4] ?> x <span class="amount"><?= $cart[3] ?></span></span>
+                                    <span class="quantity-price"><?= $cart[4] ?> x <span class="amount"><?=number_format($cart[3], 0, '.', '.')?></span></span>
                                     <a href="index.php?act=del_cart&idcart=<?=$i?>" class="remove">×</a>
                                 </div>
                             </li>
                         </ul>
                     </div>
                     
-                <?php } ?>
+                <?php $i++;} ?>
 
             
             <div class="foot">
@@ -264,23 +263,29 @@
                         <tbody>
                             <tr>
                                 <td class="text-start">Tổng phụ :</td>
-                                <td class="text-end"><?=$sum?></td>
+                                <td class="text-end"><?=number_format($sum, 0, '.', '.')?></td>
                             </tr>
                             <tr>
                                 <td class="text-start">Phí ship :</td>
-                                <td class="text-end"><?=$shippingFee?></td>
+                                <td class="text-end"><?=number_format($shippingFee, 0, '.', '.')?></td>
                             </tr>
                            
                             <tr>
                                 <td class="text-start">Tổng tiền :</td>
-                                <td class="text-end theme-color"><?=$total?></td>
+                                <td class="text-end theme-color"><?=number_format($total, 0, '.', '.')?></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="buttons">
-                    <a href="index.php?act=viewcart" class="btn btn-dark btn-hover-primary mb-30px">Xem giỏ hàng</a>
-                    <a href="index.php?act=cart_pay" class="btn btn-outline-dark current-btn">Thủ tục thanh toán</a>
+                    <?php
+                        if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                            echo '<a href="?act=viewcart" class="btn btn-dark btn-hover-primary mb-30px">Xem giỏ hàng</a>';
+                        } else {
+                            echo '<a href="?act=empty_cart" class="btn btn-dark btn-hover-primary mb-30px">Xem giỏ hàng</a>';
+                        }
+                    ?>
+                    <a href="?act=cart_pay" class="btn btn-outline-dark current-btn">Tiến hành thanh toán</a>
                 </div>
                 <p class="minicart-message">Giao hàng miễn phí cho $100!</p>
             </div>

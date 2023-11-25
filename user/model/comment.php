@@ -1,10 +1,10 @@
 <?php
 function load_comment($id_pro)
 {
-    $sql = "select nd.tai_khoan, bl.noi_dung, bl.ngay_bl from nguoidung nd 
+    $sql = "select nd.tai_khoan, bl.noi_dung, bl.ma_bl, bl.ngay_bl from nguoidung nd 
     JOIN binhluan bl ON nd.ma_nd=bl.ma_nd 
     JOIN sanpham sp ON sp.ma_sp=bl.ma_sp 
-    where sp.ma_sp=$id_pro";
+    where sp.ma_sp=$id_pro order by bl.ma_bl DESC";
     $result = pdo_query($sql);
     return $result;
 }

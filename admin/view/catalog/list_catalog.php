@@ -27,7 +27,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">STT</th>
+                            <th scope="col">Mã danh mục</th>
                             <th scope="col">Tên danh mục</th>
                             <th scope="col">Trạng thái</th>
                             <th scope="col">Hành động</th>
@@ -41,13 +41,11 @@
                                     <td class="text-danger" colspan="4">Không có danh mục bạn vừa tìm !!</td>
                                   </tr>';
                         }else{
-                        $stt = 0;
                         foreach ($list_catalog as $value) :
-                            $stt += 1;
                             extract($value);
                         ?>
                             <tr>
-                                <th scope="row"><?= $stt ?></th>
+                                <th scope="row"><?=$ma_lsp?></th>
                                 <td><?= $ten_lsp ?></td>
                                 <td><?= ($trang_thai) == 1 ? 'Hiện' : 'Ẩn'; ?></td>
                                 <td>

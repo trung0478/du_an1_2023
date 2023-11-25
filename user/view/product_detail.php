@@ -5,16 +5,17 @@
             <div class="col-12">
                 <div class="row breadcrumb_box  align-items-center">
                     <div class="col-lg-6 col-md-6 col-sm-12 text-center text-md-start">
-                        <h2 class="breadcrumb-title">Sản Phẩm</h2>
+                        <h2 class="breadcrumb-title">Sản phẩm</h2>
                     </div>
                     <div class="col-lg-6  col-md-6 col-sm-12">
                         <!-- breadcrumb-list start -->
                         <ul class="breadcrumb-list text-center text-md-end">
-                            <li><a href="#">Trang chủ/ </a></li>
+                            <li><a href="?act=home">Trang chủ/ </a></li>
                             <li class="active">Chi tiết sản phẩm</li>
                         </ul>
                         <!-- breadcrumb-list end -->
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -80,18 +81,23 @@
 
                     <div class="pricing-meta">
                         <ul>
-                            <li class="old-price not-cut"><?= number_format($product_detail['gia_sp'], 0, '.', '.') ?>vnd</li>
+                            <li class="old-price not-cut"><?= number_format($product_detail['gia_km'], 0, '.', '.') ?>vnd<span style="text-decoration: line-through; opacity:.5; margin-left:10px; font-size:18px" class="new"><?= number_format($gia_sp, 0, '.', '.') ?>vnd</span></li>
+                            
                         </ul>
                     </div>
                     <p class="quickview-para"><?= $product_detail['mo_ta'] ?></p>
+                    <form action="index.php?act=addtocart" method="post">
                     <div class="pro-details-size-color d-flex">
                         <div class="pro-details-color-wrap">
                             <span>Màu</span>
-                            <select class="form-control">
+                            <select name="namecolor" class="form-control">
                                 <option disabled selected>Chọn màu</option>
-                                <?php foreach ($load_color_size as $value) : ?>
-                                    <option value="<?= $value['ma_mau'] ?>"><?= $value['ten_mau'] ?></option>
-                                <?php endforeach; ?>
+                                <?php
+                                    foreach ($one_color_size as $color) {
+                                        extract($color);
+                                        echo '<option value="'.$ten_mau.'">'.$ten_mau.'</option>';
+                                    }
+                                ?>
                             </select>
                             <!-- <div class="pro-details-color-content">
                                 <ul>
@@ -100,33 +106,36 @@
                                 </ul>
                             </div> -->
                         </div>
+                            
                         <div class="product-size">
-                            <span>Kích thước</span>
+                            <span style="margin-bottom: 10px;">Kích thước</span>
                             <select class="form-control">
                                 <option disabled selected>Chọn kích thước</option>
-                                <?php foreach ($load_color_size  as $value) : ?>
-                                    <option value="<?= $value['ten_mau'] ?>"><?= $value['ten_kich_co'] ?></option>
-                                <?php endforeach; ?>
+                                <?php
+                                    foreach ($one_color_size as $size) {
+                                        extract($size);
+                                        echo '<option value="'.$ten_kich_co.'">'.$ten_kich_co.'</option>';
+                                    }
+                                ?>
                             </select>
                         </div>
                         </div>
-                        <div class="pro-details-quality">
-                            <div class="cart-plus-minus" style="margin-right: 15px;">
-                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="<?=$so_luong?>" />
-                            </div>
-                            <div class="pro-details-cart">
-                                <form action="index.php?act=addtocart" method="post">
-                                    <input type="hidden" name="ma_sp" value="<?=$ma_sp?>">
-                                    <input type="hidden" name="ten_sp" value="<?=$ten_sp?>">
-                                    <input type="hidden" name="hinh_anh" value="<?=$hinh_anh?>">
-                                    <input type="hidden" name="gia_sp" value="<?=$gia_sp?>">
-                                    <input type="hidden" name="so_luong" value="<?=$so_luong?>">
-                                    <input type="hidden" name="ten_mau" value="<?= $value['ten_mau'] ?>">
-                                    <input type="hidden" name="ten_kich_co" value="<?= $value['ten_kich_co'] ?>">
+                    
+                            <div class="pro-details-quality">
+                                <div class="cart-plus-minus" style="margin-right: 15px;">
+                                    <input class="cart-plus-minus-box" type="text" name="quantity" value="1" />
+                                </div>
+                                <div class="pro-details-cart">
+                                    <input type="hidden" name="idpro" value="<?=$ma_sp?>">
+                                    <input type="hidden" name="name" value="<?=$ten_sp?>">
+                                    <input type="hidden" name="image" value="<?=$hinh_anh?>">
+                                    <input type="hidden" name="price" value="<?=$gia_km?>">
+                                    
                                     <button title="Add To Cart" class="add-cart btn btn-primary btn-hover-primary ml-4" name="addtocart">Thêm vào giỏ hàng</button>
-                                </form>
+                                   
+                                </div>
                             </div>
-                        </div>
+                    </form>
                     <div class="pro-details-wish-com">
                         <div class="pro-details-wishlist">
                             <a href="#"><i class="ion-android-favorite-outline"></i>Yêu thích</a>
@@ -188,7 +197,7 @@
                 </div>
                 <div id="des-details3" class="tab-pane ">
                     <div class="row">
-                        <div class="col-lg-7">
+                        <div class="col-lg-6">
                             <div class="review-wrapper">
                                 <?php
                                 if (!$product_comment) {
@@ -197,15 +206,15 @@
                                 foreach ($product_comment as $value) :
                                     extract($value);
                                 ?>
-                                    <div class="single-review">
+                                    <div class="single-review d-flex align-items-center">
                                         <div class="review-img">
-                                            <img src="./user/public/assets/images/review-image/1.png" alt="" />
+                                            <img width="90px" src="./user/public/assets/images/review-image/1.png" alt="" />
                                         </div>
                                         <div class="review-content">
                                             <div class="review-top-wrap">
                                                 <div class="review-left">
                                                     <div class="review-name">
-                                                        <h4><?= $tai_khoan; ?></h4>
+                                                        <h4><?=(isset($ho_ten) && $ho_ten!="")?$ho_ten:$tai_khoan; ?></h4>
                                                     </div>
                                                     <div class="rating-product">
                                                         <i class="ion-android-star"></i>
@@ -260,7 +269,7 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-6">
                             <div class="ratting-form-wrapper pl-50">
                                 <h3>Thêm bình luận</h3>
                                 <div class="ratting-form">
@@ -275,7 +284,7 @@
                                         </div>
                                     </form>
                                     <?php if (isset($message_noLogin) && $message_noLogin != null) {
-                                        echo $message_noLogin . "<a href='index.php?act=dangnhap'>Đăng nhập ngay!</a>";
+                                        echo $message_noLogin . " " . "<a href='index.php?act=login'>Đăng nhập ngay!</a>";
                                     } ?>
                                 </div>
                             </div>
@@ -492,7 +501,7 @@
                                 <h5 class="title"><a href="index.php?act=product_detail"><?= $ten_sp ?></a></h5>
                                 <span class="price">
                                     <?php
-                                    if ($gia_km == 0) {   ?>
+                                    if ($gia_km == null) {   ?>
                                         <span class="new fs-5"><?= number_format($gia_sp, 0, '.', '.') ?>vnd</span>
                                     <?php } else { ?>
                                         <span class="new fs-5 mx-3"><?= number_format($gia_km, 0, '.', '.') ?>vnd</span>

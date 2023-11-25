@@ -32,12 +32,12 @@
                     </thead>
                     <tbody>
                             <?php
-                                if (!isset($list_product) || $list_product == null) {
+                                if (!isset($list_atribute) || $list_atribute == null) {
                                     echo '<tr>
                                             <td class="text-danger" colspan=10>Không tìm thấy sản phẩm!</td>
                                         </tr>';
                                 } else {
-                                foreach ($list_product as $product) {
+                                foreach ($list_atribute as $product) {
                                     extract($product);
                                     $edit_product = "index.php?act=edit_atribute&id=$ma_bien_the";
                                     $del_atribute = "index.php?act=del_atribute&id=$ma_bien_the";

@@ -22,6 +22,20 @@
         return $products;
     }
 
+    function get_all_atribute($keyword="",$id_pro) {
+        $sql = "SELECT s.ma_sp, s.ten_sp, b.gia_sp, b.gia_km, b.hinh_anh, b.so_luong, b.trang_thai, m.ten_mau, k.ten_kich_co, b.ma_bien_the
+        FROM sanpham s
+        JOIN bienthe b ON s.ma_sp = b.ma_sp
+        JOIN mau_sac m ON b.ma_mau = m.ma_mau
+        JOIN kich_co k ON b.ma_kich_co = k.ma_kich_co";
+        if (!empty($keyword)) {
+            $sql .= " WHERE s.ma_sp = $id_pro AND s.ten_sp LIKE '%".$keyword."%'";
+        }
+        $sql .= " WHERE s.ma_sp = $id_pro ORDER BY b.ma_sp DESC";
+        $products = pdo_query($sql);
+        return $products;
+    }
+
     function get_all_color() {
         $sql = "SELECT * FROM mau_sac
         ORDER BY ma_mau DESC";

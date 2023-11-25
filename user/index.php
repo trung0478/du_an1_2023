@@ -1,8 +1,7 @@
 <?php
 ob_start();
 session_start();
-
-$_SESSION['user'] = 'Trung';
+$_SESSION['user'] = 'Trung'; 
 include "config/connectdb.php";
 include "user/model/product.php";
 include "model/product_catalog.php";
@@ -12,7 +11,7 @@ include "view/header.php";
 include "global/global.php";
 // Load product - Our product
 
-if(!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
+if (!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
 $list_product = load_product(0);
 
 // Load product discount
@@ -23,7 +22,8 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
         case 'home':
             if (isset($_GET['id_pro'])) {
                 // load product_detail by id_pro
-                $product_detail = load_detail_product($_GET['id_pro']);
+                $productone = getone_product($_GET['id_pro']);
+                $productOne = load_detail_product($_GET['id_pro']);
             }
             include "view/home.php";
             break;
@@ -39,52 +39,105 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
         case 'contact':
             include "view/contact.php";
             break;
-            // Gio hang
-            case 'addtocart':
-                if(isset($_POST['addtocart'])){
-                    $ma_sp = $_POST['ma_sp'];
-                    $ten_sp = $_POST['ten_sp'];
-                    $hinh_anh = $_POST['hinh_anh'];
-                    $gia_sp = $_POST['gia_sp'];
-                    $so_luong = $_POST['so_luong'];
-                    $ten_mau = $_POST['ten_mau'];
-                    $ten_kich_co = $_POST['ten_kich_co'];
-                    $thanhtien = $so_luong * $gia_sp;
-                    $product_array = [$ma_sp, $ten_sp, $hinh_anh, $gia_sp, $so_luong, $ten_mau, $ten_kich_co, $thanhtien];
-
-                    array_push( $_SESSION['mycart'], $product_array);
-                   
-                }
-                include "view/cart/cart.php";
-                break;
-                case 'del_cart':
-                    if(isset($_GET['idcart'])){
-                        array_splice($_SESSION['mycart'], $_GET['idcart'], 1);
-                    }else{
-                        $_SESSION['mycart'] = [];
+            // Giỏ hàng
+        case 'addtocart':
+            if (isset($_POST['addtocart'])) {
+                if (!isset($_POST['namecolor']) && !isset($_POST['namesize'])) {
+                    $message = '<p class="alert alert-danger">Vui lòng chọn màu sắc và kích thước để thêm vào giỏ hàng!</p>';
+                } else {
+                    if (!isset($_POST['namecolor'])) {
+                        $message = '<p class="alert alert-danger">Vui lòng chọn màu sắc để thêm vào giỏ hàng!</p>';
+                    } else {
+                        if (!isset($_POST['namesize'])) {
+                            $message = '<p class="alert alert-danger">Vui lòng chọn kích cỡ để thêm vào giỏ hàng!</p>';
+                        } else {
+                            $idpro = $_POST['idpro'];
+                            $name = $_POST['name'];
+                            $image = $_POST['image'];
+                            $price = $_POST['price'];
+                            $quantity = $_POST['quantity'];
+                            $name_color = $_POST['namecolor'];
+                            $name_size = $_POST['namesize'];
+                            $total = $price * $quantity;
+                            $product_exists = false;
+                            $i = 0;
+                            foreach ($_SESSION['mycart'] as $item) {
+                                if ($item[5] == $name_color && $item[6] == $name_size) {
+                                    $_SESSION['mycart'][$i][4] += $quantity;
+                                    $product_exists = true;
+                                    break;
+                                }
+                                $i++;
+                            }
+                            if ($product_exists == false) {
+                                $add_product = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total];
+                                // array_push($_SESSION['mycart'], $add_product);
+                                $_SESSION['mycart'][] = $add_product;
+                            }
+                            echo '<script>window.location.href = window.location.href;</script>';
+                        }
                     }
-                    header('location: index.php?act=viewcart');
-                    // header('Location: index.php?act=viewcart');
-                    break;
-                case 'viewcart':
-                    include 'view/cart/cart.php';
-                    break;
-                case 'cart_pay':
-                    include 'view/cart/checkout.php';
-                    break;
-            
-        // Begin-> Account
+                }
+            }
+            include "view/cart/cart.php";
+            break;
+        case 'del_cart':
+            if (isset($_GET['idcart'])) {
+                array_splice($_SESSION['mycart'], $_GET['idcart'], 1);
+            } else {
+                $_SESSION['mycart'] = [];
+            }
+            if (count($_SESSION['mycart']) > 0) {
+                header('location: index.php?act=viewcart');
+            } else {
+                header('location: index.php?act=empty_cart');
+            }
+            // header('Location: index.php?act=viewcart');
+            break;
+        case 'pockup':
+            if (isset($_GET['idpro']) && $_GET['idpro'] > 0) {
+                // load product_detail by id_pro
+                $one_product = get_one_product($_GET['idpro']);
+                $one_color_size = load_color_size($_GET['idpro']);
+                $img_product = load_img_by_idpro(($_GET['idpro']));
+            }
+            include 'view/pockup.php';
+            break;
+        case 'viewcart':
+            include 'view/cart/cart.php';
+            break;
+        case 'checkout':
+            if (isset($_POST['update'])) {
+                $full_name = $_POST['full_name'];
+                $gender = $_POST['gender'];
+                $email = $_POST['email'];
+                $address = $_POST['address'];
+                $telephone = $_POST['telephone'];
+                $id = $_POST['id'];
+
+                update_account($id, $full_name, $gender, $email, $address, $telephone);
+                $getOne_account = getOne_account($id);
+                $_SESSION['account'] = $getOne_account;
+                $message = "Đã cập nhật thành công!";
+            }
+            include 'view/cart/checkout.php';
+            break;
+        case 'empty_cart':
+            include 'view/cart/empty_cart.php';
+            break;
+
+            // Begin-> Account
         case 'account':
             include "view/account.php";
             break;
-            
+
         case 'register':
             if (isset($_POST['add_account'])) {
                 $email = $_POST['email'];
                 $username = $_POST['username'];
                 $full_name = $username;
                 $pass = $_POST['pass'];
-                add_account($full_name, $email, $username, $pass); 
+                add_account($full_name, $email, $username, $pass);
                 $message = "Đăng ký thành công!";
             }
             include "view/account/register.php";
@@ -103,6 +156,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                         } else {
                             echo "<script> window.location.href='index.php?act=home';</script>";
                             $_SESSION['account'] = $check_account;
+                            $_SESSION['id_account'] = $check_account['ma_nd'];
                         }
                     } else {
                         $message = "Tài khoản đã bị khóa";
@@ -132,12 +186,12 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             break;
 
         case 'forgot_pass':
-            if(isset($_POST['send_email'])){
+            if (isset($_POST['send_email'])) {
                 $email = $_POST['email'];
                 $check_email = check_email($email);
-                if(is_array($check_email)){
-                    $message = "Mật khẩu của bạn là: " .$check_email['mat_khau'];
-                }else{
+                if (is_array($check_email)) {
+                    $message = "Mật khẩu của bạn là: " . $check_email['mat_khau'];
+                } else {
                     $message = "Email không tồn tại!";
                 }
             }
@@ -148,19 +202,19 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             session_unset();
             echo "<script> window.location.href='index.php?act=login';</script>";
             break;
-        
+
         case 'change_pass':
             if (isset($_POST['update'])) {
                 $id = $_POST['id'];
                 $pass = $_POST['pass'];
-                $repass = $_POST['repass'];
-                $newpass = $_POST['newpass'];
-                
+                $newPass = $_POST['newpass'];
+                $newRepass = $_POST['newrepass'];
+
                 $check_account = check_account("", $pass);
-                if (is_array($check_account)) {
-                    if ($pass === $repass) {
+                if ($check_account) {
+                    if ($newPass === $newRepass) {
                         $_SESSION['account'] = $check_account;
-                        update_password($id, $newpass);
+                        update_password($id, $newPass);
                         $message = '<p class="alert alert-success">Đổi mật khẩu thành công</p>';
                     } else {
                         $message = '<p class="alert alert-danger">Mật khẩu không trùng khớp!</p>';
@@ -171,7 +225,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             }
             include "view/account/edit_account.php";
             break;
-        // End-> Account        
+            // End-> Account        
 
         case 'cart':
             include "view/cart.php";
@@ -197,9 +251,8 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             // add comment
             if (isset($_POST['add_comment'])) {
                 $noi_dung = $_POST['comment'];
-                $id_nguoidung = 1;
-                if (isset($_SESSION['user'])) {
-                    insert_comment($_GET['id_pro'], $id_nguoidung, $noi_dung);
+                if (isset($_SESSION['account'])) {
+                    insert_comment($_GET['id_pro'],  $_SESSION['id_account'], $noi_dung);
                 } else {
                     $message_noLogin = "Bạn chưa đăng nhập - Vui lòng đăng nhập để thực hiện bình luận";
                 }
@@ -213,7 +266,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 $list_img_pro = load_img_by_idpro(($_GET['id_pro']));
 
                 // load color size
-                $load_color_size = load_color_size($_GET['id_pro']);
+                $one_color_size = load_color_size($_GET['id_pro']);
 
                 // load comments by id_pro
                 $product_comment = load_comment($_GET['id_pro']);
@@ -230,14 +283,11 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             }
             break;
 
-            case 'product_catalog':
-                $product_catalog = getAll_product_catalog();
-                $product = getAll_product();
-
-                // Đếm tất cả sản phẩm
-                $product_count = product_Count();
-                include "view/product_catalog.php";
-                break;
+        case 'product_catalog':
+            $product_catalog = getAll_product_catalog();
+            $product = getAll_product();
+            include "view/product_catalog.php";
+            break;
 
         case 'login':
             include "view/login.php";
@@ -255,3 +305,4 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
     include "view/home.php";
 }
 include "view/footer.php";
+    
