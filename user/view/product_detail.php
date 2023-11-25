@@ -32,13 +32,14 @@
                 <div class="swiper-container zoom-top">
                     <div class="swiper-wrapper">
                         <?php
-                        foreach ($list_img_pro as $value) :
-                            extract($value);
+                            foreach ($check_variant as $variant) {
+                                extract($variant);
+                                $image = $link_img .$hinh_anh;
+                                echo '<div class="swiper-slide">
+                                        <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\''.$hinh_anh.'\', '.$gia_km.', '.$gia_sp.', '.$so_luong.')">
+                                    </div>';
+                            }
                         ?>
-                            <div class="swiper-slide zoom-image-hover mb-15px">
-                                <img class="img-responsive m-auto" src="<?= $link_img . $hinh_anh ?>" alt="">
-                            </div>
-                        <?php endforeach; ?>
                     </div>
                 </div>
 
@@ -46,18 +47,19 @@
                 <div class="swiper-container zoom-thumbs slider-nav-style-1 small-nav mt-15px mb-15px">
                     <div class="swiper-wrapper">
                         <?php
-                        foreach ($list_img_pro as $value) :
-                            extract($value);
+                            foreach ($check_variant as $variant) {
+                                extract($variant);
+                                $image = $link_img .$hinh_anh;
+                                echo '<div class="swiper-slide">
+                                        <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\''.$hinh_anh.'\', '.$gia_km.', '.$gia_sp.', '.$so_luong.')">
+                                    </div>';
+                            }
                         ?>
-                            <div class="swiper-slide">
-                                <img class="img-responsive m-auto" src="<?= $link_img . $hinh_anh ?>" alt="">
-                            </div>
-                        <?php endforeach; ?>
                     </div>
                     <!-- Add Arrows -->
                     <div class="swiper-buttons">
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
+                        <a onclick="nextVariant()" class="swiper-button-next"></a>
+                        <a onclick="previousVariant()" class="swiper-button-prev"></a>
                     </div>
                 </div>
             </div>
@@ -65,6 +67,7 @@
                 
                 <div class="product-details-content quickview-content">
                     <h2><?= $product_detail['ten_sp'] ?></h2>
+                    <p class="reference" id="quantityDisplay">Tồn kho: <span><?=$so_luong?></span></p>
                     <div class="pro-details-rating-wrap">
                                     <div class="rating-product">
                                         <i class="ion-android-star"></i>
@@ -73,7 +76,7 @@
                                         <i class="ion-android-star"></i>
                                         <i class="ion-android-star"></i>
                                     </div>
-                                    <span class="read-review"><a class="reviews" href="#">Xem đánh giá: <span>0</a></span>
+                                    <span class="read-review"><a class="reviews" href="#">Lượt đánh giá: <span>0</a></span>
                                    
 
                                 </div>
@@ -81,19 +84,20 @@
 
                     <div class="pricing-meta">
                         <ul>
-                            <li class="old-price not-cut"><?= number_format($product_detail['gia_km'], 0, '.', '.') ?>vnd<span style="text-decoration: line-through; opacity:.5; margin-left:10px; font-size:18px" class="new"><?= number_format($gia_sp, 0, '.', '.') ?>vnd</span></li>
+                            <span class="old-price not-cut" id="priceDisplay"><?=number_format($check_variant[0]['gia_km'], 0, '.', '.')?></span>
+                            <span id="priceDisplaySub" style="text-decoration: line-through; opacity:.5; margin-left:10px; font-size:18px" class="new"><?= number_format($check_variant[0]['gia_sp'], 0, '.', '.') ?></span>
                             
                         </ul>
                     </div>
-                    <p class="quickview-para"><?= $product_detail['mo_ta'] ?></p>
+                    <p class="quickview-para"><?=$mo_ta?></p>
                     <form action="index.php?act=addtocart" method="post">
                     <div class="pro-details-size-color d-flex">
                         <div class="pro-details-color-wrap">
                             <span>Màu</span>
-                            <select name="namecolor" class="form-control">
+                            <select name="namecolor" id="colorSelect" class="form-control">
                                 <option disabled selected>Chọn màu</option>
                                 <?php
-                                    foreach ($one_color_size as $color) {
+                                    foreach ($get_color_size as $color) {
                                         extract($color);
                                         echo '<option value="'.$ten_mau.'">'.$ten_mau.'</option>';
                                     }
@@ -109,10 +113,10 @@
                             
                         <div class="product-size">
                             <span>Kích thước</span>
-                            <select name="namesize" class="form-control">
+                            <select name="namesize" id="sizeSelect" class="form-control">
                                 <option disabled selected>Chọn kích thước</option>
                                 <?php
-                                    foreach ($one_color_size as $size) {
+                                    foreach ($get_color_size as $size) {
                                         extract($size);
                                         echo '<option value="'.$ten_kich_co.'">'.$ten_kich_co.'</option>';
                                     }
@@ -122,14 +126,16 @@
                         </div>
                     
                             <div class="pro-details-quality">
-                                <div class="cart-plus-minus" style="margin-right: 15px;">
-                                    <input class="cart-plus-minus-box" type="text" name="quantity" value="1" />
-                                </div>
+                                <input class="cart-plus-minus" style="margin-right: 15px; text-align:center" type="number" name="quantity" value="1" id="quantity" onchange="limitQuantity()"/>
                                 <div class="pro-details-cart">
                                     <input type="hidden" name="idpro" value="<?=$ma_sp?>">
                                     <input type="hidden" name="name" value="<?=$ten_sp?>">
-                                    <input type="hidden" name="image" value="<?=$hinh_anh?>">
-                                    <input type="hidden" name="price" value="<?=$gia_km?>">
+                                    <input type="hidden" name="imagedefault" value="<?=$check_variant[0]['hinh_anh']?>">
+                                    <input type="hidden" name="pricedefault" value="<?=$check_variant[0]['gia_km']?>">
+                                    <input type="hidden" name="price_variant_sub" id="priceVariantSub">
+                                    <input type="hidden" name="price_variant" id="priceVariant">
+                                    <input type="hidden" name="image_variant" id="imageVariant">
+                                    <input type="hidden" name="quantity_variant" id="quantityVariant">
                                     
                                     <button title="Add To Cart" class="add-cart btn btn-primary btn-hover-primary ml-4" name="addtocart">Thêm vào giỏ hàng</button>
                                    
@@ -322,7 +328,7 @@
                     <div class="new-product-item swiper-slide">
                         <div class="product">
                             <div class="thumb">
-                                <a href="index.php?act=product_detail" class="image">
+                                <a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>" class="image">
                                     <img src="<?= $link_img . $hinh_anh ?>" alt="Product" />
                                     <img class="hover-image" src="<?= $link_img . $hinh_anh ?>" alt="Product" />
                                 </a>
@@ -332,10 +338,10 @@
                                     <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
                                     <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
                                 </div>
-                                <button title="Add To Cart" class=" add-to-cart">Thêm vào giỏ hàng</button>
+                                <a href="?act=addtocart" title="Add To Cart" name="addtocart" class=" add-to-cart">Thêm vào giỏ hàng</a>
                             </div>
                             <div class="content">
-                                <h5 class="title"><a href="index.php?act=product_detail"><?= $ten_sp ?></a></h5>
+                                <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>"><?= $ten_sp ?></a></h5>
                                 <span class="price">
                                     <?php
                                     if ($gia_km == 0) {   ?>
@@ -353,7 +359,7 @@
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="index.php?act=product_detail" class="image">
+                            <a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>" class="image">
                                 <img src="./user/public/assets/images/product-image/3.jpg" alt="Product" />
                                 <img class="hover-image" src="./user/public/assets/images/product-image/4.jpg" alt="Product" />
                             </a>
@@ -367,7 +373,7 @@
                                 To Cart</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="index.php?act=product_detail">Wooden decorations</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>">Wooden decorations</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
                             </span>
@@ -378,7 +384,7 @@
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="index.php?act=product_detail" class="image">
+                            <a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>" class="image">
                                 <img src="./user/public/assets/images/product-image/5.jpg" alt="Product" />
                                 <img class="hover-image" src="./user/public/assets/images/product-image/5.jpg" alt="Product" />
                             </a>
@@ -392,7 +398,7 @@
                                 To Cart</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="index.php?act=product_detail">High quality vase bottle</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>">High quality vase bottle</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
                             </span>
@@ -403,7 +409,7 @@
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="index.php?act=product_detail" class="image">
+                            <a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>" class="image">
                                 <img src="./user/public/assets/images/product-image/9.jpg" alt="Product" />
                                 <img class="hover-image" src="./user/public/assets/images/product-image/10.jpg" alt="Product" />
                             </a>
@@ -417,7 +423,7 @@
                                 To Cart</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="index.php?act=product_detail">Living & Bedroom Chair</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>">Living & Bedroom Chair</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
                             </span>
@@ -428,7 +434,7 @@
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="index.php?act=product_detail" class="image">
+                            <a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>" class="image">
                                 <img src="./user/public/assets/images/product-image/9.jpg" alt="Product" />
                                 <img class="hover-image" src="./user/public/assets/images/product-image/10.jpg" alt="Product" />
                             </a>
@@ -442,7 +448,7 @@
                                 To Cart</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="index.php?act=product_detail">Living & Bedroom Table</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>">Living & Bedroom Table</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
                             </span>
@@ -485,7 +491,7 @@
                     <div class="new-product-item swiper-slide">
                         <div class="product">
                             <div class="thumb">
-                                <a href="index.php?act=product_detail" class="image">
+                                <a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>" class="image">
                                     <img src="<?= $link_img . $hinh_anh ?>" alt="Product" />
                                     <img class="hover-image" src="<?= $link_img . $hinh_anh ?>" alt="Product" />
                                 </a>
@@ -495,10 +501,10 @@
                                     <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
                                     <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
                                 </div>
-                                <button title="Add To Cart" class=" add-to-cart">Thêm vào giỏ hàng</button>
+                                <button title="Add To Cart" name="addtocart" class=" add-to-cart">Thêm vào giỏ hàng</button>
                             </div>
                             <div class="content">
-                                <h5 class="title"><a href="index.php?act=product_detail"><?= $ten_sp ?></a></h5>
+                                <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>"><?= $ten_sp ?></a></h5>
                                 <span class="price">
                                     <?php
                                     if ($gia_km == null) {   ?>
@@ -516,7 +522,7 @@
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="index.php?act=product_detail" class="image">
+                            <a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>" class="image">
                                 <img src="./user/public/assets/images/product-image/3.jpg" alt="Product" />
                                 <img class="hover-image" src="./user/public/assets/images/product-image/4.jpg" alt="Product" />
                             </a>
@@ -526,10 +532,10 @@
                                 <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
                                 <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
                             </div>
-                            <button title="Add To Cart" class=" add-to-cart">Thêm vào giỏ hàng</button>
+                            <button title="Add To Cart" name="addtocart" class=" add-to-cart">Thêm vào giỏ hàng</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="index.php?act=product_detail">Wooden decorations</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail=<?=$ma_sp?>">Wooden decorations</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
                             </span>
@@ -540,7 +546,7 @@
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="index.php?act=product_detail" class="image">
+                            <a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>" class="image">
                                 <img src="./user/public/assets/images/product-image/5.jpg" alt="Product" />
                                 <img class="hover-image" src="./user/public/assets/images/product-image/6.jpg" alt="Product" />
                             </a>
@@ -554,7 +560,7 @@
                                 To Cart</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="index.php?act=product_detail">High quality vase bottle</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>">High quality vase bottle</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
                             </span>
@@ -565,7 +571,7 @@
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="index.php?act=product_detail" class="image">
+                            <a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>" class="image">
                                 <img src="./user/public/assets/images/product-image/7.jpg" alt="Product" />
                                 <img class="hover-image" src="./user/public/assets/images/product-image/8.jpg" alt="Product" />
                             </a>
@@ -579,7 +585,7 @@
                                 To Cart</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="index.php?act=product_detail">Living & Bedroom Chair</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>">Living & Bedroom Chair</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
                             </span>
@@ -590,7 +596,7 @@
                 <div class="new-product-item swiper-slide">
                     <div class="product">
                         <div class="thumb">
-                            <a href="index.php?act=product_detail" class="image">
+                            <a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>" class="image">
                                 <img src="./user/public/assets/images/product-image/9.jpg" alt="Product" />
                                 <img class="hover-image" src="./user/public/assets/images/product-image/10.jpg" alt="Product" />
                             </a>
@@ -604,7 +610,7 @@
                                 To Cart</button>
                         </div>
                         <div class="content">
-                            <h5 class="title"><a href="index.php?act=product_detail">Living & Bedroom Table</a></h5>
+                            <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?=$ma_sp?>">Living & Bedroom Table</a></h5>
                             <span class="price">
                                 <span class="new">$38.50</span>
                             </span>
@@ -621,3 +627,81 @@
         </div>
     </div>
 </div>
+<script>
+ function limitQuantity() {
+    var maxQuantity = document.getElementById('quantityVariant').value;
+    var quantityInput = document.getElementById("quantity");
+    var checkNaN = parseInt(quantityInput.value);
+
+    if (checkNaN >= maxQuantity) {
+        quantityInput.value = maxQuantity; // Đặt lại giá trị nếu vượt quá ngưỡng
+    }
+}
+
+    // Xử lý khi người dùng chọn biến thể
+    function selectVariant(imageVariant, priceVariant, priceVariantSub, quantityVariant) {
+    // var sizeSelect = document.getElementById('sizeSelect');
+    // var colorSelect = document.getElementById('colorSelect');
+
+    // sizeSelect.innerHTML = '';
+    // colorSelect.innerHTML = '';
+    // console.log(colors);
+    // sizes.forEach(function(size) {
+    //     var option = document.createElement('option');
+    //     option.value = size;
+    //     option.textContent = size;
+    //     sizeSelect.appendChild(option);
+    // });
+
+    // colors.forEach(function(color) {
+    //     var option = document.createElement('option');
+    //     option.value = color;
+    //     option.textContent = color;
+    //     colorSelect.appendChild(option);
+    // });
+
+    document.getElementById('imageVariant').value = imageVariant;
+    document.getElementById('priceVariant').value = priceVariant;
+    document.getElementById('priceVariantSub').value = priceVariantSub;
+    document.getElementById('quantityVariant').value = quantityVariant;
+    const formatPrice = priceVariant.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    const formatPriceSub = priceVariantSub.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+    document.getElementById('priceDisplay').textContent = formatPrice;
+    document.getElementById('priceDisplaySub').textContent = formatPriceSub;
+    document.getElementById('quantityDisplay').textContent = 'Tồn kho: ' + quantityVariant;
+}
+
+var variants = <?php echo json_encode($check_variant); ?>;
+// console.log(variants[0]['gia_km']);
+let variantIndex = 0;
+function displayVariant(index) {
+    const currentVariant = variants[index];
+
+    document.getElementById('priceVariant').value = currentVariant.gia_km;
+    document.getElementById('quantityVariant').value = currentVariant.so_luong;
+    document.getElementById('imageVariant').value = currentVariant.hinh_anh;
+
+    const formatPrice = currentVariant.gia_km.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    const formatPriceSub = currentVariant.gia_sp.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+    document.getElementById('priceDisplay').textContent = formatPrice;
+    document.getElementById('priceDisplaySub').textContent = formatPriceSub;
+    document.getElementById('quantityDisplay').textContent = 'Tồn kho: ' +  currentVariant.so_luong;
+    document.getElementById('imageVariant').src = 'upload/' + currentVariant.hinh_anh;
+}
+
+function nextVariant() {
+    variantIndex = (variantIndex === variants.length - 1) ? 0 : variantIndex + 1;
+    // console.log(variantIndex);
+    displayVariant(variantIndex);
+}
+
+function previousVariant() {
+    variantIndex = (variantIndex <= 0) ? (variants.length - 1) : (variantIndex - 1);
+    // console.log(variantIndex);
+    displayVariant(variantIndex);
+}
+
+displayVariant(variantIndex);
+</script>
