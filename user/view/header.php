@@ -114,7 +114,7 @@
                             <!-- Single Wedge End -->
                             <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                                 <i class="icon-handbag"></i>
-                                <span class="header-action-num"></span>
+                                <span class="header-action-num"><?php (isset($_SESSION['mycart'])) ? $count = count($_SESSION['mycart']) : $count = ""; echo $count ?></span>
                                 <!-- <span class="cart-amount">€30.00</span> -->
                             </a>
                             <a href="#offcanvas-mobile-menu" class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
@@ -165,7 +165,7 @@
                             <!-- Single Wedge End -->
                             <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                                 <i class="icon-handbag"></i>
-                                <span class="header-action-num"><?php count($_SESSION['mycart'])?></span>
+                                <span class="header-action-num"><?php (isset($_SESSION['mycart'])) ? $count = count($_SESSION['mycart']) : $count = ""; echo $count ?></span>
                                 <!-- <span class="cart-amount">€30.00</span> -->
                             </a>
                             <a href="#offcanvas-mobile-menu" class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
