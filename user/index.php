@@ -13,7 +13,8 @@ include "global/global.php";
 // Load product - Our product
 
 if (!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
-$list_product = load_product(0);
+// $list_product = load_product(0);
+$list_product = get_all_product();
 
 // Load product discount
 $list_product_discount = load_product(1);
@@ -52,21 +53,27 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                         if (!isset($_POST['namesize'])) {
                             $message = '<p class="alert alert-danger">Vui lòng chọn kích cỡ để thêm vào giỏ hàng!</p>';
                         } else {
-                            $idpro = $_POST['idpro'];
-                            $name = $_POST['name'];
-                            $image = $_POST['image'];
-                            $price = $_POST['price'];
-                            $quantity = $_POST['quantity'];
-                            $name_color = $_POST['namecolor'];
-                            $name_size = $_POST['namesize'];
-                            $total = $price * $quantity;
-                            $product_exists = false;
-                            $i = 0;
-                            foreach ($_SESSION['mycart'] as $item) {
-                                if ($item[5] == $name_color && $item[6] == $name_size) {
-                                    $_SESSION['mycart'][$i][4] += $quantity;
-                                    $product_exists = true;
-                                    break;
+                            if (!isset($_POST['namesize'])) {
+                                $message = '<p class="alert alert-danger">Vui lòng chọn kích cỡ để thêm vào giỏ hàng!</p>';
+                            } else {
+                                $idpro = $_POST['idpro'];
+                                // $id_variant = $_POST['id_variant'];
+                                $name = $_POST['name'];
+                                ($_POST['image_variant']) ? $image = $_POST['image_variant'] : $image = $_POST['imagedefault'];
+                                ($_POST['price_variant']) ? $price = $_POST['price_variant'] : $price = $_POST['pricedefault'];
+                                $quantity = $_POST['quantity'];
+                                $name_color = $_POST['namecolor'];
+                                $name_size = $_POST['namesize'];
+                                $total = $price * $quantity;
+                                $product_exists = false;
+                                $i = 0;
+                                foreach ($_SESSION['mycart'] as $item) {
+                                    if ($item[0] == $idpro && $item[1] == $name && $item[2] == $image && $item[3] == $price && $item[4] == $quantity && $item[5] == $name_color && $item[6] == $name_size) {
+                                        $_SESSION['mycart'][$i][4] += $quantity;
+                                        $product_exists = true;
+                                        break;
+                                    }
+                                    $i++;
                                 }
                                 $i++;
                             }
@@ -98,8 +105,11 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
         case 'pockup':
             if (isset($_GET['idpro']) && $_GET['idpro'] > 0) {
                 // load product_detail by id_pro
+                $check_variant = check_variant($_GET['idpro']);
+                $one_variant = get_one_product($_GET['idpro']);
                 $one_product = get_one_product($_GET['idpro']);
-                $one_color_size = load_color_size($_GET['idpro']);
+                $get_color_size = get_color_size($_GET['idpro']);
+
                 $img_product = load_img_by_idpro(($_GET['idpro']));
             }
             include 'view/pockup.php';
@@ -109,11 +119,10 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             break;
 
         case 'empty_cart':
-            include 'view/checkout/empty_cart.php';
+            include 'view/cart/empty_cart.php';
             break;
 
-
-            // checkout 
+             // checkout 
         case 'checkout_info':
             // if (isset($_POST['update'])) {
             //     $full_name = $_POST['full_name'];
@@ -285,6 +294,12 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             }
 
             if (isset($_GET['id_pro'])) {
+                $check_variant = check_variant($_GET['id_pro']);
+                $one_variant = get_one_product($_GET['id_pro']);
+                $one_product = get_one_product($_GET['id_pro']);
+                $get_color_size = get_color_size($_GET['id_pro']);
+
+                $img_product = load_img_by_idpro(($_GET['id_pro']));
                 // load product_detail by id_pro
                 $product_detail = load_detail_product($_GET['id_pro']);
 
