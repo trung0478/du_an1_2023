@@ -122,21 +122,15 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             include 'view/cart/empty_cart.php';
             break;
 
-             // checkout 
+            // checkout 
         case 'checkout_info':
-            // if (isset($_POST['update'])) {
-            //     $full_name = $_POST['full_name'];
-            //     $gender = $_POST['gender'];
-            //     $email = $_POST['email'];
-            //     $address = $_POST['address'];
-            //     $telephone = $_POST['telephone'];
-            //     $id = $_POST['id'];
+            echo "<pre>";
+            print_r($_SESSION['mycart']);
+            echo "</pre>";
 
-            //     update_account($id, $full_name, $gender, $email, $address, $telephone);
-            //     $getOne_account = getOne_account($id);
-            //     $_SESSION['account'] = $getOne_account;
-            //     $message = "Đã cập nhật thành công!";
-            // }
+            if (isset($_SESSION['id_account']) && $_SESSION['id_account'] > 0) {
+                $one_account = getOne_account($_SESSION['id_account']);
+            }
             include 'view/checkout/checkout_info.php';
             break;
 
