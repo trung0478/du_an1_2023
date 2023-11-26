@@ -64,7 +64,7 @@
         <div class="row">
             <div class="col-md-12 text-center" data-aos="fade-up">
                 <div class="section-title mb-0">
-                    <h2 class="title">Sản phẩm của chúng tôi</h2>
+                    <h2 class="title">Sản phẩm phổ biến</h2>
                     <p class="sub-title mb-30px">Chuyên nghiệp, Sang trọng, Tiện nghi - Nơi hoàn hảo cho không gian sống của bạn.</p>
                 </div>
             </div>
