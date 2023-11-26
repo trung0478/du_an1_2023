@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="d-flex justify-content-between my-md-2 my-2">
-                    <h3 class="fs-1">Danh sách nhân viên</h3>
+                    <h3 class="fs-1">Thống kê sản phẩm theo danh mục</h3>
                     <a href="?act=add_staff" class="btn btn-primary my-md-2 my-1">Thêm mới</a>
                 </div>
                 <table class="table">

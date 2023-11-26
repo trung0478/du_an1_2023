@@ -269,21 +269,13 @@ include 'view/header.php';
 
                 // Staff
             case 'list_staff':
-                include '../admin/view/staff/list_staff.php';
+                include '../admin/view/statistical/list_staff.php';
                 break;
             case 'add_staff':
-                include '../admin/view/staff/add_staff.php';
+                include '../admin/view/statistical/add_staff.php';
                 break;
             case 'update_staff':
-                include '../admin/view/staff/update_staff.php';
-                break;
-
-                // Comment
-            case 'list_cmt':
-                include 'view/comment/list_cmt.php';
-                break;
-            case 'detail_cmt':
-                include 'view/comment/detail_cmt.php';
+                include '../admin/view/statistical/update_staff.php';
                 break;
 
                 // Order

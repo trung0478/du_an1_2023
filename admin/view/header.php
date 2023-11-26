@@ -119,7 +119,7 @@
                         </li>
                         <li class="has-submenu">
                             <a href="?act=list_staff">
-                            <i class="fa-solid fa-people-roof"></i>Nhân viên</a>
+                            <i class="fa-solid fa-people-roof"></i>Thống kê</a>
                         </li>
                     </ul>
                     <!-- End navigation menu -->
