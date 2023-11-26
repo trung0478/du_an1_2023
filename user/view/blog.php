@@ -223,13 +223,13 @@
                 <div class="col-12">
                     <div class="row breadcrumb_box  align-items-center">
                         <div class="col-lg-6 col-md-6 col-sm-12 text-center text-md-start">
-                            <h2 class="breadcrumb-title">Blog</h2>
+                            <h2 class="breadcrumb-title">Tin Tức</h2>
                         </div>
                         <div class="col-lg-6  col-md-6 col-sm-12">
                             <!-- breadcrumb-list start -->
                             <ul class="breadcrumb-list text-center text-md-end">
-                                <li><a href="index.html">Home</a></li>
-                                <li class="active">/Blog List</li>
+                                <li><a href="?act=home">Trang chủ</a></li>
+                                <li class="active">/Tin tức</li>
                             </ul>
                             <!-- breadcrumb-list end -->
                         </div>
@@ -258,72 +258,11 @@
                         <div class="col-lg-7 col-md-6 align-self-center align-items-center" data-aos="fade-up" data-aos-delay="400">
                             <div class="blog-post-content-inner mt-lm-20px">
                                 <div class="blog-athor-date">
-                                    <a class="blog-date" href="#">14 November</a>
+                                    <a class="blog-date" href="#">24-11-2023</a>
                                 </div>
-                                <h4 class="blog-title"><a href="blog-single-left-sidebar.html">Interior design is the art, the interior designer is the artist.</a></h4>
+                                <h4 class="blog-title"><a href="blog-single-left-sidebar.html">Khám Phá Nghệ Thuật Trang Trí Nội Thất.</a></h4>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum eius expedita hic, vel minima minus reiciendis consequuntur ab beatae necessitatibus amet magni itaque, nostrum vero eos nobis modi temporibus recusandae.
-                                </p>
-                                <a href="#" class="btn btn-lg btn-hover-color-primary btn-color-dark mt-25px">Read More</a>
-                            </div>
-                        </div>
-                        <!-- single blog post -->
-                    </div>
-                    <div class="row mb-50px" data-aos="fade-up" data-aos-delay="200">
-                        <div class="col-lg-5 col-md-6">
-                            <div class="single-blog-post blog-list-post">
-                                <div class="blog-post-media swiper-container slider-nav-style-1 small-nav">
-                                    <div class="blog-gallery swiper-wrapper">
-                                        <div class="gallery-item swiper-slide">
-                                            <a href="#"><img src="./user/public/assets/images/blog-image/2.jpg" alt="blog" /></a>
-                                        </div>
-                                        <div class="gallery-item swiper-slide">
-                                            <a href="#"><img src="./user/public/assets/images/blog-image/3.jpg" alt="blog" /></a>
-                                        </div>
-                                        <div class="gallery-item swiper-slide">
-                                            <a href="#"><img src="./user/public/assets/images/blog-image/4.jpg" alt="blog" /></a>
-                                        </div>
-                                    </div>
-                                    <!-- Add Arrows -->
-                                    <div class="swiper-buttons">
-                                        <div class="swiper-button-next"></div>
-                                        <div class="swiper-button-prev"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-7 col-md-6 align-self-center align-items-center" data-aos="fade-up" data-aos-delay="400">
-                            <div class="blog-post-content-inner mt-lm-20px">
-                                <div class="blog-athor-date">
-                                    <a class="blog-date" href="#">14 November</a>
-                                </div>
-                                <h4 class="blog-title"><a href="blog-single-left-sidebar.html">Decorate your home with the most modern furnishings.</a></h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum eius expedita hic, vel minima minus reiciendis consequuntur ab beatae necessitatibus amet magni itaque, nostrum vero eos nobis modi temporibus recusandae.
-                                </p>
-                                <a href="#" class="btn btn-lg btn-hover-color-primary btn-color-dark mt-25px">Read More</a>
-                            </div>
-                        </div>
-                        <!-- single blog post -->
-                    </div>
-                    <div class="row mb-50px">
-                        <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                            <div class="single-blog-post blog-list-post">
-                                <div class="blog-post-media">
-                                    <div class="blog-post-audio">
-                                        <iframe class="embed-responsive-item" width="500" height="260" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/182537870&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-7 col-md-6 align-self-center align-items-center" data-aos="fade-up" data-aos-delay="400">
-                            <div class="blog-post-content-inner mt-lm-20px">
-                                <div class="blog-athor-date">
-                                    <a class="blog-date" href="#">14 November</a>
-                                </div>
-                                <h4 class="blog-title"><a href="blog-single-left-sidebar.html">Spatialize with decorations of the Furns store.</a></h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum eius expedita hic, vel minima minus reiciendis consequuntur ab beatae necessitatibus amet magni itaque, nostrum vero eos nobis modi temporibus recusandae.
+                                Ngày nay phong cách thiết kế nội thất hiện đại không chỉ đơn thuần là sự sắp xếp đồ đạc trong không gian sống mà còn là biểu tượng của sự tiện nghi, sang trọng và sáng tạo. Với sự kết hợp độc đáo giữa yếu tố chức năng và nghệ thuật, phong cách này đã trở thành xu hướng được nhiều gia đình và doanh nghiệp lựa chọn.
                                 </p>
                                 <a href="#" class="btn btn-lg btn-hover-color-primary btn-color-dark mt-25px">Read More</a>
                             </div>
@@ -346,11 +285,11 @@
                         <div class="col-lg-7 col-md-6 align-self-center align-items-center" data-aos="fade-up" data-aos-delay="400">
                             <div class="blog-post-content-inner mt-lm-20px">
                                 <div class="blog-athor-date">
-                                    <a class="blog-date" href="#">14 November</a>
+                                    <a class="blog-date" href="#">20-11-2023</a>
                                 </div>
-                                <h4 class="blog-title"><a href="blog-single-left-sidebar.html">Unique products that will impress your home.</a></h4>
+                                <h4 class="blog-title"><a href="blog-single-left-sidebar.html">Bí Quyết Tối Ưu Hóa Diện Tích</a></h4>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum eius expedita hic, vel minima minus reiciendis consequuntur ab beatae necessitatibus amet magni itaque, nostrum vero eos nobis modi temporibus recusandae.
+                                Không gian sống tiện nghi, rộng rãi luôn là mong muốn của rất nhiều người. Tuy nhiên không phải ai cũng có được một căn nhà rộng rãi, thoáng đãng. Chỉ cần thiết kế khéo léo, sáng tạo là đã có thể tối ưu hoá diện tích cho ngôi nhà.
                                 </p>
                                 <a href="#" class="btn btn-lg btn-hover-color-primary btn-color-dark mt-25px">Read More</a>
                             </div>
@@ -370,11 +309,11 @@
                         <div class="col-lg-7 col-md-6 align-self-center align-items-center" data-aos="fade-up" data-aos-delay="400">
                             <div class="blog-post-content-inner mt-lm-20px">
                                 <div class="blog-athor-date">
-                                    <a class="blog-date" href="#">14 November</a>
+                                    <a class="blog-date" href="#">18-11-2023</a>
                                 </div>
-                                <h4 class="blog-title"><a href="blog-single-left-sidebar.html">Interior designer Nancy, the witch of the unique space.</a></h4>
+                                <h4 class="blog-title"><a href="blog-single-left-sidebar.html">Nghệ Thuật Trang Trí Phòng Khách</a></h4>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum eius expedita hic, vel minima minus reiciendis consequuntur ab beatae necessitatibus amet magni itaque, nostrum vero eos nobis modi temporibus recusandae.
+                                Cách đơn giản nhất để gây ấn tượng mạnh với những vị khách đến thăm nhà chính là những bức tường phòng khách. Hiệu ứng màu sắc, họa tiết bắt mắt hay những món đồ trang trí tạo điểm nhấn chính là cách thường được các gia chủ áp dụng để gây chú ý, tăng giá trị thẩm mỹ cho khu vực trung tâm.
                                 </p>
                                 <a href="#" class="btn btn-lg btn-hover-color-primary btn-color-dark mt-25px">Read More</a>
                             </div>
@@ -395,11 +334,11 @@
                         <div class="col-lg-7 col-md-6 align-self-center align-items-center" data-aos="fade-up" data-aos-delay="400">
                             <div class="blog-post-content-inner mt-lm-20px">
                                 <div class="blog-athor-date">
-                                    <a class="blog-date" href="#">14 November</a>
+                                    <a class="blog-date" href="#">24-11-2023</a>
                                 </div>
-                                <h4 class="blog-title"><a href="blog-single-left-sidebar.html">The story of lights in USA</a></h4>
+                                <h4 class="blog-title"><a href="blog-single-left-sidebar.html">Khám Phá Nghệ Thuật Trang Trí Nội Thất.</a></h4>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum eius expedita hic, vel minima minus reiciendis consequuntur ab beatae necessitatibus amet magni itaque, nostrum vero eos nobis modi temporibus recusandae.
+                                Ngày nay phong cách thiết kế nội thất hiện đại không chỉ đơn thuần là sự sắp xếp đồ đạc trong không gian sống mà còn là biểu tượng của sự tiện nghi, sang trọng và sáng tạo. Với sự kết hợp độc đáo giữa yếu tố chức năng và nghệ thuật, phong cách này đã trở thành xu hướng được nhiều gia đình và doanh nghiệp lựa chọn.
                                 </p>
                                 <a href="#" class="btn btn-lg btn-hover-color-primary btn-color-dark mt-25px">Read More</a>
                             </div>
@@ -424,17 +363,17 @@
                     <div class="left-sidebar shop-sidebar-wrap">
                         <!-- Sidebar single item -->
                         <div class="sidebar-widget">
-                            <h3 class="sidebar-title mt-0">Search</h3>
+                            <h3 class="sidebar-title mt-0">Tìm kiếm</h3>
                             <div class="search-widget">
                                 <form action="#">
-                                    <input placeholder="Search entire store here ..." type="text" />
+                                    <input placeholder="Tìm kiếm ..." type="text" />
                                     <button type="submit"><i class="icon-magnifier"></i></button>
                                 </form>
                             </div>
                         </div>
                         <!-- Sidebar single item -->
                         <!-- Sidebar single item -->
-                        <div class="sidebar-widget mt-40px">
+                        <!-- <div class="sidebar-widget mt-40px">
                             <h3 class="sidebar-title">Categories</h3>
                             <div class="category-post">
                                 <ul>
@@ -449,10 +388,10 @@
                                     <li><a href="#" class="">Table <span>(4)</span> </a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Sidebar single item -->
                         <div class="sidebar-widget mt-40px">
-                            <h3 class="sidebar-title">Recent Post</h3>
+                            <h3 class="sidebar-title">Bài đăng gần đây</h3>
 
                             <div class="recent-post-widget">
                                 <div class="recent-single-post d-flex">
@@ -460,9 +399,9 @@
                                         <a href="blog-single-left-sidebar.html"><img src="./user/public/assets/images/blog-image/1.jpg" alt="" /></a>
                                     </div>
                                     <div class="media-side">
-                                        <h5><a href="blog-single-left-sidebar.html">Want more charitable resources</a>
+                                        <h5><a href="blog-single-left-sidebar.html">Khám Phá Nghệ Thuật Trang Trí Nội Thất</a>
                                         </h5>
-                                        <span class="date">APRIL 24, 2021</span>
+                                        <span class="date">24-11-2023</span>
                                     </div>
                                 </div>
                                 <div class="recent-single-post d-flex">
@@ -470,9 +409,9 @@
                                         <a href="blog-single-left-sidebar.html"><img src="./user/public/assets/images/blog-image/2.jpg" alt="" /></a>
                                     </div>
                                     <div class="media-side">
-                                        <h5><a href="blog-single-left-sidebar.html">A quick tutorial for using
+                                        <h5><a href="blog-single-left-sidebar.html">Nội Thất Công Nghệ Cao
                                             </a></h5>
-                                        <span class="date">APRIL 25, 2021</span>
+                                        <span class="date">22-11-2023</span>
                                     </div>
                                 </div>
                                 <div class="recent-single-post d-flex">
@@ -480,10 +419,10 @@
                                         <a href="blog-single-left-sidebar.html"><img src="./user/public/assets/images/blog-image/3.jpg" alt="" /></a>
                                     </div>
                                     <div class="media-side">
-                                        <h5><a href="blog-single-left-sidebar.html">Informed donor is very effective
+                                        <h5><a href="blog-single-left-sidebar.html">Bí Quyết Tối Ưu Hóa Diện Tích
                                             </a>
                                         </h5>
-                                        <span class="date">APRIL 26, 2021</span>
+                                        <span class="date">20-11-2023</span>
                                     </div>
                                 </div>
                                 <div class="recent-single-post d-flex">
@@ -491,15 +430,15 @@
                                         <a href="blog-single-left-sidebar.html"><img src="./user/public/assets/images/blog-image/4.jpg" alt="" /></a>
                                     </div>
                                     <div class="media-side">
-                                        <h5><a href="blog-single-left-sidebar.html">Want more charitable resources</a>
+                                        <h5><a href="blog-single-left-sidebar.html">Nghệ Thuật Trang Trí Phòng Khách</a>
                                         </h5>
-                                        <span class="date">APRIL 27, 2021</span>
+                                        <span class="date">18-11-2023</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Sidebar single item -->
-                        <div class="sidebar-widget mt-40px">
+                        <!-- <div class="sidebar-widget mt-40px">
                             <h3 class="sidebar-title">Tags</h3>
 
                             <div class="sidebar-widget-tag d-inline-block">
@@ -513,10 +452,10 @@
                                     <li><a href="#">selter</a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Sidebar single item -->
                         <!-- Sidebar single item -->
-                        <div class="sidebar-widget mt-40px">
+                        <!-- <div class="sidebar-widget mt-40px">
                             <h3 class="sidebar-title">Instagram Widget </h3>
                             <div class="flicker-widget">
                                 <ul>
@@ -540,7 +479,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Sidebar single item -->
                     </div>
                 </div>

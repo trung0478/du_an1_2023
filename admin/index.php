@@ -65,7 +65,9 @@ include 'view/header.php';
                 } else {
                     $keyword = "";
                 }
-                $list_product = get_all_product($keyword);
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    $list_atribute = get_all_atribute($keyword,$_GET['id']);
+                }
                 include 'view/product/list_atribute.php';
                 break;
             
@@ -274,14 +276,6 @@ include 'view/header.php';
                 break;
             case 'update_staff':
                 include '../admin/view/staff/update_staff.php';
-                break;
-
-                // Comment
-            case 'list_cmt':
-                include 'view/comment/list_cmt.php';
-                break;
-            case 'detail_cmt':
-                include 'view/comment/detail_cmt.php';
                 break;
 
                 // Order

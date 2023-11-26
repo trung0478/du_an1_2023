@@ -6,14 +6,15 @@ include "config/connectdb.php";
 include "user/model/product.php";
 include "model/product_catalog.php";
 include "user/model/comment.php";
+include "user/model/checkout.php";
 include "model/account.php";
 include "view/header.php";
 include "global/global.php";
 // Load product - Our product
 
-if(!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
+if (!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
 // $list_product = load_product(0);
-$list_product = get_all_product(); 
+$list_product = get_all_product();
 
 // Load product discount
 $list_product_discount = load_product(1);
@@ -41,13 +42,16 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             include "view/contact.php";
             break;
             // Giỏ hàng
-            case 'addtocart':
-                if(isset($_POST['addtocart'])){
-                    if (!isset($_POST['namecolor']) && !isset($_POST['namesize'])) {
-                        $message = '<p class="alert alert-danger">Vui lòng chọn màu sắc và kích thước để thêm vào giỏ hàng!</p>';
+        case 'addtocart':
+            if (isset($_POST['addtocart'])) {
+                if (!isset($_POST['namecolor']) && !isset($_POST['namesize'])) {
+                    $message = '<p class="alert alert-danger">Vui lòng chọn màu sắc và kích thước để thêm vào giỏ hàng!</p>';
+                } else {
+                    if (!isset($_POST['namecolor'])) {
+                        $message = '<p class="alert alert-danger">Vui lòng chọn màu sắc để thêm vào giỏ hàng!</p>';
                     } else {
-                        if (!isset($_POST['namecolor'])) {
-                            $message = '<p class="alert alert-danger">Vui lòng chọn màu sắc để thêm vào giỏ hàng!</p>';
+                        if (!isset($_POST['namesize'])) {
+                            $message = '<p class="alert alert-danger">Vui lòng chọn kích cỡ để thêm vào giỏ hàng!</p>';
                         } else {
                             if (!isset($_POST['namesize'])) {
                                 $message = '<p class="alert alert-danger">Vui lòng chọn kích cỡ để thêm vào giỏ hàng!</p>';
@@ -71,79 +75,98 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                                     }
                                     $i++;
                                 }
-                                if ($product_exists == false) {
-                                    $add_product = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total];
-                                    // array_push($_SESSION['mycart'], $add_product);
-                                    $_SESSION['mycart'][] = $add_product;
-                                }
-                                echo '<script>window.location.href = window.location.href;</script>';
+                                $i++;
                             }
+                            if ($product_exists == false) {
+                                $add_product = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total];
+                                // array_push($_SESSION['mycart'], $add_product);
+                                $_SESSION['mycart'][] = $add_product;
+                            }
+                            echo '<script>window.location.href = window.location.href;</script>';
                         }
                     }
-                    
                 }
-                include "view/cart/cart.php";
-                break;
-                case 'del_cart':
-                    if(isset($_GET['idcart'])){
-                        array_splice($_SESSION['mycart'], $_GET['idcart'], 1);
-                    }else{
-                        $_SESSION['mycart'] = [];
-                    }
-                    if (count($_SESSION['mycart']) > 0) {
-                        header('location: index.php?act=viewcart');
-                    }else {
-                        header('location: index.php?act=empty_cart');
-                    }
-                    // header('Location: index.php?act=viewcart');
-                    break;
-                case 'pockup':
-                    if (isset($_GET['idpro']) && $_GET['idpro'] > 0) {
-                        // load product_detail by id_pro
-                        $check_variant = check_variant($_GET['idpro']);
-                        $one_variant = get_one_product($_GET['idpro']);
-                        $one_product = get_one_product($_GET['idpro']);
-                        $get_color_size = get_color_size($_GET['idpro']);
+            }
+            include "view/cart/cart.php";
+            break;
+        case 'del_cart':
+            if (isset($_GET['idcart'])) {
+                array_splice($_SESSION['mycart'], $_GET['idcart'], 1);
+            } else {
+                $_SESSION['mycart'] = [];
+            }
+            if (count($_SESSION['mycart']) > 0) {
+                header('location: index.php?act=viewcart');
+            } else {
+                header('location: index.php?act=empty_cart');
+            }
+            // header('Location: index.php?act=viewcart');
+            break;
+        case 'pockup':
+            if (isset($_GET['idpro']) && $_GET['idpro'] > 0) {
+                // load product_detail by id_pro
+                $check_variant = check_variant($_GET['idpro']);
+                $one_variant = get_one_product($_GET['idpro']);
+                $one_product = get_one_product($_GET['idpro']);
+                $get_color_size = get_color_size($_GET['idpro']);
 
-                        $img_product = load_img_by_idpro(($_GET['idpro']));
-                    }
-                    include 'view/pockup.php';
-                    break;
-                case 'viewcart':
-                    include 'view/cart/cart.php';
-                    break;
-                case 'checkout':
-                    if (isset($_POST['update'])) {
-                        $full_name = $_POST['full_name'];
-                        $gender = $_POST['gender'];
-                        $email = $_POST['email'];
-                        $address = $_POST['address'];
-                        $telephone = $_POST['telephone'];
-                        $id = $_POST['id'];
-        
-                        update_account($id, $full_name, $gender, $email, $address, $telephone);
-                        $getOne_account = getOne_account($id);
-                        $_SESSION['account'] = $getOne_account;
-                        $message = "Đã cập nhật thành công!";
-                    }
-                    include 'view/cart/checkout.php';
-                    break;
-                case 'empty_cart':
-                    include 'view/cart/empty_cart.php';
-                    break;
-            
-        // Begin-> Account
+                $img_product = load_img_by_idpro(($_GET['idpro']));
+            }
+            include 'view/pockup.php';
+            break;
+        case 'viewcart':
+            include 'view/cart/cart.php';
+            break;
+
+        case 'empty_cart':
+            include 'view/cart/empty_cart.php';
+            break;
+
+            // checkout 
+        case 'checkout_info':
+            echo "<pre>";
+            print_r($_SESSION['mycart']);
+            echo "</pre>";
+
+            if (isset($_SESSION['id_account']) && $_SESSION['id_account'] > 0) {
+                $one_account = getOne_account($_SESSION['id_account']);
+            }
+            include 'view/checkout/checkout_info.php';
+            break;
+
+        case 'checkout':
+            if (isset($_POST['checkout'])) {
+                if (isset($_POST['checkout_delivery)'])) {
+                    # code...
+                } elseif (isset($_POST['redirect'])) {
+                    $tong_gia = "200000";
+                    execPostRequest($url, $data);
+                    include 'view/checkout/checkout_vnpay.php';
+                } elseif (isset($_POST['payUrl'])) {
+                    $tong_gia = "200000";
+                    execPostRequest($url, $data);
+                    include 'view/checkout/checkout_momo.php';
+                }
+            }
+            break;
+
+            // thanks
+        case 'thanks':
+            include 'view/thanks.php';
+            break;
+
+            // Begin-> Account
         case 'account':
             include "view/account.php";
             break;
-            
+
         case 'register':
             if (isset($_POST['add_account'])) {
                 $email = $_POST['email'];
                 $username = $_POST['username'];
                 $full_name = $username;
                 $pass = $_POST['pass'];
-                add_account($full_name, $email, $username, $pass); 
+                add_account($full_name, $email, $username, $pass);
                 $message = "Đăng ký thành công!";
             }
             include "view/account/register.php";
@@ -156,7 +179,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 $check_account = check_account($username, $pass);
                 if (is_array($check_account)) {
                     if ($check_account['trang_thai'] == 1) {
-                        if ($check_account['vai_tro'] == 2) {
+                        if ($check_account['vai_tro'] == 1) {
                             $_SESSION['account'] = $check_account;
                             echo "<script> window.location.href='./admin/index.php';</script>";
                         } else {
@@ -192,12 +215,12 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             break;
 
         case 'forgot_pass':
-            if(isset($_POST['send_email'])){
+            if (isset($_POST['send_email'])) {
                 $email = $_POST['email'];
                 $check_email = check_email($email);
-                if(is_array($check_email)){
-                    $message = "Mật khẩu của bạn là: " .$check_email['mat_khau'];
-                }else{
+                if (is_array($check_email)) {
+                    $message = "Mật khẩu của bạn là: " . $check_email['mat_khau'];
+                } else {
                     $message = "Email không tồn tại!";
                 }
             }
@@ -208,14 +231,14 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             session_unset();
             echo "<script> window.location.href='index.php?act=login';</script>";
             break;
-        
+
         case 'change_pass':
             if (isset($_POST['update'])) {
                 $id = $_POST['id'];
                 $pass = $_POST['pass'];
                 $newPass = $_POST['newpass'];
                 $newRepass = $_POST['newrepass'];
-                
+
                 $check_account = check_account("", $pass);
                 if ($check_account) {
                     if ($newPass === $newRepass) {
@@ -231,7 +254,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             }
             include "view/account/edit_account.php";
             break;
-        // End-> Account        
+            // End-> Account        
 
         case 'cart':
             include "view/cart.php";
@@ -295,11 +318,11 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             }
             break;
 
-            case 'product_catalog':
-                $product_catalog = getAll_product_catalog();
-                $product = getAll_product();
-                include "view/product_catalog.php";
-                break;
+        case 'product_catalog':
+            $product_catalog = getAll_product_catalog();
+            $product = getAll_product();
+            include "view/product_catalog.php";
+            break;
 
         case 'login':
             include "view/login.php";
