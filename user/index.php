@@ -124,10 +124,9 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
 
             // checkout 
         case 'checkout_info':
-            echo "<pre>";
-            print_r($_SESSION['mycart']);
-            echo "</pre>";
-
+            // echo "<pre>";
+            // print_r($_SESSION['mycart']);
+            // echo "</pre>";
             if (isset($_SESSION['id_account']) && $_SESSION['id_account'] > 0) {
                 $one_account = getOne_account($_SESSION['id_account']);
             }
@@ -136,16 +135,24 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
 
         case 'checkout':
             if (isset($_POST['checkout'])) {
-                if (isset($_POST['checkout_delivery)'])) {
-                    # code...
-                } elseif (isset($_POST['redirect'])) {
-                    $tong_gia = "200000";
-                    execPostRequest($url, $data);
+                $_SESSION['account_name'] = $_POST['account_name'];
+                $_SESSION['account_address'] = $_POST['account_address'];
+                $_SESSION['account_sdt'] = $_POST['account_sdt'];
+                $_SESSION['message'] = $_POST['message'];
+
+                if (isset($_POST['redirect'])) {
+                    $tong_gia =$_SESSION['total'];
+                    $_SESSION['checkout'] = $_POST['redirect'];
                     include 'view/checkout/checkout_vnpay.php';
                 } elseif (isset($_POST['payUrl'])) {
-                    $tong_gia = "200000";
+                    $tong_gia = $_SESSION['total'];
+                    $_SESSION['checkout'] = $_POST['payUrl'];
                     execPostRequest($url, $data);
                     include 'view/checkout/checkout_momo.php';
+                } else {
+                    $_SESSION['code_order'] = rand(00,99999);
+                    $_SESSION['checkout'] = $_POST['checkout_delivery'];
+                    include 'view/thanks.php';
                 }
             }
             break;

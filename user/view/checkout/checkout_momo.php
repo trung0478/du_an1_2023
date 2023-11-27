@@ -7,7 +7,7 @@ $accessKey = 'klm05TvNBzhg7h7j';
 $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
 $orderInfo = "Thanh toán qua MoMo";
 $amount = $tong_gia; // tổng tiền sẽ hiện trên hoá đơn
-$orderId = time() ."";
+$orderId = rand(00,99999);
 $redirectUrl = "http://localhost/du_an1_2023/index.php?act=thanks";
 $ipnUrl = "http://localhost/du_an1_2023/index.php?act=thanks";
 $extraData = "";

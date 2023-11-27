@@ -46,7 +46,7 @@ $inputData = array(
     "vnp_OrderInfo" => $vnp_OrderInfo,
     "vnp_OrderType" => $vnp_OrderType,
     "vnp_ReturnUrl" => $vnp_Returnurl,
-    "vnp_TxnRef" => $vnp_TxnRef
+    "vnp_TxnRef" => $vnp_TxnRef,
 
     // "vnp_ExpireDate"=>$vnp_ExpireDate,
     // "vnp_Bill_Mobile"=>$vnp_Bill_Mobile,
@@ -102,4 +102,5 @@ $returnData = array('code' => '00'
         echo json_encode($returnData);
     }
 
+   
 ?>

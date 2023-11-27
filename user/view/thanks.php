@@ -1,30 +1,43 @@
 <div class="checkout-area pt-100px pb-100px">
     <div class="container">
         <div class="row">
-            <div  class="col-lg-6 mt-md-30px mt-lm-30px">
+            <div class="col-lg-6 mt-md-30px mt-lm-30px">
                 <div class="your-order-area">
                     <h3>Đặt hàng thành công</h3>
                     <div class="your-order-wrap gray-bg-4 mt-2 mb-3">
                         <h4 class="mb-4">Thông tin vận chuyển</h4>
-                        <p class="mb-2"> 
-                            <span>Mã đơn hàng: </span><span>#1111</span> 
+                        <p class="mb-2">
+                            <span>Mã đơn hàng: </span>
+                            <span>#
+                                <?php
+                                if (isset($_GET['vnp_TxnRef'])) {
+                                    echo $_GET['vnp_TxnRef'];
+                                } elseif (isset($_GET['orderId'])) {
+                                    echo $_GET['orderId'];
+                                }else{
+                                    echo $_SESSION['code_order'];
+                                }
+                                ?>
+                            </span>
                         </p>
                         <p class="mb-2">
-                            <span>Họ tên: </span><span>đặng quôcs trung </span>
+                            <span>Họ tên: </span><span><?= $_SESSION['account_name'] ?> </span>
                         </p>
                         <p class="mb-2">
-                            <span>Số điện thoại: </span><span>đặng quôcs trung </span>
+                            <span>Số điện thoại: </span><span><?= $_SESSION['account_address'] ?> </span>
                         </p>
                         <p class="mb-2">
-                            <span>Địa chỉ: </span><span>đặng quôcs trung </span>
+                            <span>Địa chỉ: </span><span><?= $_SESSION['account_sdt'] ?> </span>
                         </p>
                         <p class="mb-2">
-                            <span>Phương thức thanh toán: </span><span>đặng quôcs trung </span>
+                            <span>Ghi chú thêm: </span><span><?= (isset($_SESSION['message']) && $_SESSION['message'] != "") ? $_SESSION['message'] : "Không có ghi chú."; ?> </span>
+                        </p>
+                        <p class="mb-2">
+                            <span>Phương thức thanh toán: </span><span><?= $_SESSION['checkout'] ?> </span>
                         </p>
                     </div>
                     <div class="d-flex justify-content-end">
-
-                        <a href="#" style="padding: 12px 20px;  background-color: #FF7004;" class="text-center text-white ">Tiếp tục mua hàng</a>
+                        <a href="?act=home" style="padding: 12px 20px;  background-color: #FF7004;" class="text-center text-white ">Tiếp tục mua hàng</a>
                     </div>
                 </div>
             </div>
