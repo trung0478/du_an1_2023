@@ -6,7 +6,11 @@
                     <!-- Shop Top Area Start -->
                     <div class="shop-top-bar d-flex">
                         <!-- Left Side start -->
-                        <p>Có 17 sản phẩm.</p>
+                        <?php foreach ($product_count as $value) {
+                            extract($value);
+                            echo '<p>Có '.$total_count.' sản phẩm.</p>';
+                        }?>
+                        
                         <!-- Left Side End -->
                         <!-- Right Side Start -->
                         <div class="select-shoing-wrap d-flex align-items-center">
@@ -14,16 +18,16 @@
                                 <p>Sắp xếp theo:</p>
                             </div>
                             <div class="shop-select">
-                                <select class="shop-sort">
-                                    <option data-display="Relevance">Mức độ liên quan</option>
-                                    <option value="1"> Tên, A đến Z</option>
-                                    <option value="2"> Tên, Z đến A</option>
-                                    <option value="3"> Giá, từ thấp đến cao</option>
-                                    <option value="4"> Giá, từ cao đến thấp</option>
+                                <select class="shop-sort" onchange="if (this.value) { window.location = this.value; }">
+                                    <option value="?act=product_catalog&field=ten_sp&sort=asc" <?php echo ($orderField == 'ten_sp' && $orderSort == 'asc') ? 'selected' : ''; ?>>Tên, A đến Z</option>
+                                    <option value="?act=product_catalog&field=ten_sp&sort=desc" <?php echo ($orderField == 'ten_sp' && $orderSort == 'desc') ? 'selected' : ''; ?>>Tên, Z đến A</option>
+                                    <option value="?act=product_catalog&field=gia_sp&sort=asc" <?php echo ($orderField == 'gia_sp' && $orderSort == 'asc') ? 'selected' : ''; ?>>Giá, từ thấp đến cao</option>
+                                    <option value="?act=product_catalog&field=gia_sp&sort=desc" <?php echo ($orderField == 'gia_sp' && $orderSort == 'desc') ? 'selected' : ''; ?>>Giá, từ cao đến thấp</option>
                                 </select>
-
                             </div>
+                           
                         </div>
+                        
                         <!-- Right Side End -->
                     </div>
 
@@ -83,22 +87,12 @@
                                         <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
                                         <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
                                     </div>
-                                    <form action="index.php?act=addtocart" method="post">
-                                                <input type="hidden" name="ma_sp" value="<?=$ma_sp?>">
-                                                <input type="hidden" name="ten_sp" value="<?=$ten_sp?>">
-                                                <input type="hidden" name="hinh_anh" value="<?=$hinh_anh?>">
-                                                <input type="hidden" name="gia_sp" value="<?=$gia_sp?>">
-                                                <input type="hidden" name="so_luong" value="<?=$so_luong?>">
-                                                <input type="hidden" name="ten_mau" value="<?=$ten_mau?>">
-                                                <input type="hidden" name="ten_kich_co" value="<?=$ten_kich_co?>">
-                                                <button title="Add To Cart" class=" add-to-cart" name="addtocart">Thêm vào giỏ hàng</button>
-                                            </form>
                                 
                                 </div>
                                 <div class="content">
                                     <h5 class="title"><a href="shop-left-sidebar.html"><?php echo $ten_sp; ?></a></h5>
                                     <span class="price">
-                                        <span class="new"><?php echo $gia_sp; ?></span>
+                                    <span class="new"><?php echo number_format($gia_sp, 0, '.', '.'); ?></span>
                                     </span>
                                 </div>
                             </div>
@@ -113,14 +107,17 @@
                         <!--  Pagination Area Start -->
                         <div class="pro-pagination-style text-center mb-md-30px mb-lm-30px mt-30px" data-aos="fade-up">
                             <ul>
+                                
                                 <li>
                                     <a class="prev" href="#"><i class="ion-ios-arrow-left"></i></a>
                                 </li>
-                                <li><a class="active" href="#">1</a></li>
-                                <li><a href="#">2</a></li>
+                                <li><a id="page1" href="?act=product_catalog&per_page=9&page=1">1</a></li>
+                                <li><a id="page2" href="?act=product_catalog&per_page=9&page=2">2</a></li>
+                                <li><a id="page3" href="?act=product_catalog&per_page=9&page=3">3</a></li>
+
                                 <li>
                                     <a class="next" href="#"><i class="ion-ios-arrow-right"></i></a>
-                                </li>
+                                </li>   
                             </ul>
                         </div>
                         <!--  Pagination Area End -->
@@ -140,65 +137,83 @@
                                 
                                 <ul>
                                 <?php foreach ($product_count as $value) {
-                                    echo ' <li><a href="#" class="selected">Tất cả <span>'.$value['total_count'].'</span> </a></li>';
+                                    echo ' <li><a href="index.php?act=product_catalog" class="selected">Tất cả <span>'.$value['total_count'].'</span> </a></li>';
                                     }?>
                                     <?php
-                                    foreach ($product_catalog as $catalog) {
-                                        extract($catalog);
+                                    foreach ($product_catalog as $catalog) :?>
+                                    <?php extract($catalog);?>    
                                     
-                                    echo '
-                                    <li><a href="#" class="">'.$ten_lsp.' <span>('.$soluong.')</span> </a></li>
-                                    ';
-                                    }
-                                    ?>
+                                    
+                                    <li><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class=""><?=$ten_lsp?> <span>(<?=$soluong?>)</span> </a></li>
+                                    
+                                    <?php endforeach?>
                                    
                                 </ul>
                             </div>
                         </div>
                         <!-- Sidebar single item -->
                         <div class="sidebar-widget-group">
-                            <h3 class="sidebar-title">Lọc giá</h3>
+                            <h3 class="sidebar-title">Tìm kiếm</h3>
                             <div class="sidebar-widget">
-                                <h4 class="pro-sidebar-title">Giá</h4>
+                                
                                 <div class="price-filter">
-                                    <div class="price-slider-amount">
-                                        <input type="text" id="amount" class="p-0 h-auto lh-1" name="price" placeholder="Add Your Price" />
-                                    </div>
-                                    <div id="slider-range"></div>
+                                <form method="POST" action="index.php?act=product_catalog">
+                                <input  style="position: relative; height: 30px;" id="search-input" type="text" name="kyw" class="form-control" placeholder="Tìm kiếm tên danh mục" />
+                                <button class="search_c search_catalog" style="position: absolute;
+                                                                               left:25%;
+                                                                               top: 680px;
+                                                                               transform: translateY(-50%);                           
+                                                                               border: none;
+                                                                               outline: none;
+                                                                               background-color: transparent;">
+                                    <i style="color: #6D757D;" class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </form>
                                 </div>
+                                
                             </div>
                             <!-- Sidebar single item -->
                             <div class="sidebar-widget">
                                 <h4 class="pro-sidebar-title mt-5">Kích thước </h4>
                                 <div class="sidebar-widget-list">
                                     <ul>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" /> <a href="#">Lớn <span>(4)</span> </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Trung bình 
-                                                    <span>(4)</span></a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Nhỏ <span>(4)</span>
-                                                </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Cực lớn
-                                                    <span>(4)</span> </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
+                                       
+                                                <?php $i = 0?>
+                                                 <?php foreach ($product_catalog as $catalog) :?>
+                                                    <?php extract($catalog);?>    
+                                                    <?php if($i == 0){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Lớn<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark"></span>
+                                                            </div>
+                                                         </li>
+                                                    <?php }elseif($i == 2){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Trung bình<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark"></span>
+                                                            </div>
+                                                         </li>
+                                                       
+                                                    <?php }elseif($i == 4){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Nhỏ<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark"></span>
+                                                            </div>
+                                                         </li>
+                                                     
+                                                    <?php }elseif($i == 6){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Cực lớn<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark"></span>
+                                                            </div>
+                                                         </li>
+                                                        <?php }?>
+                                                    <?php $i++?>
+                                                <?php endforeach?>
                                     </ul>
                                 </div>
                             </div>
@@ -207,32 +222,43 @@
                                 <h4 class="pro-sidebar-title">Màu sắc</h4>
                                 <div class="sidebar-widget-list">
                                     <ul>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" /> <a href="#">Màu xám<span>(2)</span> </a>
-                                                <span class="checkmark grey"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Màu trắng<span>(4)</span></a>
-                                                <span class="checkmark white"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Màu đen<span>(4)</span>
-                                                </a>
-                                                <span class="checkmark black"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Màu nêu<span>(4)</span>
-                                                </a>
-                                                <span class="checkmark camel"></span>
-                                            </div>
-                                        </li>
+                                    <?php $i = 0?>
+                                                 <?php foreach ($product_catalog as $catalog) :?>
+                                                    <?php extract($catalog);?>    
+                                                    <?php if($i == 1){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Lớn<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark grey"></span>
+                                                            </div>
+                                                         </li>
+                                                    <?php }elseif($i == 3){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Trung bình<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark white"></span>
+                                                            </div>
+                                                         </li>
+                                                       
+                                                    <?php }elseif($i == 5){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Nhỏ<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark black"></span>
+                                                            </div>
+                                                         </li>
+                                                     
+                                                    <?php }elseif($i == 7){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Cực lớn<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark camel"></span>
+                                                            </div>
+                                                         </li>
+                                                        <?php }?>
+                                                    <?php $i++?>
+                                                <?php endforeach?>
+                                       
                                     </ul>
                                 </div>
                             </div>

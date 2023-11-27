@@ -14,6 +14,8 @@ include "global/global.php";
 if (!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
 $list_product = load_product(0);
 
+
+
 // Load product discount
 $list_product_discount = load_product(1);
 
@@ -283,11 +285,44 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             }
             break;
 
-        case 'product_catalog':
-            $product_catalog = getAll_product_catalog();
-            $product = getAll_product();
-            include "view/product_catalog.php";
-            break;
+            case 'product_catalog':
+                if (isset($_GET['id_lsp'])) {
+                    $id = $_GET['id_lsp'];
+                    $orderCondition = "";
+                    $orderField = isset($_GET['field']) ? $_GET['field'] : "";
+                    $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+                    if (!empty($orderField) && !empty($orderSort)) {
+                        $orderCondition = "ORDER BY `".$orderField."` ".$orderSort;
+                    }
+                    $product = getAll_product($_GET['id_lsp'],$orderCondition);
+                } else {
+                    $orderCondition = "";
+                    $orderField = isset($_GET['field']) ? $_GET['field'] : "";
+                    $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+
+                    if (!empty($orderField) && !empty($orderSort)) {
+                        $orderCondition = "ORDER BY `".$orderField."` ".$orderSort;
+                    }
+                    $item_per_page = !empty($_GET['per_page']) ? $_GET['per_page'] : 9;
+                    $current_page = !empty($_GET['page']) ? $_GET['page'] : 1;
+                    $offset = ($current_page - 1) * $item_per_page;
+
+                    if(isset($_POST['kyw']) && ($_POST['kyw'] != "" )){
+                        $kyw = $_POST['kyw'];
+                        
+                    }else{
+                        $kyw = "";
+                    }
+            
+                    $product = loadAll_product($item_per_page, $offset, $orderCondition,$kyw);
+                }
+                           
+                $product_catalog = getAll_product_catalog();
+                $product_count = product_Count();
+                        
+                include "view/product_catalog.php";
+                break;
+                
 
         case 'login':
             include "view/login.php";
