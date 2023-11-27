@@ -9,15 +9,15 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-7 col-md-7 col-sm-7 align-self-center">
                             <div class="hero-slide-content slider-animated-1">
-                                <span class="category">New Products</span>
-                                <h2 class="title-1">Flexible Chair </h2>
-                                <p>Torem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmo tempor incididunt ut labore et dolore magna</p>
-                                <a href="#" class="btn btn-lg btn-primary btn-hover-dark mt-5">Shop Now</a>
+                                <span class="category">Sản phẩm mới</span>
+                                <h2 class="title-1">Ghế sofa</h2>
+                                <p>Với thiết kế tinh tế, chất liệu chất cao cấp cùng sự kết hợp hoàn hảo giữa kiểu dáng hiện đại và phong cách cổ điển mang đến một điểm nhấn đặc biệt cho không gian nội thất</p>
+                                <a href="#" class="btn btn-lg btn-primary btn-hover-dark mt-5">Mua ngay</a>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-5 col-md-5 col-sm-5">
                             <div class="hero-slide-image">
-                                <img src="./user/public/assets/images/slider-image/slider-1.png" alt="" />
+                                <img width="100%" src="upload/sofa.png" alt="" />
                             </div>
                         </div>
                     </div>
@@ -29,15 +29,15 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-7 col-md-7 col-sm-7 align-self-center">
                             <div class="hero-slide-content slider-animated-1">
-                                <span class="category">New Products</span>
-                                <h2 class="title-1">Flexible Chair </h2>
-                                <p>Torem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmo tempor incididunt ut labore et dolore magna</p>
-                                <a href="#" class="btn btn-lg btn-primary btn-hover-dark mt-5">Shop Now</a>
+                                <span class="category">Sản phẩm mới</span>
+                                <h2 class="title-1">Giường đôi</h2>
+                                <p>Với chất liệu chất lượng cao, cùng với các chi tiết tinh tế và hoàn thiện tỉ mỉ, giường đôi cao cấp mang lại không gian nghỉ ngơi sang trọng và thoải mái</p>
+                                <a href="#" class="btn btn-lg btn-primary btn-hover-dark mt-5">Mua ngay</a>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-5 col-md-5 col-sm-5">
                             <div class="hero-slide-image">
-                                <img src="./user/public/assets/images/slider-image/slider-2.png" alt="" />
+                                <img src="upload/giuong.png" alt="" />
                             </div>
                         </div>
                     </div>
@@ -905,14 +905,14 @@
         <div class="row">
             <!-- Banner Start -->
             <div class="col-lg-6 col-12 mb-md-30px mb-lm-30px" data-aos="fade-up" data-aos-delay="200">
-                <a href="index.php?act=product_detail" class="banner">
+                <a href="index.php" class="banner">
                     <img src="./user/public/assets/images/banner/1.jpg" alt="" />
                     <div class="info justify-content-end">
                         <div class="content align-self-center">
                             <h3 class="title">
-                                Sale Furniture <br /> For Summer
+                                Giảm giá mùa <br /> Giáng Sinh
                             </h3>
-                            <p>Great Discounts Here</p>
+                            <p>Giảm ngay 50%</p>
                         </div>
                     </div>
                 </a>
@@ -921,13 +921,13 @@
 
             <!-- Banner Start -->
             <div class="col-lg-6 col-12" data-aos="fade-up" data-aos-delay="400">
-                <a href="index.php?act=product_detail" class="banner">
+                <a href="index.php" class="banner">
                     <img src="./user/public/assets/images/banner/2.jpg" alt="" />
                     <div class="info justify-content-start">
                         <div class="content align-self-center">
                             <h3 class="title">
-                                Office Chair <br /> For Best Offer</h3>
-                            <p>Great Discounts Here</p>
+                                Ghế Sofa <br /> Ưu đãi lớn nhất</h3>
+                            <p>Giảm ngay 50%</p>
                         </div>
                     </div>
                 </a>
