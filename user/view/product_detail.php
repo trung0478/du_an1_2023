@@ -35,8 +35,8 @@
                             foreach ($check_variant as $variant) {
                                 extract($variant);
                                 $image = $link_img .$hinh_anh;
-                                echo '<div class="swiper-slide">
-                                        <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\''.$hinh_anh.'\', '.$gia_km.', '.$gia_sp.', '.$so_luong.')">
+                                echo '<div class="swiper-slide"  >
+                                        <img  class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\''.$hinh_anh.'\', '.$gia_km.', '.$gia_sp.', '.$so_luong.')">
                                     </div>';
                             }
                         ?>
@@ -50,7 +50,7 @@
                             foreach ($check_variant as $variant) {
                                 extract($variant);
                                 $image = $link_img .$hinh_anh;
-                                echo '<div class="swiper-slide">
+                                echo '<div class="swiper-slide" style="margin-top: 20px;">
                                         <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\''.$hinh_anh.'\', '.$gia_km.', '.$gia_sp.', '.$so_luong.')">
                                     </div>';
                             }

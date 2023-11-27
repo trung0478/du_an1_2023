@@ -46,7 +46,7 @@
                             <!-- Single Product -->
                             <div class="product mb-25px">
                                 <div class="thumb">
-                                    <a href="shop-left-sidebar.html" class="image">
+                                    <a href="index.php?act=product_detail&id_pro=<?=$ma_sp; ?>" class="image">
                                          <?php 
                                     if ($i == 0 || $i == 2 || $i == 4 || $i == 8 || $i == 10) {
                                         echo '<span class="badges">
@@ -83,10 +83,11 @@
                                     }
                                     ?>
                                     <div class="actions">
-                                        <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                        <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
-                                        <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
+                                        <a href="#" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
+                                        <a href="?act=home&id_pro=<?=$ma_sp; ?>" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
+                                        <a href="#" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
                                     </div>
+                                    <button title="Add To Cart" class=" add-to-cart">Thêm vào giỏ hàng</button>
                                 
                                 </div>
                                 <div class="content">
