@@ -159,6 +159,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
 
             // thanks
         case 'thanks':
+            
             include 'view/thanks.php';
             break;
 
