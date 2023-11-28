@@ -14,6 +14,8 @@
     <link href="../admin/public/assets_admin/css/icons.css" rel="stylesheet" type="text/css">
     <link href="../admin/public/assets_admin/css/style.css" rel="stylesheet" type="text/css">
     <script src="https://kit.fontawesome.com/8e3c294816.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 </head>

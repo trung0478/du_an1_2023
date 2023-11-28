@@ -18,6 +18,11 @@
         $result = pdo_query($sql);
         return $result;
     }
+    function search_product($kyw){
+        $sql = "SELECT sp.*, bt.* FROM sanpham sp JOIN bienthe bt ON sp.ma_sp = bt.ma_sp WHERE `ten_sp` LIKE '%".$kyw."%'";
+        $result = pdo_query($sql);
+        return $result;
+    }
    
     function product_Count(){
         $sql = "SELECT COUNT(*) AS total_count FROM sanpham WHERE ma_lsp = ma_lsp";

@@ -7,9 +7,13 @@ include "model/comment.php";
 include "model/account.php";
 include "model/product.php";
 include "model/voucher.php";
+include "model/statistical.php";
 include "model/order.php";
 include 'view/header.php';
+$statistical_product_seling = statistical_product_seling();
+$statistical_category = statistical_category();
 ?>
+
    <?php
     if (isset($_GET['act']) && $_GET['act'] != "") {
         $act = $_GET['act'];
@@ -269,6 +273,10 @@ include 'view/header.php';
                 break;
 
                 // Staff
+            case 'list_statistical':
+                $statistical_product_seling = statistical_product_seling();
+                $statistical_category = statistical_category();
+                include '../admin/view/statistical/list_statistical.php';
             case 'list_order':
                 $list_order = list_order();
                 include '../admin/view/order/list_order.php';
@@ -281,6 +289,14 @@ include 'view/header.php';
                 echo "<script> window.location.href='index.php?act=list_order';</script>";
                 include '../admin/view/order/list_order.php';
                 break;
+            case 'statistical':
+                $statistical_category = statistical_category();
+                
+                include '../admin/view/statistical/statistical.php';
+                break;
+            case 'product_chart':
+                $statistical_product_seling = statistical_product_seling();
+                include '../admin/view/statistical/product_chart.php';
             case 'delete_order':
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
                     delete_order($_GET['id']);
