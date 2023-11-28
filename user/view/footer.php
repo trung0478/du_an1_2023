@@ -134,63 +134,30 @@
     <script src="./user/public/assets/js/plugins/ajax-mail.js"></script> -->
 
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
-        <script src="./user/public/assets/js/vendor/vendor.min.js"></script>
+        <!-- <script src="./user/public/assets/js/vendor/vendor.min.js"></script> -->
     <script src="./user/public/assets/js/plugins/plugins.min.js"></script>
 
     <!-- Main Js -->
     <script src="./user/public/assets/js/main.js"></script>
 
+
 <script>
-  var currentURL = window.location.href;
-  var page1 = document.getElementById("page1");
-  var page2 = document.getElementById("page2");
-  var page3 = document.getElementById("page3");
-
-  if (!currentURL.includes("page=")) {
-    // Nếu không có tham số "page" trong URL, đặt trang mặc định là "active"
-    page1.classList.add("active");
-  } else {
-    if (currentURL.includes("page=1")) {
-      page1.classList.add("active");
-    } else if (currentURL.includes("page=2")) {
-      page2.classList.add("active");
-    } else if (currentURL.includes("page=3")) {
-      page3.classList.add("active");
-    }
-  }
-
-  page1.addEventListener("click", function() {
-    page1.classList.add("active");
-    page2.classList.remove("active");
-    page3.classList.remove("active");
-  });
-
-  page2.addEventListener("click", function() {
-    page2.classList.add("active");
-    page1.classList.remove("active");
-    page3.classList.remove("active");
-  });
-
-  page3.addEventListener("click", function() {
-    page3.classList.add("active");
-    page1.classList.remove("active");
-    page2.classList.remove("active");
-  });
-  
-  //Tìm kiếm sản phẩm
-  const placeholderText = "Nhập tìm kiếm sản phẩm";
-const placeholderElement = document.getElementById("search-input");
-    function typingEffect() {
-  let i = 0;
-  setInterval(() => {
-    placeholderElement.placeholder = placeholderText.slice(0, i);
-    i = (i + 1) % (placeholderText.length + 1);
-  }, 150);
-}
-
-typingEffect();
-  
-
+    $(document).ready(function() {
+        $("#myForm").validate({
+            rules: {
+                namecolor: "required",
+                namesize : "required",
+            },
+            messages: {
+                namecolor: "Vui lòng chọn màu.",
+                namesize: "Vui lòng chọn size.",
+                
+            },
+            errorPlacement: function(error, element) {
+                error.insertAfter(element); // Hiển thị thông báo lỗi dưới ô input
+            }
+        });
+    });
 </script>
 
 

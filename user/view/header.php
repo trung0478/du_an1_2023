@@ -1,5 +1,5 @@
 <?php
-                   $product_catalog = getAll_product_catalog();
+$product_catalog = getAll_product_catalog();
 
 ?>
 <!DOCTYPE html>
@@ -33,6 +33,8 @@
     <link rel="apple-touch-icon" href="./user/public/assets/images/favicon/favicon.png" />
     <script src="https://kit.fontawesome.com/8e3c294816.js" crossorigin="anonymous"></script>
     <meta name="msapplication-TileImage" content="./user/public/assets/images/favicon/favicon.png" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <!-- Structured Data  -->
     <script type="application/ld+json">
         {
@@ -66,6 +68,15 @@
 
 </head>
 
+<style>
+    label.error {
+        color: red;
+        font-size: 16px;
+        margin-top: 5px;
+        display: block;
+    }
+</style>
+
 <body>
     <!-- Header Area start  -->
     <div class="header section">
@@ -90,7 +101,7 @@
                                 <div class="dropdown_search">
                                     <form class="action-form" action="">
                                         <input class="form-control" placeholder="Nhập sản phẩm tìm kiếm" id="search-input" name="kyw" type="text">
-                                       
+
                                         <a href="?act=search_product"> <button class="submit" name="search" type="submit"><i class="icon-magnifier"></i></button></a>
                                     </form>
                                 </div>
@@ -100,26 +111,27 @@
                                 <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i class="icon-user"></i></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <?php
-                                        if(isset($_SESSION['account'])){
-                                            extract($_SESSION['account']);
+                                    if (isset($_SESSION['account'])) {
+                                        extract($_SESSION['account']);
                                     ?>
                                         <li><a class="dropdown-item" href="index.php?act=edit_account">Tài khoản</a></li>
-                                        <?php if($vai_tro == 1) {?>
+                                        <?php if ($vai_tro == 1) { ?>
                                             <li><a class="dropdown-item" href="./admin/index.php">Quản trị</a></li>
-                                        <?php }?>
-                                            <li><a class="dropdown-item" href="index.php?act=order">Đơn hàng</a></li>
-                                            <li><a class="dropdown-item" href="index.php?act=logout">Đăng xuất</a></li>
-                                    <?php } else {?>
+                                        <?php } ?>
+                                        <li><a class="dropdown-item" href="index.php?act=order">Đơn hàng</a></li>
+                                        <li><a class="dropdown-item" href="index.php?act=logout">Đăng xuất</a></li>
+                                    <?php } else { ?>
                                         <li><a class="dropdown-item" href="index.php?act=login">Đăng nhập</a></li>
                                         <li><a class="dropdown-item" href="index.php?act=register">Đăng ký</a></li>
                                 </ul>
-                                    <?php }?>
-                                
+                            <?php } ?>
+
                             </div>
                             <!-- Single Wedge End -->
                             <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                                 <i class="icon-handbag"></i>
-                                <span class="header-action-num"><?php (isset($_SESSION['mycart'])) ? $count = count($_SESSION['mycart']) : $count = ""; echo $count ?></span>
+                                <span class="header-action-num"><?php (isset($_SESSION['mycart'])) ? $count = count($_SESSION['mycart']) : $count = "";
+                                                                echo $count ?></span>
                                 <!-- <span class="cart-amount">€30.00</span> -->
                             </a>
                             <a href="#offcanvas-mobile-menu" class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
@@ -170,7 +182,8 @@
                             <!-- Single Wedge End -->
                             <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                                 <i class="icon-handbag"></i>
-                                <span class="header-action-num"><?php (isset($_SESSION['mycart'])) ? $count = count($_SESSION['mycart']) : $count = ""; echo $count ?></span>
+                                <span class="header-action-num"><?php (isset($_SESSION['mycart'])) ? $count = count($_SESSION['mycart']) : $count = "";
+                                                                echo $count ?></span>
                                 <!-- <span class="cart-amount">€30.00</span> -->
                             </a>
                             <a href="#offcanvas-mobile-menu" class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
@@ -195,32 +208,32 @@
                                 <li><a href="index.php?act=about">Giới thiệu</a></li>
                                 <li class="dropdown position-static"><a href="#">Cửa hàng
                                         <i class="ion-ios-arrow-down"></i></a>
-                                       
+
                                     <ul class="mega-menu d-block" style="width: 80%; margin-left: 210px;">
                                         <?php $i = 0; ?>
-                                        <?php foreach ($product_catalog as $value): ?>
+                                        <?php foreach ($product_catalog as $value) : ?>
                                             <?php extract($value); ?>
-                                            <?php if ($i % 4 === 0): ?>
-                                                <?php if ($i !== 0): ?>
-                                                    </li>
-                                                <?php endif; ?>
-                                                <li class="d-flex">
-                                            <?php endif; ?>
-
-                                            <ul class="d-block">
-                                                <li><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>"><?=$ten_lsp?></a></li>
-                                            </ul>
-
-                                            <?php $i++; ?>
-                                        <?php endforeach; ?>
-
-                                        <?php if ($i !== 0): ?>
-                                            </li>
-                                        <?php endif; ?>
-                                    </ul>   
+                                            <?php if ($i % 4 === 0) : ?>
+                                                <?php if ($i !== 0) : ?>
                                 </li>
-                                <li class="dropdown "><a href="index.php?act=blog">Tin tức</a></li>
-                                <li><a href="index.php?act=contact">Liên hệ</a></li>
+                            <?php endif; ?>
+                            <li class="d-flex">
+                            <?php endif; ?>
+
+                            <ul class="d-block">
+                                <li><a href="index.php?act=product_catalog&id_lsp=<?= $ma_lsp ?>"><?= $ten_lsp ?></a></li>
+                            </ul>
+
+                            <?php $i++; ?>
+                        <?php endforeach; ?>
+
+                        <?php if ($i !== 0) : ?>
+                            </li>
+                        <?php endif; ?>
+                            </ul>
+                            </li>
+                            <li class="dropdown "><a href="index.php?act=blog">Tin tức</a></li>
+                            <li><a href="index.php?act=contact">Liên hệ</a></li>
                             </ul>
                         </div>
                     </div>
@@ -230,77 +243,77 @@
         <!-- Main Menu End -->
 
         <!-- OffCanvas Cart Start -->
-    <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
-        <div class="inner">
-            <div class="head">
-                <span class="title">Giỏ hàng</span>
-                <button class="offcanvas-close">×</button>
-            </div>
-            <?php
+        <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
+            <div class="inner">
+                <div class="head">
+                    <span class="title">Giỏ hàng</span>
+                    <button class="offcanvas-close">×</button>
+                </div>
+                <?php
                 $sum = 0;
                 $i = 0;
-                $total =0 ;
+                $total = 0;
                 $shippingFee = 30000; // Phí vận chuyển
                 if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
                     foreach ($_SESSION['mycart'] as $cart) {
                         $img = "upload/" . $cart[2];
                         $thanhtien = $cart[3] * $cart[4];
                         $sum += $thanhtien;
-                        
+
                         $total = $sum + $shippingFee;
-                        ?>
+                ?>
                         <div class="body customScroll">
                             <ul style="margin-bottom: 20px;" class="minicart-product-list">
                                 <li>
                                     <a href="single-product.html" class="image"><img src="<?= $img ?>" alt="Cart product Image"></a>
                                     <div class="content">
                                         <a href="single-product.html" class="title"><?= $cart[1] ?></a>
-                                        <span class="quantity-price"><?= $cart[4] ?> x <span class="amount"><?=number_format($cart[3], 0, '.', '.')?></span></span>
-                                        <a href="index.php?act=del_cart&idcart=<?=$i?>" class="remove">×</a>
+                                        <span class="quantity-price"><?= $cart[4] ?> x <span class="amount"><?= number_format($cart[3], 0, '.', '.') ?></span></span>
+                                        <a href="index.php?act=del_cart&idcart=<?= $i ?>" class="remove">×</a>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                 <?php
-                $i++;
-                    } 
+                        $i++;
+                    }
                 }
                 ?>
 
-            
-            <div class="foot">
-                <div class="sub-total">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-start">Tổng phụ :</td>
-                                <td class="text-end"><?=number_format($sum, 0, '.', '.')?></td>
-                            </tr>
-                            <tr>
-                                <td class="text-start">Phí ship :</td>
-                                <td class="text-end"><?=number_format($shippingFee, 0, '.', '.')?></td>
-                            </tr>
-                           
-                            <tr>
-                                <td class="text-start">Tổng tiền :</td>
-                                <td class="text-end theme-color"><?=number_format($total, 0, '.', '.')?></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="buttons">
-                    <?php
+
+                <div class="foot">
+                    <div class="sub-total">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="text-start">Tổng phụ :</td>
+                                    <td class="text-end"><?= number_format($sum, 0, '.', '.') ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-start">Phí ship :</td>
+                                    <td class="text-end"><?= number_format($shippingFee, 0, '.', '.') ?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-start">Tổng tiền :</td>
+                                    <td class="text-end theme-color"><?= number_format($total, 0, '.', '.') ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="buttons">
+                        <?php
                         if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
                             echo '<a href="?act=viewcart" class="btn btn-dark btn-hover-primary mb-30px">Xem giỏ hàng</a>';
                         } else {
                             echo '<a href="?act=empty_cart" class="btn btn-dark btn-hover-primary mb-30px">Xem giỏ hàng</a>';
                         }
-                    ?>
-                    <a href="?act=cart_pay" class="btn btn-outline-dark current-btn">Tiến hành thanh toán</a>
+                        ?>
+                        <a href="?act=cart_pay" class="btn btn-outline-dark current-btn">Tiến hành thanh toán</a>
+                    </div>
+                    <p class="minicart-message">Giao hàng miễn phí cho $100!</p>
                 </div>
-                <p class="minicart-message">Giao hàng miễn phí cho $100!</p>
             </div>
+            <!-- OffCanvas Cart End -->
         </div>
-        <!-- OffCanvas Cart End -->
-    </div>
-    <!-- Header Area End  -->
+        <!-- Header Area End  -->

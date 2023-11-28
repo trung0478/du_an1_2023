@@ -93,10 +93,10 @@
                         </ul>
                     </div>
                     <p class="quickview-para"><?= $mo_ta ?></p>
-                    <form action="index.php?act=addtocart" method="post">
+                    <form id="myForm" action="index.php?act=addtocart" method="post">
                         <div class="pro-details-size-color d-flex">
-                            <div class="pro-details-color-wrap">
-                                <span>Màu</span>
+                            <div style="margin-right: 12px;" class="pro-details-color-wrap">
+                                <label>Màu</label>
                                 <select name="namecolor" id="colorSelect" class="form-control">
                                     <option disabled selected>Chọn màu</option>
                                     <?php
@@ -114,8 +114,8 @@
                             </div> -->
                             </div>
 
-                            <div class="product-size">
-                                <span>Kích thước</span>
+                            <div class="pro-details-color-wrap">
+                                <label>Kích thước</label>
                                 <select name="namesize" id="sizeSelect" class="form-control">
                                     <option disabled selected>Chọn kích thước</option>
                                     <?php
