@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-8">
                 <h3>Sửa mã khuyến mãi </h3>
-                <form method="post" enctype="multipart/form-data">
+                <form id="myForm" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <input type="hidden" name="id_voucher" value="<?= $voucher['ma_voucher'] ?>">
 

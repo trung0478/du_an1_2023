@@ -165,7 +165,7 @@
                                         </ul>
                                     </div>
                                     <h4 class="grand-totall-title">Tổng cộng <span>' . number_format($total, 0, '.', '.') . ' vnđ</span></h4>
-                                    <a href="index.php?act=checkout">Tiến hành thanh toán</a>
+                                    <a href="index.php?act=checkout_info">Tiến hành thanh toán</a>
                                     ';
                                     ?>
                                     

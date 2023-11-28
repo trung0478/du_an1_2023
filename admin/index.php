@@ -275,7 +275,7 @@ include 'view/header.php';
                 include '../admin/view/statistical/add_staff.php';
                 break;
             case 'update_staff':
-                include '../admin/view/statistical/update_staff.php';
+                include '../admin/view/staff/update_staff.php';
                 break;
 
                 // Order

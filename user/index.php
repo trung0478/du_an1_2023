@@ -1,21 +1,20 @@
 <?php
 ob_start();
 session_start();
-$_SESSION['user'] = 'Trung'; 
+$_SESSION['user'] = 'Trung';
 include "config/connectdb.php";
 include "user/model/product.php";
 include "model/product_catalog.php";
 include "user/model/comment.php";
+include "user/model/checkout.php";
 include "model/account.php";
 include "view/header.php";
 include "global/global.php";
 // Load product - Our product
 
-if(!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
+if (!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
 // $list_product = load_product(0);
-$list_product = get_all_product(); 
-
-
+$list_product = get_all_product();
 
 // Load product discount
 $list_product_discount = load_product(1);
@@ -88,57 +87,82 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                     }
                 }
             }
-                include "view/cart/cart.php";
-                break;
-                case 'del_cart':
-                    if(isset($_GET['idcart'])){
-                        array_splice($_SESSION['mycart'], $_GET['idcart'], 1);
-                    }else{
-                        $_SESSION['mycart'] = [];
-                    }
-                    if (count($_SESSION['mycart']) > 0) {
-                        header('location: index.php?act=viewcart');
-                    }else {
-                        header('location: index.php?act=empty_cart');
-                    }
-                    // header('Location: index.php?act=viewcart');
-                    break;
-                case 'pockup':
-                    if (isset($_GET['idpro']) && $_GET['idpro'] > 0) {
-                        // load product_detail by id_pro
-                        $check_variant = check_variant($_GET['idpro']);
-                        $one_variant = get_one_product($_GET['idpro']);
-                        $one_product = get_one_product($_GET['idpro']);
-                        $get_color_size = get_color_size($_GET['idpro']);
+            include "view/cart/cart.php";
+            break;
+        case 'del_cart':
+            if (isset($_GET['idcart'])) {
+                array_splice($_SESSION['mycart'], $_GET['idcart'], 1);
+            } else {
+                $_SESSION['mycart'] = [];
+            }
+            if (count($_SESSION['mycart']) > 0) {
+                header('location: index.php?act=viewcart');
+            } else {
+                header('location: index.php?act=empty_cart');
+            }
+            // header('Location: index.php?act=viewcart');
+            break;
+        case 'pockup':
+            if (isset($_GET['idpro']) && $_GET['idpro'] > 0) {
+                // load product_detail by id_pro
+                $check_variant = check_variant($_GET['idpro']);
+                $one_variant = get_one_product($_GET['idpro']);
+                $one_product = get_one_product($_GET['idpro']);
+                $get_color_size = get_color_size($_GET['idpro']);
 
-                        $img_product = load_img_by_idpro(($_GET['idpro']));
-                    }
-                    include 'view/pockup.php';
-                    break;
-                case 'viewcart':
-                    include 'view/cart/cart.php';
-                    break;
-                case 'checkout':
-                    if (isset($_POST['update'])) {
-                        $full_name = $_POST['full_name'];
-                        $gender = $_POST['gender'];
-                        $email = $_POST['email'];
-                        $address = $_POST['address'];
-                        $telephone = $_POST['telephone'];
-                        $id = $_POST['id'];
-        
-                        update_account($id, $full_name, $gender, $email, $address, $telephone);
-                        $getOne_account = getOne_account($id);
-                        $_SESSION['account'] = $getOne_account;
-                        $message = "Đã cập nhật thành công!";
-                    }
-                    include 'view/cart/checkout.php';
-                    break;
-                case 'empty_cart':
-                    include 'view/cart/empty_cart.php';
-                    break;
-            
-        // Begin-> Account
+                $img_product = load_img_by_idpro(($_GET['idpro']));
+            }
+            include 'view/pockup.php';
+            break;
+        case 'viewcart':
+            include 'view/cart/cart.php';
+            break;
+
+        case 'empty_cart':
+            include 'view/cart/empty_cart.php';
+            break;
+
+            // checkout 
+        case 'checkout_info':
+            // echo "<pre>";
+            // print_r($_SESSION['mycart']);
+            // echo "</pre>";
+            if (isset($_SESSION['id_account']) && $_SESSION['id_account'] > 0) {
+                $one_account = getOne_account($_SESSION['id_account']);
+            }
+            include 'view/checkout/checkout_info.php';
+            break;
+
+        case 'checkout':
+            if (isset($_POST['checkout'])) {
+                $_SESSION['account_name'] = $_POST['account_name'];
+                $_SESSION['account_address'] = $_POST['account_address'];
+                $_SESSION['account_sdt'] = $_POST['account_sdt'];
+                $_SESSION['message'] = $_POST['message'];
+
+                if (isset($_POST['redirect'])) {
+                    $tong_gia =$_SESSION['total'];
+                    $_SESSION['checkout'] = $_POST['redirect'];
+                    include 'view/checkout/checkout_vnpay.php';
+                } elseif (isset($_POST['payUrl'])) {
+                    $tong_gia = $_SESSION['total'];
+                    $_SESSION['checkout'] = $_POST['payUrl'];
+                    execPostRequest($url, $data);
+                    include 'view/checkout/checkout_momo.php';
+                } else {
+                    $_SESSION['code_order'] = rand(00,99999);
+                    $_SESSION['checkout'] = $_POST['checkout_delivery'];
+                    include 'view/thanks.php';
+                }
+            }
+            break;
+
+            // thanks
+        case 'thanks':
+            include 'view/thanks.php';
+            break;
+
+            // Begin-> Account
         case 'account':
             include "view/account.php";
             break;
