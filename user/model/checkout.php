@@ -1,4 +1,45 @@
 <?php
+function create_order($id_order, $total_order, $id_user, $name, $address, $telephone, $email, $method_pay, $note, $date_create) {
+    $sql = "INSERT INTO donhang (ma_dh, tong_dh, ma_nd, ho_ten, dia_chi, sdt, email, pttt, ghi_chu, ngay_dat)
+    VALUES('".$id_order."', '".$total_order."', '".$id_user."', '".$name."', '".$address."', '".$telephone."', '".$email."', '".$method_pay."', '".$note."', '".$date_create."')";
+    return pdo_execute_lastInsertId($sql);
+}
+function add_order_detail($create_order_id, $id_pro, $name_pro, $image, $color, $size, $quantity, $price) {
+    $sql = "INSERT INTO giohang (ma_dh, ma_sp, ten_sp, hinh_anh, mau_sac, kich_co, so_luong, don_gia)
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    pdo_execute($sql, $create_order_id, $id_pro, $name_pro, $image, $color, $size, $quantity, $price);
+}
+
+function get_show_bill_cart($create_order_id){
+    $sql="SELECT * FROM giohang WHERE ma_dh = $create_order_id";
+    $show = pdo_query($sql);
+    return $show;
+}
+function get_show_bill_info($create_order_id){
+    $sql="SELECT * FROM donhang WHERE ma = $create_order_id";
+    $show = pdo_query_one($sql);
+    return $show;
+}
+
+function get_payment($n) {
+    switch ($n) {
+        case '1':
+            $pay = "Thanh toán khi nhận hàng";
+            break;
+        case '2':
+            $pay = "Thanh toán VNPay";
+            break;
+        case '3':
+            $pay = "Thanh toán Momo";
+            break;
+        
+        default:
+            $pay = "Khi nhận hàng";
+            break;
+    }
+    return $pay;
+}
+
 function execPostRequest($url, $data)
 {
     $ch = curl_init($url);
