@@ -7,6 +7,7 @@ include "model/comment.php";
 include "model/account.php";
 include "model/product.php";
 include "model/voucher.php";
+include "model/statistical.php";
 include 'view/header.php';
 ?>
    <?php
@@ -268,14 +269,22 @@ include 'view/header.php';
                 break;
 
                 // Staff
-            case 'list_staff':
-                include '../admin/view/statistical/list_staff.php';
+            case 'list_statistical':
+                $statistical_product_seling = statistical_product_seling();
+                $statistical_category = statistical_category();
+                include '../admin/view/statistical/list_statistical.php';
                 break;
             case 'add_staff':
                 include '../admin/view/statistical/add_staff.php';
                 break;
-            case 'update_staff':
-                include '../admin/view/statistical/update_staff.php';
+            case 'statistical':
+                $statistical_category = statistical_category();
+                
+                include '../admin/view/statistical/statistical.php';
+                break;
+            case 'product_chart':
+                $statistical_product_seling = statistical_product_seling();
+                include '../admin/view/statistical/product_chart.php';
                 break;
 
                 // Order

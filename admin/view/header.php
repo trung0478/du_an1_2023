@@ -14,6 +14,8 @@
     <link href="../admin/public/assets_admin/css/icons.css" rel="stylesheet" type="text/css">
     <link href="../admin/public/assets_admin/css/style.css" rel="stylesheet" type="text/css">
     <script src="https://kit.fontawesome.com/8e3c294816.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 </head>
 
 <body>
@@ -118,7 +120,7 @@
                                 <i class="fa-regular fa-user"></i>Tài khoản</a>
                         </li>
                         <li class="has-submenu">
-                            <a href="?act=list_staff">
+                            <a href="?act=list_statistical">
                             <i class="fa-solid fa-people-roof"></i>Thống kê</a>
                         </li>
                     </ul>
