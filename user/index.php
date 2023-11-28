@@ -300,6 +300,18 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 include "view/product_detail.php";
             }
             break;
+            case 'search_product':
+                if(isset($_GET['kyw'])){
+                    $kyw = $_GET['kyw'];
+                    search_product($kyw);
+                    
+                    // Chuyển hướng đến trang sản phẩm sau khi thực hiện tìm kiếm
+                    header("Location: view/product_catalog.php");
+                    exit();
+                }
+                include "view/product_catalog.php";
+                break;
+            
 
             case 'product_catalog':
                 if (isset($_GET['id_lsp'])) {

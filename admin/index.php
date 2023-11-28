@@ -9,7 +9,10 @@ include "model/product.php";
 include "model/voucher.php";
 include "model/statistical.php";
 include 'view/header.php';
+$statistical_product_seling = statistical_product_seling();
+$statistical_category = statistical_category();
 ?>
+
    <?php
     if (isset($_GET['act']) && $_GET['act'] != "") {
         $act = $_GET['act'];
