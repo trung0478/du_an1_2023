@@ -33,6 +33,7 @@
     <link rel="apple-touch-icon" href="./user/public/assets/images/favicon/favicon.png" />
     <script src="https://kit.fontawesome.com/8e3c294816.js" crossorigin="anonymous"></script>
     <meta name="msapplication-TileImage" content="./user/public/assets/images/favicon/favicon.png" />
+    
     <!-- Structured Data  -->
     <script type="application/ld+json">
         {
