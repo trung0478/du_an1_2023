@@ -88,10 +88,10 @@
                             <div class="header_account_list">
                                 <a href="javascript:void(0)" class="header-action-btn search-btn"><i class="icon-magnifier"></i></a>
                                 <div class="dropdown_search">
-                                    <form class="action-form" action="">
+                                    <form class="action-form" action="index.php?act=search_product" method="POST">
                                         <input class="form-control" placeholder="Nhập sản phẩm tìm kiếm" id="search-input" name="kyw" type="text">
                                        
-                                        <a href="?act=search_product"> <button class="submit" name="search" type="submit"><i class="icon-magnifier"></i></button></a>
+                                        <button class="submit" name="search" type="submit"><i class="icon-magnifier"></i></button>
                                     </form>
                                 </div>
                             </div>
