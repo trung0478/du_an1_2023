@@ -7,6 +7,7 @@ include "model/comment.php";
 include "model/account.php";
 include "model/product.php";
 include "model/voucher.php";
+include "model/order.php";
 include 'view/header.php';
 ?>
    <?php
@@ -268,14 +269,24 @@ include 'view/header.php';
                 break;
 
                 // Staff
-            case 'list_staff':
-                include '../admin/view/staff/list_staff.php';
+            case 'list_order':
+                $list_order = list_order();
+                include '../admin/view/order/list_order.php';
                 break;
-            case 'add_staff':
-                include '../admin/view/staff/add_staff.php';
+            case 'confirm_order':
+                if (isset($_GET['status']) && isset($_GET['id'])) {
+                    confirm_order($_GET['status'], $_GET['id']);
+                }
+                $list_order = list_order();
+                echo "<script> window.location.href='index.php?act=list_order';</script>";
+                include '../admin/view/order/list_order.php';
                 break;
-            case 'update_staff':
-                include '../admin/view/staff/update_staff.php';
+            case 'delete_order':
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    delete_order($_GET['id']);
+                    echo "<script> window.location.href='index.php?act=list_order';</script>";
+                }
+                include '../admin/view/order/list_order.php';
                 break;
 
                 // Order

@@ -5,11 +5,12 @@ $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
 $partnerCode = 'MOMOBKUN20180529';
 $accessKey = 'klm05TvNBzhg7h7j';
 $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+
 $orderInfo = "Thanh toán qua MoMo";
-$amount = $tong_gia; // tổng tiền sẽ hiện trên hoá đơn
+$amount = 10000; // tổng tiền sẽ hiện trên hoá đơn
 $orderId = time() ."";
-$redirectUrl = "http://localhost/du_an1_2023/index.php?act=thanks";
-$ipnUrl = "http://localhost/du_an1_2023/index.php?act=thanks";
+$redirectUrl = "http://localhost/project1/index.php?act=payment";
+$ipnUrl = "http://localhost/project1/index.php?act=payment";
 $extraData = "";
 
 

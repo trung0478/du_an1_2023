@@ -77,7 +77,7 @@
                         <div class="row">
                             <?php
                             foreach ($list_product as $value) :
-                                extract($value)
+                                extract($value);
                             ?>
                                 <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up" data-aos-delay="200">
                                     <!-- Single Product -->
@@ -85,7 +85,7 @@
                                         <div class="thumb">
                                             <a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>" class="image">
                                                 <img src="<?= $link_img . $hinh_anh; ?>" alt="Product" />
-                                                <img class="hover-image" src="<?= $link_img . $hinh_anh; ?>" alt="Product" />
+                                                <!-- <img class="hover-image" src="" alt="Product" /> -->
                                             </a>
 
                                             <div class="actions">

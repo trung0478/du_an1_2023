@@ -3643,6 +3643,7 @@ body.offcanvas-open {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  align-items: center;
   margin: 0 0 10px;
 }
 .your-order-area

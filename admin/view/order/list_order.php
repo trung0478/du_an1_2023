@@ -8,47 +8,67 @@
                 <table class="table">
                     <thead>
                         <tr class="text-center">
-                            <th scope="col">STT</th>
-                            <th scope="col">Tên</th>
-                            <th scope="col">Giá</th>
-                            <th scope="col">Số lượng</th>
-                            <th scope="col">Màu</th>
-                            <th scope="col">Ảnh</th>
-                            <th scope="col">Kích thước</th>
-                            <th scope="col">Hành động</th>
+                            <th scope="col">Mã đơn hàng</th>
+                            <th scope="col">Tên khách hàng</th>
+                            <th scope="col">Ngày đặt hàng</th>
+                            <th scope="col">Tổng tiền</th>
+                            <th scope="col">Số hóa đơn</th>
+                            <th scope="col">Địa chỉ</th>
+                            <th scope="col">PT thanh toán</th>
+                            <th scope="col">Ghi chú</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                            foreach ($list_order as $order) :
+                                extract($order);
+                                $pttt = get_payment($pttt);
+                                $del_order = "?act=delete_order&id=$ma";
+                                $confirm_order = "?act=confirm_order&status=$trang_thai&id=$ma";
+                                $trang_thai = get_status($trang_thai);
+                        ?>
                         <tr>
                             <td class="text-center">
-                                1
+                                <?= $ma ?>
                             </td>
                             <td class="text-center">
-                                1
+                                <?= $ho_ten ?>
                             </td>
                             <td class="text-center">
-                                1
+                                <?= $ngay_dat ?>
                             </td>
                             <td class="text-center">
-                                1
+                                <?= number_format($tong_dh, 0, '.', '.') ?>
                             </td>
                             <td class="text-center">
-                                1
+                                <?= $ma_dh ?>
                             </td>
                             <td class="text-center">
-                                1
+                                <?= $dia_chi ?>
                             </td>
                             <td class="text-center">
-                                1
+                                <?= $pttt ?>
+                            </td>
+                            <td class="text-center">
+                                <?= $ghi_chu ?>
+                            </td>
+                            <td class="text-center">
+                                <?= $trang_thai ?>
                             </td>
 
                             <td class="text-center">
-                                <a href="?act=update_order" class="btn btn-warning">Sửa</a>
-                                <a onclick="return confirm('Bạn có xoá không?')" href="" class="btn btn-danger">
+                                <!-- <a href="?act=update_order" class="btn btn-warning">Sửa</a> -->
+                                <a href="<?= $confirm_order ?>" class="btn btn-warning">
+                                    Xác nhận
+                                </a>
+                                <a onclick="return confirm('Bạn có xoá không?')" href="<?= $del_order ?>" class="btn btn-danger">
                                     Xóa
                                 </a>
                             </td>
                         </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

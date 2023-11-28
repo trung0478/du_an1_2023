@@ -1,18 +1,18 @@
 <?php
 $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-$vnp_Returnurl = "http://localhost/du_an1_2023/index.php?act=thanks";
+$vnp_Returnurl = "http://localhost/project1/index.php?act=payment";
 $vnp_TmnCode = "CGXZLS0Z";//Mã website tại VNPAY 
 $vnp_HashSecret = "XNBCJFAKAZQSGTARRLGCHVZWCIOIGSHN"; //Chuỗi bí mật
 
-$vnp_TxnRef = rand(00,99999); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+$vnp_TxnRef = rand(0,999999); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
 $vnp_OrderInfo = 'Noi dung thanh toan';
 $vnp_OrderType = 'billpayment';
-$vnp_Amount = $tong_gia * 100;
+$vnp_Amount = 10000 * 100;
 $vnp_Locale = 'vn';
 $vnp_BankCode = 'NCB';
 $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
 //Add Params of 2.0.1 Version
-// $vnp_ExpireDate = $_POST['txtexpire'];
+$vnp_ExpireDate = $_POST['txtexpire'];
 //Billing
 // $vnp_Bill_Mobile = $_POST['txt_billing_mobile'];
 // $vnp_Bill_Email = $_POST['txt_billing_email'];
