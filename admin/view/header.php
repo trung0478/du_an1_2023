@@ -16,7 +16,18 @@
     <script src="https://kit.fontawesome.com/8e3c294816.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 </head>
+
+<style>
+    label.error {
+        color: red;
+        font-size: 16px;
+        margin-top: 5px;
+        display: block;
+    }
+</style>
 
 <body>
     <!-- Loader -->
@@ -40,7 +51,7 @@
                     <ul class="list-unstyled float-right mb-0">
                         <!-- language-->
                         <li class="dropdown notification-list hide-phone">
-                            
+
                             <div class="dropdown-menu dropdown-menu-right language-switch">
                                 <a class="dropdown-item" href="#">
                                     <img src="../admin/public/assets_admin/images/flags/Flag_Vietnam.svg.png" alt="" height="16">
@@ -51,8 +62,7 @@
 
                         <!-- User-->
                         <li class="dropdown notification-list">
-                            <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown"
-                                href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <img src="../admin/public/assets_admin/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right profile-dropdown border-0">
@@ -120,8 +130,8 @@
                                 <i class="fa-regular fa-user"></i>Tài khoản</a>
                         </li>
                         <li class="has-submenu">
-                            <a href="?act=list_statistical">
-                            <i class="fa-solid fa-people-roof"></i>Thống kê</a>
+                            <a href="?act=list_staff">
+                                <i class="fa-solid fa-people-roof"></i>Nhân viên</a>
                         </li>
                     </ul>
                     <!-- End navigation menu -->

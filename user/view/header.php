@@ -241,27 +241,31 @@
                 $i = 0;
                 $total =0 ;
                 $shippingFee = 30000; // Phí vận chuyển
-                foreach ($_SESSION['mycart'] as $cart) {
-                    $img = "upload/" . $cart[2];
-                    $thanhtien = $cart[3] * $cart[4];
-                    $sum += $thanhtien;
-                    
-                    $total = $sum + $shippingFee;
-                    ?>
-                    <div class="body customScroll">
-                        <ul style="margin-bottom: 20px;" class="minicart-product-list">
-                            <li>
-                                <a href="single-product.html" class="image"><img src="<?= $img ?>" alt="Cart product Image"></a>
-                                <div class="content">
-                                    <a href="single-product.html" class="title"><?= $cart[1] ?></a>
-                                    <span class="quantity-price"><?= $cart[4] ?> x <span class="amount"><?=number_format($cart[3], 0, '.', '.')?></span></span>
-                                    <a href="index.php?act=del_cart&idcart=<?=$i?>" class="remove">×</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                <?php $i++;} ?>
+                if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                    foreach ($_SESSION['mycart'] as $cart) {
+                        $img = "upload/" . $cart[2];
+                        $thanhtien = $cart[3] * $cart[4];
+                        $sum += $thanhtien;
+                        
+                        $total = $sum + $shippingFee;
+                        ?>
+                        <div class="body customScroll">
+                            <ul style="margin-bottom: 20px;" class="minicart-product-list">
+                                <li>
+                                    <a href="single-product.html" class="image"><img src="<?= $img ?>" alt="Cart product Image"></a>
+                                    <div class="content">
+                                        <a href="single-product.html" class="title"><?= $cart[1] ?></a>
+                                        <span class="quantity-price"><?= $cart[4] ?> x <span class="amount"><?=number_format($cart[3], 0, '.', '.')?></span></span>
+                                        <a href="index.php?act=del_cart&idcart=<?=$i?>" class="remove">×</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                <?php
+                $i++;
+                    } 
+                }
+                ?>
 
             
             <div class="foot">

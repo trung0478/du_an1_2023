@@ -21,7 +21,6 @@
                             <th scope="col">Email</th>
                             <th scope="col">Số điện thoại</th>
                             <th scope="col">Tài khoản</th>
-                            <th scope="col">Mật khẩu</th>
                             <th scope="col">Vai trò</th>
                             <th scope="col">Trạng thái</th>
                             <th scope="col">Hành động</th>
@@ -46,19 +45,15 @@
                             </td>
 
                             <td class="text-center">
-                            <?= $email?>
+                            <?=(isset($email)&&$email!="")?$email:"Chưa có";?>
                             </td>
 
                             <td class="text-center">
-                            <?= $sdt?>
+                            <?=(isset($sdt)&&$sdt!="")?$sdt:"Chưa có";?>
                             </td>
 
                             <td class="text-center">
                             <?= $tai_khoan?>
-                            </td>
-
-                            <td class="text-center">
-                            <?= $mat_khau?>
                             </td>
 
                             <?php $role = ($vai_tro == 0) ? "Người dùng" : "Admin" ?>
@@ -73,7 +68,11 @@
                             
                             <td class="text-center">
                                 <a href="?act=edit_account&id=<?=$ma_nd?>" class="btn btn-warning">Sửa</a>
-                                <a href="?act=del_account&id=<?=$ma_nd?>" onclick="return confirm('Bạn có xóa không?')" class="btn btn-danger">Xóa</a>
+                                <?php if (($vai_tro == 0)) {
+                                    echo '
+                                    <a href="?act=del_account&id=<?=$ma_nd?>" onclick="return confirm(\'Bạn có xóa không?\')" class="btn btn-danger">Xóa</a>
+                                    ';
+                                }?>
                             </td>
                         </tr>
                         <?php endforeach; }?>

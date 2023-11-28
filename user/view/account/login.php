@@ -28,7 +28,7 @@
                                                 <div class="login-toggle-btn">
                                                     <input type="checkbox" />
                                                     <a class="flote-none" href="javascript:void(0)">Nhớ mật khẩu</a>
-                                                    <a href="?act=forgot_pass">Quên mật khẩu</a>
+                                                    <a href="?act=forgot_pass">Quên mật khẩu?</a>
                                                 </div>
                                                 <button type="submit" name="login"><span>Đăng nhập</span></button>
                                             </div>

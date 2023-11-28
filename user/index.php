@@ -1,21 +1,20 @@
 <?php
 ob_start();
 session_start();
-$_SESSION['user'] = 'Trung'; 
+$_SESSION['user'] = 'Trung';
 include "config/connectdb.php";
 include "user/model/product.php";
 include "model/product_catalog.php";
 include "user/model/comment.php";
+include "user/model/checkout.php";
 include "model/account.php";
 include "view/header.php";
 include "global/global.php";
 // Load product - Our product
 
-if(!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
+if (!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
 // $list_product = load_product(0);
-$list_product = get_all_product(); 
-
-
+$list_product = get_all_product();
 
 // Load product discount
 $list_product_discount = load_product(1);
@@ -88,57 +87,134 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                     }
                 }
             }
-                include "view/cart/cart.php";
-                break;
-                case 'del_cart':
-                    if(isset($_GET['idcart'])){
-                        array_splice($_SESSION['mycart'], $_GET['idcart'], 1);
-                    }else{
-                        $_SESSION['mycart'] = [];
+            include "view/cart/cart.php";
+            break;
+        case 'del_cart':
+            if (isset($_GET['idcart'])) {
+                array_splice($_SESSION['mycart'], $_GET['idcart'], 1);
+            } else {
+                $_SESSION['mycart'] = [];
+            }
+            if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                header('location: index.php?act=viewcart');
+            } else {
+                header('location: index.php?act=empty_cart');
+            }
+            // header('Location: index.php?act=viewcart');
+            break;
+        case 'checkout':
+            if (isset($_POST['checkout'])) {
+                if (isset($_POST['checkout_delivery)'])) {
+                    # code...
+                } elseif (isset($_POST['redirect'])) {
+                    $tong_gia = "200000";
+                    execPostRequest($url, $data);
+                    include 'view/checkout/checkout_vnpay.php';
+                } elseif (isset($_POST['payUrl'])) {
+                    $tong_gia = "200000";
+                    execPostRequest($url, $data);
+                    include 'view/checkout/checkout_momo.php';
+                }
+            }
+            break;
+        case 'payment':
+                if (isset($_POST['checkout']) && $_POST['checkout']) {
+                    $total_order = $_POST['totalorder'];
+                    $id_user = $_POST['id_user'];
+                    $name = $_POST['name'];
+                    $address = $_POST['address'];
+                    $telephone = $_POST['telephone'];
+                    $email = $_POST['email'];
+                    $id_order = 'LTH' .rand(0, 999999);
+                    $note = $_POST['note'];
+                    $date_create = date('Y-m-d H:i:s');
+                    if (isset($_POST['cod'])) {
+                        $method_pay = $_POST['cod'];
+                        $create_order_id = create_order($id_order, $total_order, $id_user, $name, $address, $telephone, $email, $method_pay, $note, $date_create);
+                    $_SESSION['id_order'] = $create_order_id;
+                    if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                        foreach ($_SESSION['mycart'] as $item) {
+                            add_order_detail($create_order_id, $item[0], $item[1], $item[2], $item[5], $item[6], $item[4], $item[3]);
+                        }
+                        unset($_SESSION['mycart']);
                     }
-                    if (count($_SESSION['mycart']) > 0) {
-                        header('location: index.php?act=viewcart');
-                    }else {
-                        header('location: index.php?act=empty_cart');
+                    } else if (isset($_POST['redirect'])){
+                        $method_pay = $_POST['redirect'];
+                        execPostRequest($url, $data);
+                        $create_order_id = create_order($id_order, $total_order, $id_user, $name, $address, $telephone, $email, $method_pay, $note, $date_create);
+                    $_SESSION['id_order'] = $create_order_id;
+                    if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                        foreach ($_SESSION['mycart'] as $item) {
+                            add_order_detail($create_order_id, $item[0], $item[1], $item[2], $item[5], $item[6], $item[4], $item[3]);
+                        }
+                        unset($_SESSION['mycart']);
                     }
-                    // header('Location: index.php?act=viewcart');
-                    break;
-                case 'pockup':
-                    if (isset($_GET['idpro']) && $_GET['idpro'] > 0) {
-                        // load product_detail by id_pro
-                        $check_variant = check_variant($_GET['idpro']);
-                        $one_variant = get_one_product($_GET['idpro']);
-                        $one_product = get_one_product($_GET['idpro']);
-                        $get_color_size = get_color_size($_GET['idpro']);
+                        include 'view/checkout/checkout_vnpay.php';
+                    } else if (isset($_POST['payUrl'])){
+                        $method_pay = $_POST['payUrl'];
+                       
+                        $create_order_id = create_order($id_order, $total_order, $id_user, $name, $address, $telephone, $email, $method_pay, $note, $date_create);
+                    $_SESSION['id_order'] = $create_order_id;
+                    if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                        foreach ($_SESSION['mycart'] as $item) {
+                            add_order_detail($create_order_id, $item[0], $item[1], $item[2], $item[5], $item[6], $item[4], $item[3]);
+                        }
+                        unset($_SESSION['mycart']);
+                    }
+                        include 'view/checkout/checkout_momo.php';
+                    } 
 
-                        $img_product = load_img_by_idpro(($_GET['idpro']));
-                    }
-                    include 'view/pockup.php';
-                    break;
-                case 'viewcart':
-                    include 'view/cart/cart.php';
-                    break;
-                case 'checkout':
-                    if (isset($_POST['update'])) {
-                        $full_name = $_POST['full_name'];
-                        $gender = $_POST['gender'];
-                        $email = $_POST['email'];
-                        $address = $_POST['address'];
-                        $telephone = $_POST['telephone'];
-                        $id = $_POST['id'];
-        
-                        update_account($id, $full_name, $gender, $email, $address, $telephone);
-                        $getOne_account = getOne_account($id);
-                        $_SESSION['account'] = $getOne_account;
-                        $message = "Đã cập nhật thành công!";
-                    }
-                    include 'view/cart/checkout.php';
-                    break;
-                case 'empty_cart':
-                    include 'view/cart/empty_cart.php';
-                    break;
-            
-        // Begin-> Account
+                    
+                    // Tạo đơn hàng
+                    // $item = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total]
+                    // $create_order_id = create_order($id_order, $total_order, $id_user, $name, $address, $telephone, $email, $method_pay, $note, $date_create);
+                    // $_SESSION['id_order'] = $create_order_id;
+                    // if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                    //     foreach ($_SESSION['mycart'] as $item) {
+                    //         add_order_detail($create_order_id, $item[0], $item[1], $item[2], $item[5], $item[6], $item[4], $item[3]);
+                    //     }
+                    //     unset($_SESSION['mycart']);
+                    // }
+
+                    
+                    
+                }
+                include "view/checkout/bill_checkout.php";
+            break;
+        case 'pockup':
+            if (isset($_GET['idpro']) && $_GET['idpro'] > 0) {
+                // load product_detail by id_pro
+                $check_variant = check_variant($_GET['idpro']);
+                $one_variant = get_one_product($_GET['idpro']);
+                $one_product = get_one_product($_GET['idpro']);
+                $get_color_size = get_color_size($_GET['idpro']);
+
+                $img_product = load_img_by_idpro(($_GET['idpro']));
+            }
+            include 'view/pockup.php';
+            break;
+        case 'viewcart':
+            include 'view/cart/cart.php';
+            break;
+
+        case 'empty_cart':
+            include 'view/cart/empty_cart.php';
+            break;
+
+            // checkout 
+        case 'checkout_info':
+            if (isset($_SESSION['id_account']) && $_SESSION['id_account'] > 0) {
+                $one_account = getOne_account($_SESSION['id_account']);
+            }
+            include 'view/checkout/checkout_info.php';
+            break;
+
+            // Bill checkout
+        case 'bill_checkout':
+            include 'view/checkout/bill_checkout.php';
+            break;
+
+            // Begin-> Account
         case 'account':
             include "view/account.php";
             break;

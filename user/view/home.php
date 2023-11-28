@@ -9,17 +9,14 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-7 col-md-7 col-sm-7 align-self-center">
                             <div class="hero-slide-content slider-animated-1">
-                                <h2 class="title-1">Ghế Sofa </h2>
-                                <p>Trong bầu không gian êm đềm, ghế sofa
-                                Nâng niu giấc ngủ, tha hương thơm lành
-                                Vòng tay ôm lấy, những chuyện tình ca
-                                Trên ghế sofa, ta trót mộng mị say.</p>
-                                <a href="?act=product_catalog" class="btn btn-lg btn-primary btn-hover-dark mt-5">Cửa hàng</a>
+                                <h2 class="title-1">Ghế sofa</h2>
+                                <p>Với thiết kế tinh tế, chất liệu chất cao cấp cùng sự kết hợp hoàn hảo giữa kiểu dáng hiện đại và phong cách cổ điển mang đến một điểm nhấn đặc biệt cho không gian nội thất</p>
+                                <a href="#" class="btn btn-lg btn-primary btn-hover-dark mt-5">Mua ngay</a>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-5 col-md-5 col-sm-5">
                             <div class="hero-slide-image">
-                                <img src="./user/public/assets/images/slider-image/slider-1.png" alt="" />
+                                <img width="100%" src="upload/sofa.png" alt="" />
                             </div>
                         </div>
                     </div>
@@ -31,18 +28,14 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-7 col-md-7 col-sm-7 align-self-center">
                             <div class="hero-slide-content slider-animated-1">
-                        
-                            <h2 class="title-1">Ghế Sofa </h2>
-                                <p>Trong bầu không gian êm đềm, ghế sofa
-                                Nâng niu giấc ngủ, tha hương thơm lành
-                                Vòng tay ôm lấy, những chuyện tình ca
-                                Trên ghế sofa, ta trót mộng mị say.</p>
-                                <a href="?act=product_catalog" class="btn btn-lg btn-primary btn-hover-dark mt-5">Cửa hàng</a>
+                                <h2 class="title-1">Giường đôi</h2>
+                                <p>Với chất liệu chất lượng cao, cùng với các chi tiết tinh tế và hoàn thiện tỉ mỉ, giường đôi cao cấp mang lại không gian nghỉ ngơi sang trọng và thoải mái</p>
+                                <a href="#" class="btn btn-lg btn-primary btn-hover-dark mt-5">Mua ngay</a>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-5 col-md-5 col-sm-5">
                             <div class="hero-slide-image">
-                                <img src="./user/public/assets/images/slider-image/slider-2.png" alt="" />
+                                <img src="upload/giuong.png" alt="" />
                             </div>
                         </div>
                     </div>
@@ -82,7 +75,7 @@
                         <div class="row">
                             <?php
                             foreach ($list_product as $value) :
-                                extract($value)
+                                extract($value);
                             ?>
                                 <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up" data-aos-delay="200">
                                     <!-- Single Product -->
@@ -90,7 +83,7 @@
                                         <div class="thumb">
                                             <a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>" class="image">
                                                 <img src="<?= $link_img . $hinh_anh; ?>" alt="Product" />
-                                                <img class="hover-image" src="<?= $link_img . $hinh_anh; ?>" alt="Product" />
+                                                <!-- <img class="hover-image" src="" alt="Product" /> -->
                                             </a>
 
                                             <div class="actions">
@@ -910,14 +903,14 @@
         <div class="row">
             <!-- Banner Start -->
             <div class="col-lg-6 col-12 mb-md-30px mb-lm-30px" data-aos="fade-up" data-aos-delay="200">
-                <a href="index.php?act=product_detail" class="banner">
+                <a href="index.php" class="banner">
                     <img src="./user/public/assets/images/banner/1.jpg" alt="" />
                     <div class="info justify-content-end">
                         <div class="content align-self-center">
                             <h3 class="title">
-                                Sale Furniture <br /> For Summer
+                                Giảm giá mùa <br /> Giáng Sinh
                             </h3>
-                            <p>Great Discounts Here</p>
+                            <p>Giảm ngay 50%</p>
                         </div>
                     </div>
                 </a>
@@ -926,13 +919,13 @@
 
             <!-- Banner Start -->
             <div class="col-lg-6 col-12" data-aos="fade-up" data-aos-delay="400">
-                <a href="index.php?act=product_detail" class="banner">
+                <a href="index.php" class="banner">
                     <img src="./user/public/assets/images/banner/2.jpg" alt="" />
                     <div class="info justify-content-start">
                         <div class="content align-self-center">
                             <h3 class="title">
-                                Office Chair <br /> For Best Offer</h3>
-                            <p>Great Discounts Here</p>
+                                Ghế Sofa <br /> Ưu đãi lớn nhất</h3>
+                            <p>Giảm ngay 50%</p>
                         </div>
                     </div>
                 </a>
