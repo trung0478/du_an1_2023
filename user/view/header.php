@@ -1,3 +1,7 @@
+<?php
+                   $product_catalog = getAll_product_catalog();
+
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -190,27 +194,29 @@
                                 <li><a href="index.php?act=about">Giới thiệu</a></li>
                                 <li class="dropdown position-static"><a href="#">Cửa hàng
                                         <i class="ion-ios-arrow-down"></i></a>
+                                       
                                     <ul class="mega-menu d-block" style="width: 80%; margin-left: 210px;">
-                                        <li class="d-flex">
-                                            <ul class="d-block">
-                                                <li><a href="index.php?act=product_catalog">Danh mục sản phẩm</a></li>
-                                                
-                                            </ul>
-                                            <ul class="d-block">
-                                                <li><a href="index.php?act=product_catalog">Danh mục sản phẩm</a></li>
-                                                
-                                            </ul>
-                                            <ul class="d-block">
-                                                <li><a href="index.php?act=product_catalog">Danh mục sản phẩm</a></li>
-                                                
-                                            </ul>
-                                            <ul class="d-block">
-                                                <li><a href="index.php?act=cart">Giỏ hàng</a></li>
-                                                
-                                            </ul>
-                                        </li>
+                                        <?php $i = 0; ?>
+                                        <?php foreach ($product_catalog as $value): ?>
+                                            <?php extract($value); ?>
+                                            <?php if ($i % 4 === 0): ?>
+                                                <?php if ($i !== 0): ?>
+                                                    </li>
+                                                <?php endif; ?>
+                                                <li class="d-flex">
+                                            <?php endif; ?>
 
-                                    </ul>
+                                            <ul class="d-block">
+                                                <li><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>"><?=$ten_lsp?></a></li>
+                                            </ul>
+
+                                            <?php $i++; ?>
+                                        <?php endforeach; ?>
+
+                                        <?php if ($i !== 0): ?>
+                                            </li>
+                                        <?php endif; ?>
+                                    </ul>   
                                 </li>
                                 <li class="dropdown "><a href="index.php?act=blog">Tin tức</a></li>
                                 <li><a href="index.php?act=contact">Liên hệ</a></li>

@@ -269,10 +269,10 @@ include 'view/header.php';
 
                 // Staff
             case 'list_staff':
-                include '../admin/view/staff/list_staff.php';
+                include '../admin/view/statistical/list_staff.php';
                 break;
             case 'add_staff':
-                include '../admin/view/staff/add_staff.php';
+                include '../admin/view/statistical/add_staff.php';
                 break;
             case 'update_staff':
                 include '../admin/view/staff/update_staff.php';
