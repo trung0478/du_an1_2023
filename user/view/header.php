@@ -88,9 +88,10 @@
                             <div class="header_account_list">
                                 <a href="javascript:void(0)" class="header-action-btn search-btn"><i class="icon-magnifier"></i></a>
                                 <div class="dropdown_search">
-                                    <form class="action-form" action="#">
-                                        <input class="form-control" placeholder="Nhập sản phẩm tìm kiếm" type="text">
-                                        <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
+                                    <form class="action-form" action="">
+                                        <input class="form-control" placeholder="Nhập sản phẩm tìm kiếm" id="search-input" name="kyw" type="text">
+                                       
+                                        <a href="?act=search_product"> <button class="submit" name="search" type="submit"><i class="icon-magnifier"></i></button></a>
                                     </form>
                                 </div>
                             </div>
@@ -150,9 +151,9 @@
                             <div class="header_account_list">
                                 <a href="javascript:void(0)" class="header-action-btn search-btn"><i class="icon-magnifier"></i></a>
                                 <div class="dropdown_search">
-                                    <form class="action-form" action="#">
-                                        <input class="form-control" placeholder="Nhập sản phẩm tìm kiếm" type="text">
-                                        <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
+                                    <form class="action-form" action="index.php?act=search_product">
+                                        <input class="form-control" id="search-input" name="kyw" placeholder="Nhập sản phẩm tìm kiếm" type="text">
+                                        <input class="submit" type="submit"><i class="icon-magnifier"></i></input>
                                     </form>
                                 </div>
                             </div>
@@ -240,27 +241,31 @@
                 $i = 0;
                 $total =0 ;
                 $shippingFee = 30000; // Phí vận chuyển
-                foreach ($_SESSION['mycart'] as $cart) {
-                    $img = "upload/" . $cart[2];
-                    $thanhtien = $cart[3] * $cart[4];
-                    $sum += $thanhtien;
-                    
-                    $total = $sum + $shippingFee;
-                    ?>
-                    <div class="body customScroll">
-                        <ul style="margin-bottom: 20px;" class="minicart-product-list">
-                            <li>
-                                <a href="single-product.html" class="image"><img src="<?= $img ?>" alt="Cart product Image"></a>
-                                <div class="content">
-                                    <a href="single-product.html" class="title"><?= $cart[1] ?></a>
-                                    <span class="quantity-price"><?= $cart[4] ?> x <span class="amount"><?=number_format($cart[3], 0, '.', '.')?></span></span>
-                                    <a href="index.php?act=del_cart&idcart=<?=$i?>" class="remove">×</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                <?php $i++;} ?>
+                if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                    foreach ($_SESSION['mycart'] as $cart) {
+                        $img = "upload/" . $cart[2];
+                        $thanhtien = $cart[3] * $cart[4];
+                        $sum += $thanhtien;
+                        
+                        $total = $sum + $shippingFee;
+                        ?>
+                        <div class="body customScroll">
+                            <ul style="margin-bottom: 20px;" class="minicart-product-list">
+                                <li>
+                                    <a href="single-product.html" class="image"><img src="<?= $img ?>" alt="Cart product Image"></a>
+                                    <div class="content">
+                                        <a href="single-product.html" class="title"><?= $cart[1] ?></a>
+                                        <span class="quantity-price"><?= $cart[4] ?> x <span class="amount"><?=number_format($cart[3], 0, '.', '.')?></span></span>
+                                        <a href="index.php?act=del_cart&idcart=<?=$i?>" class="remove">×</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                <?php
+                $i++;
+                    } 
+                }
+                ?>
 
             
             <div class="foot">

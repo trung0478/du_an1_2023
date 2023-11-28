@@ -95,12 +95,91 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             } else {
                 $_SESSION['mycart'] = [];
             }
-            if (count($_SESSION['mycart']) > 0) {
+            if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
                 header('location: index.php?act=viewcart');
             } else {
                 header('location: index.php?act=empty_cart');
             }
             // header('Location: index.php?act=viewcart');
+            break;
+        case 'checkout':
+            if (isset($_POST['checkout'])) {
+                if (isset($_POST['checkout_delivery)'])) {
+                    # code...
+                } elseif (isset($_POST['redirect'])) {
+                    $tong_gia = "200000";
+                    execPostRequest($url, $data);
+                    include 'view/checkout/checkout_vnpay.php';
+                } elseif (isset($_POST['payUrl'])) {
+                    $tong_gia = "200000";
+                    execPostRequest($url, $data);
+                    include 'view/checkout/checkout_momo.php';
+                }
+            }
+            break;
+        case 'payment':
+                if (isset($_POST['checkout']) && $_POST['checkout']) {
+                    $total_order = $_POST['totalorder'];
+                    $id_user = $_POST['id_user'];
+                    $name = $_POST['name'];
+                    $address = $_POST['address'];
+                    $telephone = $_POST['telephone'];
+                    $email = $_POST['email'];
+                    $id_order = 'LTH' .rand(0, 999999);
+                    $note = $_POST['note'];
+                    $date_create = date('Y-m-d H:i:s');
+                    if (isset($_POST['cod'])) {
+                        $method_pay = $_POST['cod'];
+                        $create_order_id = create_order($id_order, $total_order, $id_user, $name, $address, $telephone, $email, $method_pay, $note, $date_create);
+                    $_SESSION['id_order'] = $create_order_id;
+                    if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                        foreach ($_SESSION['mycart'] as $item) {
+                            add_order_detail($create_order_id, $item[0], $item[1], $item[2], $item[5], $item[6], $item[4], $item[3]);
+                        }
+                        unset($_SESSION['mycart']);
+                    }
+                    } else if (isset($_POST['redirect'])){
+                        $method_pay = $_POST['redirect'];
+                        execPostRequest($url, $data);
+                        $create_order_id = create_order($id_order, $total_order, $id_user, $name, $address, $telephone, $email, $method_pay, $note, $date_create);
+                    $_SESSION['id_order'] = $create_order_id;
+                    if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                        foreach ($_SESSION['mycart'] as $item) {
+                            add_order_detail($create_order_id, $item[0], $item[1], $item[2], $item[5], $item[6], $item[4], $item[3]);
+                        }
+                        unset($_SESSION['mycart']);
+                    }
+                        include 'view/checkout/checkout_vnpay.php';
+                    } else if (isset($_POST['payUrl'])){
+                        $method_pay = $_POST['payUrl'];
+                       
+                        $create_order_id = create_order($id_order, $total_order, $id_user, $name, $address, $telephone, $email, $method_pay, $note, $date_create);
+                    $_SESSION['id_order'] = $create_order_id;
+                    if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                        foreach ($_SESSION['mycart'] as $item) {
+                            add_order_detail($create_order_id, $item[0], $item[1], $item[2], $item[5], $item[6], $item[4], $item[3]);
+                        }
+                        unset($_SESSION['mycart']);
+                    }
+                        include 'view/checkout/checkout_momo.php';
+                    } 
+
+                    
+                    // Tạo đơn hàng
+                    // $item = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total]
+                    // $create_order_id = create_order($id_order, $total_order, $id_user, $name, $address, $telephone, $email, $method_pay, $note, $date_create);
+                    // $_SESSION['id_order'] = $create_order_id;
+                    // if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                    //     foreach ($_SESSION['mycart'] as $item) {
+                    //         add_order_detail($create_order_id, $item[0], $item[1], $item[2], $item[5], $item[6], $item[4], $item[3]);
+                    //     }
+                    //     unset($_SESSION['mycart']);
+                    // }
+
+                    
+                    
+                }
+                include "view/checkout/bill_checkout.php";
             break;
         case 'pockup':
             if (isset($_GET['idpro']) && $_GET['idpro'] > 0) {
@@ -124,43 +203,15 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
 
             // checkout 
         case 'checkout_info':
-            // echo "<pre>";
-            // print_r($_SESSION['mycart']);
-            // echo "</pre>";
             if (isset($_SESSION['id_account']) && $_SESSION['id_account'] > 0) {
                 $one_account = getOne_account($_SESSION['id_account']);
             }
             include 'view/checkout/checkout_info.php';
             break;
 
-        case 'checkout':
-            if (isset($_POST['checkout'])) {
-                $_SESSION['account_name'] = $_POST['account_name'];
-                $_SESSION['account_address'] = $_POST['account_address'];
-                $_SESSION['account_sdt'] = $_POST['account_sdt'];
-                $_SESSION['message'] = $_POST['message'];
-
-                if (isset($_POST['redirect'])) {
-                    $tong_gia =$_SESSION['total'];
-                    $_SESSION['checkout'] = $_POST['redirect'];
-                    include 'view/checkout/checkout_vnpay.php';
-                } elseif (isset($_POST['payUrl'])) {
-                    $tong_gia = $_SESSION['total'];
-                    $_SESSION['checkout'] = $_POST['payUrl'];
-                    execPostRequest($url, $data);
-                    include 'view/checkout/checkout_momo.php';
-                } else {
-                    $_SESSION['code_order'] = rand(00,99999);
-                    $_SESSION['checkout'] = $_POST['checkout_delivery'];
-                    include 'view/thanks.php';
-                }
-            }
-            break;
-
-            // thanks
-        case 'thanks':
-            
-            include 'view/thanks.php';
+            // Bill checkout
+        case 'bill_checkout':
+            include 'view/checkout/bill_checkout.php';
             break;
 
             // Begin-> Account
@@ -325,6 +376,18 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 include "view/product_detail.php";
             }
             break;
+            case 'search_product':
+                if(isset($_GET['kyw'])){
+                    $kyw = $_GET['kyw'];
+                    search_product($kyw);
+                    
+                    // Chuyển hướng đến trang sản phẩm sau khi thực hiện tìm kiếm
+                    header("Location: view/product_catalog.php");
+                    exit();
+                }
+                include "view/product_catalog.php";
+                break;
+            
 
             case 'product_catalog':
                 if (isset($_GET['id_lsp'])) {

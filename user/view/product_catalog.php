@@ -172,6 +172,91 @@
                                 </form>
                             </div>
 
+                            <!-- Sidebar single item -->
+                            <div class="sidebar-widget">
+                                <h4 class="pro-sidebar-title mt-5">Kích thước </h4>
+                                <div class="sidebar-widget-list">
+                                    <ul>
+                                       
+                                                <?php $i = 0?>
+                                                 <?php foreach ($product_catalog as $catalog) :?>
+                                                    <?php extract($catalog);?>    
+                                                    <?php if($i == 0){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Lớn<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark"></span>
+                                                            </div>
+                                                         </li>
+                                                    <?php }elseif($i == 2){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Trung bình<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark"></span>
+                                                            </div>
+                                                         </li>
+                                                       
+                                                    <?php }elseif($i == 4){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Nhỏ<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark"></span>
+                                                            </div>
+                                                         </li>
+                                                     
+                                                    <?php }?>
+                                                    <?php $i++?>
+                                                <?php endforeach?>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Sidebar single item -->
+                            <div class="sidebar-widget no-cba">
+                                <h4 class="pro-sidebar-title">Màu sắc</h4>
+                                <div class="sidebar-widget-list">
+                                    <ul>
+                                    <?php $i = 0?>
+                                                 <?php foreach ($product_catalog as $catalog) :?>
+                                                    <?php extract($catalog);?>    
+                                                    <?php if($i == 1){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Màu xám<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark grey"></span>
+                                                            </div>
+                                                         </li>
+                                                    <?php }elseif($i == 3){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Màu trắng<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark white"></span>
+                                                            </div>
+                                                         </li>
+                                                       
+                                                    <?php }elseif($i == 5){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Màu đen<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark black"></span>
+                                                            </div>
+                                                         </li>
+                                                     
+                                                    <?php }elseif($i == 7){?>
+                                                        <li>
+                                                            <div class="sidebar-widget-list-left">
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Màu nâu<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <span class="checkmark camel"></span>
+                                                            </div>
+                                                         </li>
+                                                        <?php }?>
+                                                    <?php $i++?>
+                                                <?php endforeach?>
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+                           
+
                         </div>
                         <!-- Sidebar single item -->
                         <div class="sidebar-widget">
