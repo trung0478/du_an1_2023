@@ -2,9 +2,21 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="d-flex justify-content-between my-md-2 my-2">
-                    <h3 class="fs-1">Thống kê sản phẩm theo danh mục</h3>
-                    <a href="?act=add_staff" class="btn btn-primary my-md-2 my-1">Thêm mới</a>
+                <div class="justify-content-between my-md-2 my-2">
+                    <h3 class="fs-1">Thống kê đơn hàng theo thời gian </h3>
+                    <h6>Chọn thời gian: </h6>
+                    <input type="date" value="<?php echo date('Y-m-d')?>">
+                    <input type="week" >
+                    <input type="month" >
+                    <select >
+                        <?php
+                        for ($i=2020; $i <= date('Y') ; $i++) { 
+                            echo '<option value="">'.$i.'</option>';
+                        }
+                
+                        ?>
+                        
+                    </select>
                 </div>
                 <table class="table">
                     <thead>
