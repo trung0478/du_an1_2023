@@ -159,18 +159,19 @@
                             <div class="sidebar-widget">
                                 
                                 <div class="price-filter">
-                                <form method="POST" action="index.php?act=product_catalog">
-                                <input  style="position: relative; height: 30px;" id="search-input" type="text" name="kyw" class="form-control" placeholder="Tìm kiếm tên danh mục" />
-                                <button class="search_c search_catalog" style="position: absolute;
-                                                                               left:25%;
-                                                                               top: 680px;
+                                <form method="POST" action="index.php?act=product_catalog" style="position: relative;">
+                                    <input style=" height: 30px;" id="search-input" type="text" name="kyw" class="form-control" placeholder="Nhập tìm kiếm sản phẩm">
+                                    <button class="search_c search_catalog" style="position: absolute;
+                                                                               right:4%;
+                                                                               top: 50%;
                                                                                transform: translateY(-50%);                           
                                                                                border: none;
                                                                                outline: none;
                                                                                background-color: transparent;">
-                                    <i style="color: #6D757D;" class="fa-solid fa-magnifying-glass"></i>
-                                </button>
-                            </form>
+                                        <i style="color: #6D757D;" class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </form>
+
                                 </div>
                                 
                             </div>
