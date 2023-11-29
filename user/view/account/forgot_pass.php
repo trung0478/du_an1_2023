@@ -16,7 +16,7 @@
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="?act=forgot_pass" method="post">
+                                        <form id="myForm" action="?act=forgot_pass" method="post">
                                             <input type="email" name="email" placeholder="Email"/>
                                             <?php 
                                                 if (isset($message)) {

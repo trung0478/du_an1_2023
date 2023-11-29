@@ -33,8 +33,6 @@ $product_catalog = getAll_product_catalog();
     <link rel="apple-touch-icon" href="./user/public/assets/images/favicon/favicon.png" />
     <script src="https://kit.fontawesome.com/8e3c294816.js" crossorigin="anonymous"></script>
     <meta name="msapplication-TileImage" content="./user/public/assets/images/favicon/favicon.png" />
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <!-- Structured Data  -->
     <script type="application/ld+json">
         {
@@ -72,7 +70,7 @@ $product_catalog = getAll_product_catalog();
     label.error {
         color: red;
         font-size: 16px;
-        margin-top: 5px;
+        /* margin-top: 5px; */
         display: block;
     }
 </style>

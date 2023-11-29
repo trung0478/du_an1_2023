@@ -16,9 +16,9 @@
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="?act=login" method="post">
-                                            <input type="text" name="username" placeholder="Tài khoản" />
-                                            <input type="password" name="pass" placeholder="Mật khẩu" />
+                                        <form id="myForm" action="?act=login" method="post">
+                                            <input style="margin-bottom: 16px;" type="text" name="username" placeholder="Tài khoản" />
+                                            <input style="margin-bottom: 16px;" type="password" name="pass" placeholder="Mật khẩu" />
                                             <?php 
                                                 if (isset($message)) {
                                                     echo '<span class="text-danger">'.$message.'</span>';

@@ -159,7 +159,7 @@
 
                             <div class="price-filter">
                                 <form method="POST" action="index.php?act=product_catalog" style="position: relative;">
-                                    <input style=" height: 30px;" id="search-input" type="text" name="kyw" class="form-control" placeholder="Nhập tìm ki">
+                                    <input style=" height: 30px;" id="search-input" type="text" name="kyw" class="form-control" placeholder="Nhập tìm kiếm tên sản phẩm">
                                     <button class="search_c search_catalog" style="position: absolute;
                                                                                right:4%;
                                                                                top: 50%;
