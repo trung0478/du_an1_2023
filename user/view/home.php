@@ -11,7 +11,7 @@
                             <div class="hero-slide-content slider-animated-1">
                                 <h2 class="title-1">Ghế sofa</h2>
                                 <p>Với thiết kế tinh tế, chất liệu chất cao cấp cùng sự kết hợp hoàn hảo giữa kiểu dáng hiện đại và phong cách cổ điển mang đến một điểm nhấn đặc biệt cho không gian nội thất</p>
-                                <a href="#" class="btn btn-lg btn-primary btn-hover-dark mt-5">Mua ngay</a>
+                                <a href="?act=product_catalog" class="btn btn-lg btn-primary btn-hover-dark mt-5">Mua ngay</a>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-5 col-md-5 col-sm-5">
@@ -30,7 +30,7 @@
                             <div class="hero-slide-content slider-animated-1">
                                 <h2 class="title-1">Giường đôi</h2>
                                 <p>Với chất liệu chất lượng cao, cùng với các chi tiết tinh tế và hoàn thiện tỉ mỉ, giường đôi cao cấp mang lại không gian nghỉ ngơi sang trọng và thoải mái</p>
-                                <a href="#" class="btn btn-lg btn-primary btn-hover-dark mt-5">Mua ngay</a>
+                                <a href="?act=product_catalog" class="btn btn-lg btn-primary btn-hover-dark mt-5">Mua ngay</a>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-5 col-md-5 col-sm-5">
