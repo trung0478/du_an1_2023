@@ -46,7 +46,7 @@
                             <!-- Single Product -->
                             <div class="product mb-25px">
                                 <div class="thumb">
-                                    <a href="shop-left-sidebar.html" class="image">
+                                    <a href="index.php?act=product_detail&id_pro=<?=$ma_sp; ?>" class="image">
                                          <?php 
                                     if ($i == 0 || $i == 2 || $i == 4 || $i == 8 || $i == 10) {
                                         echo '<span class="badges">
@@ -83,10 +83,12 @@
                                     }
                                     ?>
                                     <div class="actions">
-                                        <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                        <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
-                                        <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
+                                        <a href="#" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
+                                        <a href="?act=home&id_pro=<?=$ma_sp; ?>" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
+                                        <a href="#" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
                                     </div>
+                                    <?php $link_pockup = "?act=pockup&idpro=$ma_sp"?>
+                                            <a href="<?=$link_pockup?>" class="action quickview add-to-cart" data-link-action="quickview" title="Quick view" data-bs-target="#exampleModal">Thêm vào giỏ hàng</a>
                                 
                                 </div>
                                 <div class="content">
@@ -158,7 +160,7 @@
                                 
                                 <div class="price-filter">
                                 <form method="POST" action="index.php?act=product_catalog">
-                                <input  style="position: relative; height: 30px;" id="search-input" type="text" name="kyw" class="form-control" placeholder="Tìm kiếm tên danh mục" />
+                                <input  style="position: relative; height: 30px;" id="search-input" type="text" name="kyw" class="form-control" placeholder="Nhập tìm kiếm sản phẩm"  />
                                 <button class="search_c search_catalog" style="position: absolute;
                                                                                left:25%;
                                                                                top: 680px;
@@ -204,14 +206,7 @@
                                                             </div>
                                                          </li>
                                                      
-                                                    <?php }elseif($i == 6){?>
-                                                        <li>
-                                                            <div class="sidebar-widget-list-left">
-                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Cực lớn<span>(<?=$soluong?>)</span> </a> </a>
-                                                                <span class="checkmark"></span>
-                                                            </div>
-                                                         </li>
-                                                        <?php }?>
+                                                    <?php }?>
                                                     <?php $i++?>
                                                 <?php endforeach?>
                                     </ul>
@@ -228,14 +223,14 @@
                                                     <?php if($i == 1){?>
                                                         <li>
                                                             <div class="sidebar-widget-list-left">
-                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Lớn<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Màu xám<span>(<?=$soluong?>)</span> </a> </a>
                                                                 <span class="checkmark grey"></span>
                                                             </div>
                                                          </li>
                                                     <?php }elseif($i == 3){?>
                                                         <li>
                                                             <div class="sidebar-widget-list-left">
-                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Trung bình<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Màu trắng<span>(<?=$soluong?>)</span> </a> </a>
                                                                 <span class="checkmark white"></span>
                                                             </div>
                                                          </li>
@@ -243,7 +238,7 @@
                                                     <?php }elseif($i == 5){?>
                                                         <li>
                                                             <div class="sidebar-widget-list-left">
-                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Nhỏ<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Màu đen<span>(<?=$soluong?>)</span> </a> </a>
                                                                 <span class="checkmark black"></span>
                                                             </div>
                                                          </li>
@@ -251,7 +246,7 @@
                                                     <?php }elseif($i == 7){?>
                                                         <li>
                                                             <div class="sidebar-widget-list-left">
-                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Cực lớn<span>(<?=$soluong?>)</span> </a> </a>
+                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Màu nâu<span>(<?=$soluong?>)</span> </a> </a>
                                                                 <span class="checkmark camel"></span>
                                                             </div>
                                                          </li>
