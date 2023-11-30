@@ -104,14 +104,10 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
-                                <label class="btn btn-primary btn-sm active">
-                                    <input type="radio" name="options" id="option1" checked=""> This Week </label>
-                                <label class="btn btn-primary btn-sm">
-                                    <input type="radio" name="options" id="option2"> Last Month </label>
-                            </div>
-                            <h5 class="header-title mb-4 mt-0">Weekly Record</h5>
-                            <canvas id="lineChart" height="80"></canvas>
+                        <figure class="highcharts-figure">
+                            <div id="container"></div>
+                            
+                        </figure>
                         </div>
                     </div>
                 </div>
