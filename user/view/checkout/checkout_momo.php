@@ -7,10 +7,17 @@ $accessKey = 'klm05TvNBzhg7h7j';
 $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
 
 $orderInfo = "Thanh toán qua MoMo";
+<<<<<<< HEAD
 $amount = $total_order; // tổng tiền sẽ hiện trên hoá đơn
 $orderId = rand(00,99999);
 $redirectUrl = "http://localhost/project1/index.php?act=payment";
 $ipnUrl = "http://localhost/project1/index.php?act=payment";
+=======
+$amount = 10000; // tổng tiền sẽ hiện trên hoá đơn
+$orderId = time() ."";
+$redirectUrl = "http://localhost/project1/index.php?act=bill_success";
+$ipnUrl = "http://localhost/project1/index.php?act=bill_success";
+>>>>>>> luan
 $extraData = "";
 
 

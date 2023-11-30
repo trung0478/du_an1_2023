@@ -96,25 +96,26 @@
                                     </form>
                                 </div>
                             </div>
+                            
                             <!-- Single Wedge Start -->
                             <div class="header-bottom-set dropdown">
-                                <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i class="icon-user"></i></button>
+                                <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><?php (isset($_SESSION['account'])) ? $user='<img width= 28px src="upload/user2.jpg" alt="">' : $user='<i class="icon-user"></i>'?><?=$user?></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <?php
                                         if(isset($_SESSION['account'])){
-                                            extract($_SESSION['account']);
+                                        extract($_SESSION['account']);
                                     ?>
-                                        <li><a class="dropdown-item" href="index.php?act=edit_account">Tài khoản</a></li>
+                                        <li><a class="dropdown-item" href="index.php?act=edit_account">Thông tin tài khoản</a></li>
                                         <?php if($vai_tro == 1) {?>
-                                            <li><a class="dropdown-item" href="./admin/index.php">Quản trị</a></li>
+                                            <li><a class="dropdown-item" href="./admin/index.php">Quản trị website</a></li>
                                         <?php }?>
-                                            <li><a class="dropdown-item" href="index.php?act=order">Đơn hàng</a></li>
+                                            <li><a class="dropdown-item" href="index.php?act=list_history_order&id_account=<?=$ma_nd?>">Lịch sử đơn hàng</a></li>
                                             <li><a class="dropdown-item" href="index.php?act=logout">Đăng xuất</a></li>
                                     <?php } else {?>
                                         <li><a class="dropdown-item" href="index.php?act=login">Đăng nhập</a></li>
                                         <li><a class="dropdown-item" href="index.php?act=register">Đăng ký</a></li>
-                                </ul>
                                     <?php }?>
+                                </ul>
                                 
                             </div>
                             <!-- Single Wedge End -->
@@ -297,7 +298,7 @@
                             echo '<a href="?act=empty_cart" class="btn btn-dark btn-hover-primary mb-30px">Xem giỏ hàng</a>';
                         }
                     ?>
-                    <a href="?act=cart_pay" class="btn btn-outline-dark current-btn">Tiến hành thanh toán</a>
+                    <a href="?act=checkout_info" class="btn btn-outline-dark current-btn">Tiến hành thanh toán</a>
                 </div>
                 <p class="minicart-message">Giao hàng miễn phí cho $100!</p>
             </div>

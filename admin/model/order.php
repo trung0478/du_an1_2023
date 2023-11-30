@@ -8,7 +8,7 @@
     function get_status($n) {
         switch ($n) {
             case '1':
-                $status = "Chưa xác nhận";
+                $status = "Chưa xử lý";
                 break;
             case '2':
                 $status = "Đã xác nhận";
@@ -21,7 +21,7 @@
                 break;
             
             default:
-                $status = "Chưa xác nhận";
+                $status = "Chưa xử lý";
                 break;
         }
         return $status;
@@ -44,20 +44,17 @@
         }
         return $pay;
     }
-    function confirm_order($n, $id) {
-        if ($n == 1) {
-            $sql = "UPDATE donhang SET trang_thai = 2 WHERE ma = $id";
-        } else if ($n == 2) {
-            $sql = "UPDATE donhang SET trang_thai = 3 WHERE ma = $id";
-        } else if ($n == 3) {
-            $sql = "UPDATE donhang SET trang_thai = 4 WHERE ma = $id";
-        }else if ($n == 4) {
-            $sql = "UPDATE donhang SET trang_thai = 1 WHERE ma = $id";
-        }
-        pdo_execute($sql);
+    function get_one_order($id_order) {
+        $sql = "SELECT * FROM donhang WHERE ma = ?";
+        $order = pdo_query_one($sql, $id_order);
+        return $order;
     }
     function delete_order($id){
         $sql = "DELETE FROM donhang WHERE ma = $id";
+        pdo_execute($sql);
+    }
+    function update_order($id_order, $status) {
+        $sql = "UPDATE donhang SET trang_thai = '".$status."' WHERE ma = $id_order";
         pdo_execute($sql);
     }
 ?>
