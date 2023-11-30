@@ -272,22 +272,34 @@ include 'view/header.php';
                 include '../admin/view/comment/detail_cmt.php';
                 break;
 
+<<<<<<< HEAD
                 // Staff
             case 'list_statistical':
                 $statistical_product_seling = statistical_product_seling();
                 $statistical_category = statistical_category();
                 include '../admin/view/statistical/list_statistical.php';
+=======
+                // Begin-order
+>>>>>>> 01e7c34897d931f2176a6fd5ebddd41d8a086f0a
             case 'list_order':
                 $list_order = list_order();
                 include '../admin/view/order/list_order.php';
                 break;
-            case 'confirm_order':
-                if (isset($_GET['status']) && isset($_GET['id'])) {
-                    confirm_order($_GET['status'], $_GET['id']);
+            case 'edit_order':
+                if (isset($_GET['id_order']) && $_GET['id_order'] > 0) {
+                    $get_one_order = get_one_order($_GET['id_order']);
                 }
                 $list_order = list_order();
-                echo "<script> window.location.href='index.php?act=list_order';</script>";
-                include '../admin/view/order/list_order.php';
+                include '../admin/view/order/update_order.php';
+                break;
+            case 'update_order':
+                if (isset($_POST['update'])) {
+                    $id_order = $_POST['idorder'];
+                    $status = $_POST['status'];
+
+                    update_order($id_order, $status);
+                }
+                echo "<script>window.location.href='index.php?act=list_order'</script>";
                 break;
             case 'statistical':
                 $statistical_category = statistical_category();
@@ -304,11 +316,7 @@ include 'view/header.php';
                 }
                 include '../admin/view/order/list_order.php';
                 break;
-
-                // Order
-            case 'list_order':
-                include 'view/order/list_order.php';
-                break;
+                // End- order
 
                 // voucher
             case 'list_voucher':

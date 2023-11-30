@@ -56,7 +56,7 @@
 
 <!-- Hero/Intro Slider End -->
 <?php
-    extract($one_product);
+extract($one_product);
 ?>
 <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -70,35 +70,34 @@
                         <!-- Swiper -->
                         <div class="swiper-container gallery-top mb-20px">
                             <div class="swiper-wrapper">
-                               
                                 <?php
-                                    foreach ($check_variant as $variant) {
-                                        extract($variant);
-                                        $image = $link_img .$hinh_anh;
-                                        echo '<div class="swiper-slide">
-                                                <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\''.$hinh_anh.'\', '.$gia_km.', '.$gia_sp.', '.$so_luong.')">
+                                foreach ($check_variant as $variant) {
+                                    extract($variant);
+                                    $image = $link_img . $hinh_anh;
+                                    echo '<div class="swiper-slide">
+                                                <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\'' . $hinh_anh . '\', ' . $gia_km . ', ' . $gia_sp . ', ' . $so_luong . ')">
                                             </div>';
-                                    }
+                                }
                                 ?>
                             </div>
                         </div>
                         <div class="swiper-container gallery-thumbs slider-nav-style-1 small-nav">
                             <div class="swiper-wrapper">
-                            <?php
-                                    foreach ($check_variant as $variant) {
-                                        extract($variant);
-                                        $image = $link_img .$hinh_anh;
-                                        echo '<div class="swiper-slide">
-                                                <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\''.$hinh_anh.'\', '.$gia_km.', '.$gia_sp.', '.$so_luong.')">
+                                <?php
+                                foreach ($check_variant as $variant) {
+                                    extract($variant);
+                                    $image = $link_img . $hinh_anh;
+                                    echo '<div class="swiper-slide">
+                                                <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\'' . $hinh_anh . '\', ' . $gia_km . ', ' . $gia_sp . ', ' . $so_luong . ')">
                                             </div>';
-                                    }
-                                    // foreach ($img_product as $img) {
-                                    //     extract($img);
-                                    //     $image = $link_img .$hinh_anh;
-                                    //     echo '<div class="swiper-slide">
-                                    //         <img class="img-responsive m-auto" src="'.$image.'" alt="">
-                                    //     </div>';
-                                    // }
+                                }
+                                // foreach ($img_product as $img) {
+                                //     extract($img);
+                                //     $image = $link_img .$hinh_anh;
+                                //     echo '<div class="swiper-slide">
+                                //         <img class="img-responsive m-auto" src="'.$image.'" alt="">
+                                //     </div>';
+                                // }
                                 ?>
                             </div>
                             <!-- Add Arrows -->
@@ -111,7 +110,7 @@
                     <div class="col-md-7 col-sm-12 col-xs-12">
                         <div class="product-details-content quickview-content">
                             <h2><?= $ten_sp ?></h2>
-                            <p class="reference" id="quantityDisplay">Tồn kho: <span><?=$so_luong?></span></p>
+                            <p class="reference" id="quantityDisplay">Tồn kho: <span><?= $so_luong ?></span></p>
                             <div class="pro-details-rating-wrap">
                                 <div class="rating-product">
                                     <i class="ion-android-star"></i>
@@ -124,7 +123,7 @@
                             </div>
                             <div class="pricing-meta">
                                 <ul>
-                                    <span class="old-price not-cut" id="priceDisplay"><?=number_format($check_variant[0]['gia_km'], 0, '.', '.')?></span>
+                                    <span class="old-price not-cut" id="priceDisplay"><?= number_format($check_variant[0]['gia_km'], 0, '.', '.') ?></span>
                                     <span id="priceDisplaySub" style="text-decoration: line-through; opacity:.5; margin-left:10px; font-size:18px" class="new"><?= number_format($check_variant[0]['gia_sp'], 0, '.', '.') ?></span>
                                     <!-- <img src="" id="imageVariant" alt="no php"> -->
                                 </ul>
@@ -139,7 +138,7 @@
                                         <?php
                                             foreach ($get_color_size as $color) {
                                                 extract($color);
-                                                echo '<option value="'.$ten_mau.'">'.$ten_mau.'</option>';
+                                                echo '<option value="' . $ten_mau . '">' . $ten_mau . '</option>';
                                             }
                                         ?>
                                     </select>
@@ -152,33 +151,38 @@
                                         <?php
                                             foreach ($get_color_size as $size) {
                                                 extract($size);
-                                                echo '<option value="'.$ten_kich_co.'">'.$ten_kich_co.'</option>';
+                                                echo '<option value="' . $ten_kich_co . '">' . $ten_kich_co . '</option>';
                                             }
-                                        ?>
-                                    </select>
+                                            ?>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div class="pro-details-quality">
-                                <input type="hidden" name="idpro" value="<?=$ma_sp?>">
-                                <input type="hidden" name="name" value="<?=$ten_sp?>">
-                                <input type="hidden" name="quantity_variant" id="quantityVariant">
-                                <input type="hidden" name="imagedefault" value="<?=$check_variant[0]['hinh_anh']?>">
-                                <input type="hidden" name="pricedefault" value="<?=$check_variant[0]['gia_km']?>">
-                                <input type="hidden" name="price_variant_sub" id="priceVariantSub">
-                                <input type="hidden" name="price_variant" id="priceVariant">
-                                <input type="hidden" name="image_variant" id="imageVariant">
-                                
-                                <!-- <div class="cart-plus-minus" style="margin-right: 15px;">
+
+                                <div class="pro-details-quality">
+                                    <input type="hidden" name="idpro" value="<?= $ma_sp ?>">
+                                    <input type="hidden" name="name" value="<?= $ten_sp ?>">
+                                    <input type="hidden" name="quantity_variant" id="quantityVariant" value="<?= $so_luong ?>">
+                                    <input type="hidden" name="imagedefault" value="<?= $check_variant[0]['hinh_anh'] ?>">
+                                    <input type="hidden" name="pricedefault" value="<?= $check_variant[0]['gia_km'] ?>">
+                                    <input type="hidden" name="price_variant_sub" id="priceVariantSub">
+                                    <input type="hidden" name="price_variant" id="priceVariant">
+                                    <input type="hidden" name="image_variant" id="imageVariant">
+
+                                    <!-- <div class="cart-plus-minus" style="margin-right: 15px;">
                                 </div> -->
-                                <input class="cart-plus-minus" style="margin-right: 15px; text-align:center" type="number" name="quantity" value="1" id="quantity" onchange="limitQuantity()"/>
-                                <div class="">
-                                    <button title="Add To Cart" class="add-cart btn btn-primary btn-hover-primary ml-4" name="addtocart">Thêm vào giỏ hàng</button>
+                                    <div style="height:50px;display:flex; align-items:center;border:1px solid #ccc; border-radius: 5px; margin-right:30px">
+                                        <span style="cursor: pointer; padding-left: 20px; font-size:20px" onclick="decrease()">-</span>
+                                        <input type="text" name="quantity" id="quantityInput" class="cart-plus-minus" style="border: none;display: inline-block; text-align:center" value="1" readonly>
+                                        <span style="cursor: pointer; padding-right: 20px; font-size:20px" onclick="increase()">+</span>
+                                    </div>
+                                    <!-- <input class="cart-plus-minus" style="margin-right: 15px; text-align:center" type="number" name="quantity" value="1" id="quantity" onclick="limitQuantity()"/> -->
+                                    <div class="">
+                                        <button title="Add To Cart" class="add-cart btn btn-primary btn-hover-primary ml-4" name="addtocart">Thêm vào giỏ hàng</button>
+                                    </div>
+
                                 </div>
-                                
-                            </div>
-                        </form>
-                           
+                            </form>
+
                             <div class="pro-details-wish-com">
                                 <div class="pro-details-wishlist">
                                     <a href="wishlist.html"><i class="ion-android-favorite-outline"></i>Add to
@@ -217,81 +221,122 @@
 </div>
 <!-- Modal end -->
 <script>
-    function limitQuantity() {
-    var maxQuantity = document.getElementById('quantityVariant').value;
-    var quantityInput = document.getElementById("quantity");
-    var checkNaN = parseInt(quantityInput.value);
-
-    if (checkNaN >= maxQuantity) {
-        quantityInput.value = maxQuantity; // Đặt lại giá trị nếu vượt quá ngưỡng
+    function increase() {
+        var maxQuantity = document.getElementById('quantityVariant').value;
+        var input = document.getElementById('quantityInput');
+        var currentValue = parseInt(input.value, 10);
+        // Kiểm tra giới hạn tối đa là 5
+        if (currentValue < maxQuantity) {
+            input.value = currentValue + 1;
+        } else {
+            input.value = 1;
+        }
     }
-}
+
+    function decrease() {
+        var maxQuantity = document.getElementById('quantityVariant').value;
+        var input = document.getElementById('quantityInput');
+        var currentValue = parseInt(input.value, 10);
+
+        // Kiểm tra giới hạn tối thiểu là 1
+        if (currentValue > 1) {
+            input.value = currentValue - 1;
+        } else {
+            input.value = maxQuantity
+        }
+    }
+
+    function limitQuantity() {
+        var maxQuantity = document.getElementById('quantityVariant').value;
+        var quantityInput = document.getElementById("quantityInput");
+        var checkNaN = parseInt(quantityInput.value);
+
+        if (checkNaN >= maxQuantity) {
+            quantityInput.value = maxQuantity; // Đặt lại giá trị nếu vượt quá ngưỡng
+        }
+    }
 
     // Xử lý khi người dùng chọn biến thể
     function selectVariant(imageVariant, priceVariant, priceVariantSub, quantityVariant) {
-    // var sizeSelect = document.getElementById('sizeSelect');
-    // var colorSelect = document.getElementById('colorSelect');
+        // var sizeSelect = document.getElementById('sizeSelect');
+        // var colorSelect = document.getElementById('colorSelect');
 
-    // sizeSelect.innerHTML = '';
-    // colorSelect.innerHTML = '';
-    // console.log(colors);
-    // sizes.forEach(function(size) {
-    //     var option = document.createElement('option');
-    //     option.value = size;
-    //     option.textContent = size;
-    //     sizeSelect.appendChild(option);
-    // });
+        // sizeSelect.innerHTML = '';
+        // colorSelect.innerHTML = '';
+        // console.log(colors);
+        // sizes.forEach(function(size) {
+        //     var option = document.createElement('option');
+        //     option.value = size;
+        //     option.textContent = size;
+        //     sizeSelect.appendChild(option);
+        // });
 
-    // colors.forEach(function(color) {
-    //     var option = document.createElement('option');
-    //     option.value = color;
-    //     option.textContent = color;
-    //     colorSelect.appendChild(option);
-    // });
+        // colors.forEach(function(color) {
+        //     var option = document.createElement('option');
+        //     option.value = color;
+        //     option.textContent = color;
+        //     colorSelect.appendChild(option);
+        // });
 
-    document.getElementById('imageVariant').value = imageVariant;
-    document.getElementById('priceVariant').value = priceVariant;
-    document.getElementById('priceVariantSub').value = priceVariantSub;
-    document.getElementById('quantityVariant').value = quantityVariant;
-    const formatPrice = priceVariant.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-    const formatPriceSub = priceVariantSub.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        // Value input<hidden>
+        document.getElementById('imageVariant').value = imageVariant;
+        document.getElementById('priceVariant').value = priceVariant;
+        document.getElementById('priceVariantSub').value = priceVariantSub;
+        document.getElementById('quantityVariant').value = quantityVariant;
+        var quantityInput = document.getElementById('quantityInput').value = 1; // Reset value
 
-    document.getElementById('priceDisplay').textContent = formatPrice;
-    document.getElementById('priceDisplaySub').textContent = formatPriceSub;
-    document.getElementById('quantityDisplay').textContent = 'Tồn kho: ' +  quantityVariant;
-}
+        // Format price
+        const formatPrice = priceVariant.toLocaleString('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        });
+        const formatPriceSub = priceVariantSub.toLocaleString('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        });
 
-var variants = <?php echo json_encode($check_variant); ?>;
-// console.log(variants[0]['gia_km']);
-let variantIndex = 0;
-function displayVariant(index) {
-    const currentVariant = variants[index];
+        // Show content
+        document.getElementById('priceDisplay').textContent = formatPrice;
+        document.getElementById('priceDisplaySub').textContent = formatPriceSub;
+        document.getElementById('quantityDisplay').textContent = 'Tồn kho: ' + quantityVariant;
+    }
 
-    document.getElementById('priceVariant').value = currentVariant.gia_km;
-    document.getElementById('quantityVariant').value = currentVariant.so_luong;
-    document.getElementById('imageVariant').value = currentVariant.hinh_anh;
+    var variants = <?php echo json_encode($check_variant); ?>;
+    let variantIndex = 0;
 
-    const formatPrice = currentVariant.gia_km.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-    const formatPriceSub = currentVariant.gia_sp.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    function displayVariant(index) {
+        const currentVariant = variants[index];
 
-    document.getElementById('priceDisplay').textContent = formatPrice;
-    document.getElementById('priceDisplaySub').textContent = formatPriceSub;
-    document.getElementById('quantityDisplay').textContent = 'Tồn kho: ' +  currentVariant.so_luong;
-    document.getElementById('imageVariant').src = 'upload/' + currentVariant.hinh_anh;
-}
+        document.getElementById('priceVariant').value = currentVariant.gia_km;
+        document.getElementById('quantityVariant').value = currentVariant.so_luong;
+        document.getElementById('imageVariant').value = currentVariant.hinh_anh;
 
-function nextVariant() {
-    variantIndex = (variantIndex === variants.length - 1) ? 0 : variantIndex + 1;
-    // console.log(variantIndex);
+        const formatPrice = currentVariant.gia_km.toLocaleString('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        });
+        const formatPriceSub = currentVariant.gia_sp.toLocaleString('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        });
+
+        document.getElementById('priceDisplay').textContent = formatPrice;
+        document.getElementById('priceDisplaySub').textContent = formatPriceSub;
+        document.getElementById('quantityDisplay').textContent = 'Tồn kho: ' + currentVariant.so_luong;
+        document.getElementById('imageVariant').src = 'upload/' + currentVariant.hinh_anh;
+    }
+
+    function nextVariant() {
+        variantIndex = (variantIndex === variants.length - 1) ? 0 : variantIndex + 1;
+        // console.log(variantIndex);
+        displayVariant(variantIndex);
+    }
+
+    function previousVariant() {
+        variantIndex = (variantIndex <= 0) ? (variants.length - 1) : (variantIndex - 1);
+        // console.log(variantIndex);
+        displayVariant(variantIndex);
+    }
+
     displayVariant(variantIndex);
-}
-
-function previousVariant() {
-    variantIndex = (variantIndex <= 0) ? (variants.length - 1) : (variantIndex - 1);
-    // console.log(variantIndex);
-    displayVariant(variantIndex);
-}
-
-displayVariant(variantIndex);
-
 </script>
