@@ -1,21 +1,22 @@
 <?php
 ob_start();
 session_start();
-$_SESSION['user'] = 'Trung'; 
+$_SESSION['user'] = 'Trung';
 include "config/connectdb.php";
 include "user/model/product.php";
 include "model/product_catalog.php";
 include "user/model/comment.php";
+include "user/model/checkout.php";
+include "user/model/history_order.php";
 include "model/account.php";
 include "view/header.php";
 include "global/global.php";
 // Load product - Our product
 
-if(!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
+if (!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
 // $list_product = load_product(0);
-$list_product = get_all_product(); 
-
-
+$list_product = get_all_product();
+$view_most_product = view_most_product();
 
 // Load product discount
 $list_product_discount = load_product(1);
@@ -54,91 +55,152 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                         if (!isset($_POST['namesize'])) {
                             $message = '<p class="alert alert-danger">Vui lòng chọn kích cỡ để thêm vào giỏ hàng!</p>';
                         } else {
-                            if (!isset($_POST['namesize'])) {
-                                $message = '<p class="alert alert-danger">Vui lòng chọn kích cỡ để thêm vào giỏ hàng!</p>';
-                            } else {
-                                $idpro = $_POST['idpro'];
-                                // $id_variant = $_POST['id_variant'];
-                                $name = $_POST['name'];
-                                ($_POST['image_variant']) ? $image = $_POST['image_variant'] : $image = $_POST['imagedefault'];
-                                ($_POST['price_variant']) ? $price = $_POST['price_variant'] : $price = $_POST['pricedefault'];
-                                $quantity = $_POST['quantity'];
-                                $name_color = $_POST['namecolor'];
-                                $name_size = $_POST['namesize'];
-                                $total = $price * $quantity;
-                                $product_exists = false;
-                                $i = 0;
-                                foreach ($_SESSION['mycart'] as $item) {
-                                    if ($item[0] == $idpro && $item[1] == $name && $item[2] == $image && $item[3] == $price && $item[4] == $quantity && $item[5] == $name_color && $item[6] == $name_size) {
-                                        $_SESSION['mycart'][$i][4] += $quantity;
-                                        $product_exists = true;
-                                        break;
+                            $stock = $_POST['quantity_variant'];
+                            $idpro = $_POST['idpro'];
+                            // $id_variant = $_POST['id_variant'];
+                            $name = $_POST['name'];
+                            ($_POST['image_variant']) ? $image = $_POST['image_variant'] : $image = $_POST['imagedefault'];
+                            ($_POST['price_variant']) ? $price = $_POST['price_variant'] : $price = $_POST['pricedefault'];
+                            $quantity = $_POST['quantity'];
+                            $name_color = $_POST['namecolor'];
+                            $name_size = $_POST['namesize'];
+                            $total = $price * $quantity;
+                            $product_exists = false;
+                            $i = 0;
+                            foreach ($_SESSION['mycart'] as $item) {
+                                if ($item[0] == $idpro && $item[1] == $name && $item[2] == $image && $item[3] == $price && $item[5] == $name_color && $item[6] == $name_size) {
+                                    $_SESSION['mycart'][$i][4] += $quantity;
+                                    if ($_SESSION['mycart'][$i][4] > $_SESSION['mycart'][$i][8]) {
+                                        $_SESSION['mycart'][$i][4] = $_SESSION['mycart'][$i][8];
                                     }
-                                    $i++;
+                                    $product_exists = true;
+                                    break;
                                 }
                                 $i++;
                             }
-                            if ($product_exists == false) {
-                                $add_product = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total];
-                                // array_push($_SESSION['mycart'], $add_product);
-                                $_SESSION['mycart'][] = $add_product;
-                            }
-                            echo '<script>window.location.href = window.location.href;</script>';
                         }
+                        if (!$product_exists) {
+                            $add_product = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total, $stock];
+                            // array_push($_SESSION['mycart'], $add_product);
+                            $_SESSION['mycart'][] = $add_product;
+                        }
+                        echo '<script>window.location.href = window.location.href;</script>';
                     }
                 }
             }
-                include "view/cart/cart.php";
-                break;
-                case 'del_cart':
-                    if(isset($_GET['idcart'])){
-                        array_splice($_SESSION['mycart'], $_GET['idcart'], 1);
-                    }else{
-                        $_SESSION['mycart'] = [];
+            include "view/cart/cart.php";
+            break;
+        case 'del_cart':
+            if (isset($_GET['idcart'])) {
+                array_splice($_SESSION['mycart'], $_GET['idcart'], 1);
+            } else {
+                $_SESSION['mycart'] = [];
+            }
+            if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                header('location: index.php?act=viewcart');
+            } else {
+                header('location: index.php?act=empty_cart');
+            }
+            // header('Location: index.php?act=viewcart');
+            break;
+        case 'checkout':
+            if (isset($_POST['checkout'])) {
+                if (isset($_POST['checkout_delivery)'])) {
+                    # code...
+                } elseif (isset($_POST['redirect'])) {
+                    $tong_gia = "200000";
+                    execPostRequest($url, $data);
+                    include 'view/checkout/checkout_vnpay.php';
+                } elseif (isset($_POST['payUrl'])) {
+                    $tong_gia = "200000";
+                    execPostRequest($url, $data);
+                    include 'view/checkout/checkout_momo.php';
+                }
+            }
+            break;
+        case 'payment':
+                if (isset($_POST['checkout']) && $_POST['checkout']) {
+                    $total_order = $_POST['totalorder'];
+                    $id_user = $_POST['id_user'];
+                    $name = $_POST['name'];
+                    $address = $_POST['address'];
+                    $telephone = $_POST['telephone'];
+                    $email = $_POST['email'];
+                    $id_order = 'LTH' .rand(0, 999999);
+                    $note = $_POST['note'];
+                    $date_create = date('Y-m-d H:i:s');
+                    if (isset($_POST['cod'])) {
+                        $method_pay = $_POST['cod'];
+                    } else if (isset($_POST['redirect'])){
+                        $method_pay = $_POST['redirect'];
+                    } else if (isset($_POST['payUrl'])){
+                        $method_pay = $_POST['payUrl'];
+                    } 
+                    $_SESSION['order_info'] = [$total_order, $id_user, $name, $address, $telephone, $email, $id_order, $note, $date_create, $method_pay];
+                    
+                    if (isset($_POST['cod'])) {
+                        echo "<script> window.location.href='index.php?act=bill_success';</script>";
+                    } else if (isset($_POST['redirect'])){
+                        // execPostRequest($url, $data);
+                        include 'view/checkout/checkout_vnpay.php';
+                    } else if (isset($_POST['payUrl'])){
+                        // execPostRequest($url, $data);
+                        include 'view/checkout/checkout_momo.php';
+                    } 
+                }
+                // include "view/checkout/bill_checkout.php";
+            break;
+        case 'bill_success':
+            if (isset($_SESSION['order_info']) && !empty($_SESSION['order_info'])) {
+                $order_info = $_SESSION['order_info'];
+                // Tạo đơn hàng
+                // $item = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total]
+                $create_order_id = create_order($order_info[6], $order_info[0], $order_info[1], $order_info[2], $order_info[3], $order_info[4], $order_info[5], $order_info[9], $order_info[7], $order_info[8]);
+                unset($_SESSION['order_info']);
+                $_SESSION['id_order'] = $create_order_id;
+                if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                    foreach ($_SESSION['mycart'] as $item) {
+                        add_order_detail($create_order_id, $item[0], $item[1], $item[2], $item[5], $item[6], $item[4], $item[3]);
                     }
-                    if (count($_SESSION['mycart']) > 0) {
-                        header('location: index.php?act=viewcart');
-                    }else {
-                        header('location: index.php?act=empty_cart');
-                    }
-                    // header('Location: index.php?act=viewcart');
-                    break;
-                case 'pockup':
-                    if (isset($_GET['idpro']) && $_GET['idpro'] > 0) {
-                        // load product_detail by id_pro
-                        $check_variant = check_variant($_GET['idpro']);
-                        $one_variant = get_one_product($_GET['idpro']);
-                        $one_product = get_one_product($_GET['idpro']);
-                        $get_color_size = get_color_size($_GET['idpro']);
+                    unset($_SESSION['mycart']);
+                }
+            }
+            include 'view/checkout/bill_success.php';
+            break;
+        case 'pockup':
+            if (isset($_GET['idpro']) && $_GET['idpro'] > 0) {
+                // load product_detail by id_pro
+                $check_variant = check_variant($_GET['idpro']);
+                $one_variant = get_one_product($_GET['idpro']);
+                $one_product = get_one_product($_GET['idpro']);
+                $get_color_size = get_color_size($_GET['idpro']);
 
-                        $img_product = load_img_by_idpro(($_GET['idpro']));
-                    }
-                    include 'view/pockup.php';
-                    break;
-                case 'viewcart':
-                    include 'view/cart/cart.php';
-                    break;
-                case 'checkout':
-                    if (isset($_POST['update'])) {
-                        $full_name = $_POST['full_name'];
-                        $gender = $_POST['gender'];
-                        $email = $_POST['email'];
-                        $address = $_POST['address'];
-                        $telephone = $_POST['telephone'];
-                        $id = $_POST['id'];
-        
-                        update_account($id, $full_name, $gender, $email, $address, $telephone);
-                        $getOne_account = getOne_account($id);
-                        $_SESSION['account'] = $getOne_account;
-                        $message = "Đã cập nhật thành công!";
-                    }
-                    include 'view/cart/checkout.php';
-                    break;
-                case 'empty_cart':
-                    include 'view/cart/empty_cart.php';
-                    break;
-            
-        // Begin-> Account
+                $img_product = load_img_by_idpro(($_GET['idpro']));
+            }
+            include 'view/pockup.php';
+            break;
+        case 'viewcart':
+            include 'view/cart/cart.php';
+            break;
+
+        case 'empty_cart':
+            include 'view/cart/empty_cart.php';
+            break;
+
+            // checkout 
+        case 'checkout_info':
+            if (isset($_SESSION['id_account']) && $_SESSION['id_account'] > 0) {
+                $one_account = getOne_account($_SESSION['id_account']);
+            }
+            include 'view/checkout/checkout_info.php';
+            break;
+
+            // Bill checkout
+        case 'bill_checkout':
+            include 'view/checkout/bill_checkout.php';
+            break;
+
+            // Begin-> Account
         case 'account':
             include "view/account.php";
             break;
@@ -239,24 +301,23 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             break;
             // End-> Account        
 
-        case 'cart':
-            include "view/cart.php";
+        case 'list_history_order':
+            if (isset($_GET['id_account']) && $_GET['id_account'] > 0) {
+                $list_his_order = list_history_order($_GET['id_account']);
+            }
+            include "view/history_order/list_history_order.php";
             break;
-
-        case 'checkout':
-            include "view/checkout.php";
+        
+        case 'del_his_order':
+            if (isset($_GET['$id_order']) && $_GET['$id_order'] > 0) {
+                del_his_order($_GET['$id_order']);
+                echo "<script>window.location.href='index.php?act=list_history_order'</script>";
+            }
+            include "view/history_order/list_history_order.php";
             break;
 
         case 'contact':
             include "view/contact.php";
-            break;
-
-        case 'login':
-            include "view/login.php";
-            break;
-
-        case 'account':
-            include "view/account.php";
             break;
 
         case 'product_detail':
@@ -290,63 +351,121 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 $product_comment = load_comment($_GET['id_pro']);
 
                 // load product in the same catalog
-                $product_thesame_catalog = products_in_the_same_catalog($_GET['id_pro'], $product_detail['ma_lsp']);
+                $similar_products = similar_products($_GET['id_catalog']);
 
                 // load 10 prouct most view
-                $product_most_view = product_most_view();
+                $view_most_product = view_most_product();
 
                 //count comment
                 $count_comment = count_comment_by_idpro($_GET['id_pro']);
                 include "view/product_detail.php";
             }
             break;
+            case 'search_product':
+                if(isset($_POST['search'])){
+                    if (isset($_GET['id_lsp'])) {
+                        $id = $_GET['id_lsp'];
+                        $orderCondition = "";
+                        $orderField = isset($_GET['field']) ? $_GET['field'] : "";
+                        $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+                        if (!empty($orderField) && !empty($orderSort)) {
+                            $orderCondition = "ORDER BY `".$orderField."` ".$orderSort;
+                        }
+                        $product_sum = product_sum($id);
 
-            case 'product_catalog':
-                if (isset($_GET['id_lsp'])) {
-                    $id = $_GET['id_lsp'];
-                    $orderCondition = "";
-                    $orderField = isset($_GET['field']) ? $_GET['field'] : "";
-                    $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
-                    if (!empty($orderField) && !empty($orderSort)) {
-                        $orderCondition = "ORDER BY `".$orderField."` ".$orderSort;
-                    }
-                    $product = getAll_product($_GET['id_lsp'],$orderCondition);
-                } else {
-                    $orderCondition = "";
-                    $orderField = isset($_GET['field']) ? $_GET['field'] : "";
-                    $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+                        $product = getAll_product($_GET['id_lsp'],$orderCondition);
+                    } else {
+                        $orderCondition = "";
+                        $orderField = isset($_GET['field']) ? $_GET['field'] : "";
+                        $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+    
+                        if (!empty($orderField) && !empty($orderSort)) {
+                            $orderCondition = "ORDER BY `".$orderField."` ".$orderSort;
+                        }
+                        $item_per_page = !empty($_GET['per_page']) ? $_GET['per_page'] : 9;
+                        $current_page = !empty($_GET['page']) ? $_GET['page'] : 1;
+                        $offset = ($current_page - 1) * $item_per_page;
+    
+                        if(isset($_POST['kyw']) && ($_POST['kyw'] != "" )){
+                            $kyw = $_POST['kyw'];
+                            
+                        }else{
+                            $kyw = "";
+                        }
+                        if (isset($_GET['min_price']) && isset($_GET['max_price'])) {
+    
+                            $min_price = intval($_GET['min_price']);
+                            $max_price = intval($_GET['max_price']);
+                            
+                        }else {
+                            $min_price = 0;
+                            $max_price = PHP_INT_MAX;
+                        }
+        
+                
+                        $product = loadAll_product($item_per_page, $offset, $orderCondition, $kyw,$min_price,$max_price);
 
-                    if (!empty($orderField) && !empty($orderSort)) {
-                        $orderCondition = "ORDER BY `".$orderField."` ".$orderSort;
                     }
-                    $item_per_page = !empty($_GET['per_page']) ? $_GET['per_page'] : 9;
-                    $current_page = !empty($_GET['page']) ? $_GET['page'] : 1;
-                    $offset = ($current_page - 1) * $item_per_page;
-
-                    if(isset($_POST['kyw']) && ($_POST['kyw'] != "" )){
-                        $kyw = $_POST['kyw'];
-                        
-                    }else{
-                        $kyw = "";
-                    }
-            
-                    $product = loadAll_product($item_per_page, $offset, $orderCondition,$kyw);
                 }
-                           
                 $product_catalog = getAll_product_catalog();
                 $product_count = product_Count();
-                        
-                include "view/product_catalog.php";
-                break;
                 
 
-        case 'login':
-            include "view/login.php";
+                include "view/product_catalog.php";
+                break;
+            
+
+        case 'product_catalog':
+            if (isset($_GET['id_lsp'])) {
+                $id = $_GET['id_lsp'];
+                $orderCondition = "";
+                $orderField = isset($_GET['field']) ? $_GET['field'] : "";
+                $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+                if (!empty($orderField) && !empty($orderSort)) {
+                    $orderCondition = "ORDER BY `" . $orderField . "` " . $orderSort;
+                }
+                $product_sum = product_sum($id);
+                $product = getAll_product($_GET['id_lsp'], $orderCondition);
+            } else {
+                $orderCondition = "";
+                $orderField = isset($_GET['field']) ? $_GET['field'] : "";
+                $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+
+                if (!empty($orderField) && !empty($orderSort)) {
+                    $orderCondition = "ORDER BY `" . $orderField . "` " . $orderSort;
+                }
+                $item_per_page = !empty($_GET['per_page']) ? $_GET['per_page'] : 9;
+                $current_page = !empty($_GET['page']) ? $_GET['page'] : 1;
+                $offset = ($current_page - 1) * $item_per_page;
+                if (isset($_GET['min_price']) && isset($_GET['max_price'])) {
+    
+                    $min_price = intval($_GET['min_price']);
+                    $max_price = intval($_GET['max_price']);
+                    
+                }else {
+                    $min_price = 0;
+                    $max_price = PHP_INT_MAX;
+                }
+
+
+
+                if (isset($_POST['kyw']) && ($_POST['kyw'] != "")) {
+                    $kyw = $_POST['kyw'];
+                } else {
+                    $kyw = "";
+                }
+                
+                $product = loadAll_product($item_per_page, $offset, $orderCondition, $kyw,$min_price,$max_price);
+            }
+          
+            $product_catalog = getAll_product_catalog();
+
+            $product_count = product_Count();
+
+            include "view/product_catalog.php";
             break;
 
-        case 'test':
-            include "view/test.php";
-            break;
+        
 
         default:
             include "view/home.php";
@@ -356,4 +475,3 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
     include "view/home.php";
 }
 include "view/footer.php";
-    

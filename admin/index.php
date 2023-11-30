@@ -8,8 +8,12 @@ include "model/account.php";
 include "model/product.php";
 include "model/voucher.php";
 include "model/statistical.php";
+include "model/order.php";
 include 'view/header.php';
+$statistical_product_seling = statistical_product_seling();
+$statistical_category = statistical_category();
 ?>
+
    <?php
     if (isset($_GET['act']) && $_GET['act'] != "") {
         $act = $_GET['act'];
@@ -264,7 +268,7 @@ include 'view/header.php';
                     $id = $_GET['id_cmt'];
                     delete_commet($id);
                 }
-                $list_cmt_detail = loadAll_comment($id);
+                $list_cmt_detail = loadAll_comment(0);
                 include '../admin/view/comment/detail_cmt.php';
                 break;
 
@@ -273,9 +277,27 @@ include 'view/header.php';
                 $statistical_product_seling = statistical_product_seling();
                 $statistical_category = statistical_category();
                 include '../admin/view/statistical/list_statistical.php';
+
+                // Begin-order
+            case 'list_order':
+                $list_order = list_order();
+                include '../admin/view/order/list_order.php';
                 break;
-            case 'add_staff':
-                include '../admin/view/statistical/add_staff.php';
+            case 'edit_order':
+                if (isset($_GET['id_order']) && $_GET['id_order'] > 0) {
+                    $get_one_order = get_one_order($_GET['id_order']);
+                }
+                $list_order = list_order();
+                include '../admin/view/order/update_order.php';
+                break;
+            case 'update_order':
+                if (isset($_POST['update'])) {
+                    $id_order = $_POST['idorder'];
+                    $status = $_POST['status'];
+
+                    update_order($id_order, $status);
+                }
+                echo "<script>window.location.href='index.php?act=list_order'</script>";
                 break;
             case 'statistical':
                 $statistical_category = statistical_category();
@@ -285,12 +307,14 @@ include 'view/header.php';
             case 'product_chart':
                 $statistical_product_seling = statistical_product_seling();
                 include '../admin/view/statistical/product_chart.php';
+            case 'delete_order':
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    delete_order($_GET['id']);
+                    echo "<script> window.location.href='index.php?act=list_order';</script>";
+                }
+                include '../admin/view/order/list_order.php';
                 break;
-
-                // Order
-            case 'list_order':
-                include 'view/order/list_order.php';
-                break;
+                // End- order
 
                 // voucher
             case 'list_voucher':

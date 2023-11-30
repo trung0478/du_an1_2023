@@ -33,6 +33,7 @@
     <link rel="apple-touch-icon" href="./user/public/assets/images/favicon/favicon.png" />
     <script src="https://kit.fontawesome.com/8e3c294816.js" crossorigin="anonymous"></script>
     <meta name="msapplication-TileImage" content="./user/public/assets/images/favicon/favicon.png" />
+    
     <!-- Structured Data  -->
     <script type="application/ld+json">
         {
@@ -88,31 +89,33 @@
                             <div class="header_account_list">
                                 <a href="javascript:void(0)" class="header-action-btn search-btn"><i class="icon-magnifier"></i></a>
                                 <div class="dropdown_search">
-                                    <form class="action-form" action="#">
-                                        <input class="form-control" placeholder="Nhập sản phẩm tìm kiếm" type="text">
-                                        <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
+                                    <form class="action-form" action="index.php?act=search_product" method="POST">
+                                        <input class="form-control" placeholder="Nhập sản phẩm tìm kiếm" id="search-input" name="kyw" type="text">
+                                       
+                                        <button class="submit" name="search" type="submit"><i class="icon-magnifier"></i></button>
                                     </form>
                                 </div>
                             </div>
+                            
                             <!-- Single Wedge Start -->
                             <div class="header-bottom-set dropdown">
-                                <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i class="icon-user"></i></button>
+                                <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><?php (isset($_SESSION['account'])) ? $user='<img width= 28px src="upload/user2.jpg" alt="">' : $user='<i class="icon-user"></i>'?><?=$user?></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <?php
                                         if(isset($_SESSION['account'])){
-                                            extract($_SESSION['account']);
+                                        extract($_SESSION['account']);
                                     ?>
-                                        <li><a class="dropdown-item" href="index.php?act=edit_account">Tài khoản</a></li>
+                                        <li><a class="dropdown-item" href="index.php?act=edit_account">Thông tin tài khoản</a></li>
                                         <?php if($vai_tro == 1) {?>
-                                            <li><a class="dropdown-item" href="./admin/index.php">Quản trị</a></li>
+                                            <li><a class="dropdown-item" href="./admin/index.php">Quản trị website</a></li>
                                         <?php }?>
-                                            <li><a class="dropdown-item" href="index.php?act=order">Đơn hàng</a></li>
+                                            <li><a class="dropdown-item" href="index.php?act=list_history_order&id_account=<?=$ma_nd?>">Lịch sử đơn hàng</a></li>
                                             <li><a class="dropdown-item" href="index.php?act=logout">Đăng xuất</a></li>
                                     <?php } else {?>
                                         <li><a class="dropdown-item" href="index.php?act=login">Đăng nhập</a></li>
                                         <li><a class="dropdown-item" href="index.php?act=register">Đăng ký</a></li>
-                                </ul>
                                     <?php }?>
+                                </ul>
                                 
                             </div>
                             <!-- Single Wedge End -->
@@ -150,9 +153,9 @@
                             <div class="header_account_list">
                                 <a href="javascript:void(0)" class="header-action-btn search-btn"><i class="icon-magnifier"></i></a>
                                 <div class="dropdown_search">
-                                    <form class="action-form" action="#">
-                                        <input class="form-control" placeholder="Nhập sản phẩm tìm kiếm" type="text">
-                                        <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
+                                    <form class="action-form" action="index.php?act=search_product">
+                                        <input class="form-control" id="search-input" name="kyw" placeholder="Nhập sản phẩm tìm kiếm" type="text">
+                                        <input class="submit" type="submit"><i class="icon-magnifier"></i></input>
                                     </form>
                                 </div>
                             </div>
@@ -240,27 +243,31 @@
                 $i = 0;
                 $total =0 ;
                 $shippingFee = 30000; // Phí vận chuyển
-                foreach ($_SESSION['mycart'] as $cart) {
-                    $img = "upload/" . $cart[2];
-                    $thanhtien = $cart[3] * $cart[4];
-                    $sum += $thanhtien;
-                    
-                    $total = $sum + $shippingFee;
-                    ?>
-                    <div class="body customScroll">
-                        <ul style="margin-bottom: 20px;" class="minicart-product-list">
-                            <li>
-                                <a href="single-product.html" class="image"><img src="<?= $img ?>" alt="Cart product Image"></a>
-                                <div class="content">
-                                    <a href="single-product.html" class="title"><?= $cart[1] ?></a>
-                                    <span class="quantity-price"><?= $cart[4] ?> x <span class="amount"><?=number_format($cart[3], 0, '.', '.')?></span></span>
-                                    <a href="index.php?act=del_cart&idcart=<?=$i?>" class="remove">×</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                <?php $i++;} ?>
+                if (isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
+                    foreach ($_SESSION['mycart'] as $cart) {
+                        $img = "upload/" . $cart[2];
+                        $thanhtien = $cart[3] * $cart[4];
+                        $sum += $thanhtien;
+                        
+                        $total = $sum + $shippingFee;
+                        ?>
+                        <div class="body customScroll">
+                            <ul style="margin-bottom: 20px;" class="minicart-product-list">
+                                <li>
+                                    <a href="single-product.html" class="image"><img src="<?= $img ?>" alt="Cart product Image"></a>
+                                    <div class="content">
+                                        <a href="single-product.html" class="title"><?= $cart[1] ?></a>
+                                        <span class="quantity-price"><?= $cart[4] ?> x <span class="amount"><?=number_format($cart[3], 0, '.', '.')?></span></span>
+                                        <a href="index.php?act=del_cart&idcart=<?=$i?>" class="remove">×</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                <?php
+                $i++;
+                    } 
+                }
+                ?>
 
             
             <div class="foot">
@@ -291,7 +298,7 @@
                             echo '<a href="?act=empty_cart" class="btn btn-dark btn-hover-primary mb-30px">Xem giỏ hàng</a>';
                         }
                     ?>
-                    <a href="?act=cart_pay" class="btn btn-outline-dark current-btn">Tiến hành thanh toán</a>
+                    <a href="?act=checkout_info" class="btn btn-outline-dark current-btn">Tiến hành thanh toán</a>
                 </div>
                 <p class="minicart-message">Giao hàng miễn phí cho $100!</p>
             </div>

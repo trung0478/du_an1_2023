@@ -9,15 +9,14 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-7 col-md-7 col-sm-7 align-self-center">
                             <div class="hero-slide-content slider-animated-1">
-                                <span class="category">New Products</span>
-                                <h2 class="title-1">Flexible Chair </h2>
-                                <p>Torem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmo tempor incididunt ut labore et dolore magna</p>
-                                <a href="#" class="btn btn-lg btn-primary btn-hover-dark mt-5">Shop Now</a>
+                                <h2 class="title-1">Ghế sofa</h2>
+                                <p>Với thiết kế tinh tế, chất liệu chất cao cấp cùng sự kết hợp hoàn hảo giữa kiểu dáng hiện đại và phong cách cổ điển mang đến một điểm nhấn đặc biệt cho không gian nội thất</p>
+                                <a href="?act=product_catalog" class="btn btn-lg btn-primary btn-hover-dark mt-5">Mua ngay</a>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-5 col-md-5 col-sm-5">
                             <div class="hero-slide-image">
-                                <img src="./user/public/assets/images/slider-image/slider-1.png" alt="" />
+                                <img width="100%" src="upload/sofa.png" alt="" />
                             </div>
                         </div>
                     </div>
@@ -29,15 +28,14 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-7 col-md-7 col-sm-7 align-self-center">
                             <div class="hero-slide-content slider-animated-1">
-                                <span class="category">New Products</span>
-                                <h2 class="title-1">Flexible Chair </h2>
-                                <p>Torem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmo tempor incididunt ut labore et dolore magna</p>
-                                <a href="#" class="btn btn-lg btn-primary btn-hover-dark mt-5">Shop Now</a>
+                                <h2 class="title-1">Giường đôi</h2>
+                                <p>Với chất liệu chất lượng cao, cùng với các chi tiết tinh tế và hoàn thiện tỉ mỉ, giường đôi cao cấp mang lại không gian nghỉ ngơi sang trọng và thoải mái</p>
+                                <a href="?act=product_catalog" class="btn btn-lg btn-primary btn-hover-dark mt-5">Mua ngay</a>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-5 col-md-5 col-sm-5">
                             <div class="hero-slide-image">
-                                <img src="./user/public/assets/images/slider-image/slider-2.png" alt="" />
+                                <img src="upload/giuong.png" alt="" />
                             </div>
                         </div>
                     </div>
@@ -64,7 +62,7 @@
         <div class="row">
             <div class="col-md-12 text-center" data-aos="fade-up">
                 <div class="section-title mb-0">
-                    <h2 class="title">Sản phẩm phổ biến</h2>
+                    <h2 class="title">Sản phẩm Mới nhất</h2>
                     <p class="sub-title mb-30px">Chuyên nghiệp, Sang trọng, Tiện nghi - Nơi hoàn hảo cho không gian sống của bạn.</p>
                 </div>
             </div>
@@ -77,15 +75,15 @@
                         <div class="row">
                             <?php
                             foreach ($list_product as $value) :
-                                extract($value)
+                                extract($value);
                             ?>
                                 <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up" data-aos-delay="200">
                                     <!-- Single Product -->
                                     <div class="product">
                                         <div class="thumb">
-                                            <a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>" class="image">
+                                            <a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>" class="image">
                                                 <img src="<?= $link_img . $hinh_anh; ?>" alt="Product" />
-                                                <img class="hover-image" src="<?= $link_img . $hinh_anh; ?>" alt="Product" />
+                                                <!-- <img class="hover-image" src="" alt="Product" /> -->
                                             </a>
 
                                             <div class="actions">
@@ -905,14 +903,14 @@
         <div class="row">
             <!-- Banner Start -->
             <div class="col-lg-6 col-12 mb-md-30px mb-lm-30px" data-aos="fade-up" data-aos-delay="200">
-                <a href="index.php?act=product_detail" class="banner">
+                <a href="index.php" class="banner">
                     <img src="./user/public/assets/images/banner/1.jpg" alt="" />
                     <div class="info justify-content-end">
                         <div class="content align-self-center">
                             <h3 class="title">
-                                Sale Furniture <br /> For Summer
+                                Giảm giá mùa <br /> Giáng Sinh
                             </h3>
-                            <p>Great Discounts Here</p>
+                            <p>Giảm ngay 50%</p>
                         </div>
                     </div>
                 </a>
@@ -921,13 +919,13 @@
 
             <!-- Banner Start -->
             <div class="col-lg-6 col-12" data-aos="fade-up" data-aos-delay="400">
-                <a href="index.php?act=product_detail" class="banner">
+                <a href="index.php" class="banner">
                     <img src="./user/public/assets/images/banner/2.jpg" alt="" />
                     <div class="info justify-content-start">
                         <div class="content align-self-center">
                             <h3 class="title">
-                                Office Chair <br /> For Best Offer</h3>
-                            <p>Great Discounts Here</p>
+                                Ghế Sofa <br /> Ưu đãi lớn nhất</h3>
+                            <p>Giảm ngay 50%</p>
                         </div>
                     </div>
                 </a>
@@ -946,7 +944,7 @@
         <div class="row">
             <div class="col-md-12" data-aos="fade-up">
                 <div class="section-title text-center mb-11">
-                    <h2 class="title">Sản phẩm khuyến mãi</h2>
+                    <h2 class="title">Sản phẩm yêu thích</h2>
                     <p class="sub-title">Tiết kiệm vô vàn, Trải nghiệm vô tận - Tạo nên không gian sống lý tưởng với Ưu đãi tuyệt vời.</p>
                 </div>
             </div>
@@ -956,7 +954,7 @@
             <div class="new-product-wrapper swiper-wrapper">
                 <!-- Single Prodect -->
                 <?php
-                foreach ($list_product_discount as $value) :
+                foreach ($view_most_product as $value) :
                     extract($value)
                 ?>
                     <div class="new-product-item swiper-slide">
@@ -972,7 +970,8 @@
                                     <a href="?act=home&id_pro=<?=$ma_sp; ?>"><a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a></a> 
                                     <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
                                 </div>
-                                <button title="Add To Cart" class=" add-to-cart">Thêm vào giỏ hàng</button>
+                                <?php $link_pockup = "?act=pockup&idpro=$ma_sp"?>
+                                            <a href="<?=$link_pockup?>" class="action quickview add-to-cart" data-link-action="quickview" title="Quick view" data-bs-target="#exampleModal">Thêm vào giỏ hàng</a>
                             </div>
                             <div class="content">
                                 <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>"><?= $ten_sp ?></a></h5>

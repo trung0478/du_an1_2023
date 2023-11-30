@@ -25,46 +25,46 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                
                                     <?php
-                                    $sum = 0;
-                                    $i = 0;
-                                    foreach($_SESSION['mycart'] as $cart){
-                                        $img = $link_img . $cart[2];
-                                        $thanhtien = $cart[3] * $cart[4];
-                                        $sum += $thanhtien;
+                                        $sum = 0;
+                                        $i = 0;
+                                        foreach($_SESSION['mycart'] as $cart) :
+                                            $img = $link_img . $cart[2];
+                                            $thanhtien = $cart[3] * $cart[4];
+                                            $sum += $thanhtien;
+                                    ?>
                                         
-                                        echo'
                                         <tr>
                                         <td class="product-thumbnail">
-                                            <a href="#"><img class="img-responsive ml-15px" src="'.$img.'" alt="" /></a>
+                                            <a href="#"><img class="img-responsive ml-15px" src="<?= $img ?>" alt="" /></a>
                                         </td>
-                                        <td class="product-name"><a href="#">'.$cart[1].'</a></td>
-                                        <td class="product-price-cart"><span class="amount">'.number_format($cart[3], 0, '.', '.').' vnđ</span></td>
-                                        <td class="product-quantity">
-                                            <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="'.$cart[4].'" />
+                                        <td class="product-name"><a href="#"><?= $cart[1] ?></a></td>
+                                        <td class="product-price-cart"><span class="amount"><?= number_format($cart[3], 0, '.', '.') ?> đ</span></td>
+                                        <td>
+                                            <div style="margin-left: 12px;width: 140px;height:40px;display:flex; align-items:center;border:1px solid #ccc; border-radius: 5px;">
+                                                <span style="cursor: pointer; padding-left: 20px; font-size:20px" onclick="decrease(this)">-</span>
+                                                <input type="text" max="<?php echo $cart[8]; ?>" class="quantity" data-stock="<?php echo $cart[8]; ?>" name="quantity" id="quantityInput" style="width: 80px;border: none;display: inline-block; padding-left: 10px; text-align:center" value="<?= $cart[4] ?>" readonly>
+                                                <span style="cursor: pointer; padding-right: 15px; font-size:20px" onclick="increase(this)">+</span>
                                             </div>
+                                            
                                         </td>
                                        
-                                        <td class="product-subtotal">'.$cart[5].'</td>
-                                        <td class="product-subtotal">'.$cart[6].'</td>
-                                        <td class="product-subtotal">'.number_format($thanhtien, 0, '.', '.').' vnđ</td>
+                                        <td class="product-subtotal"><?= $cart[5] ?></td>
+                                        <td class="product-subtotal"><?= $cart[6] ?></td>
+                                        <td class="product-subtotal"><?= number_format($thanhtien, 0, '.', '.') ?> đ</td>
                                         <td class="product-remove">
-                                            <a href="index.php?act=del_cart&idcart='.$i.'"><i class="icon-close"></i></a>
+                                            <a href="index.php?act=del_cart&idcart=<?= $i ?>"><i class="icon-close"></i></a>
                                         </td>
-                                    </tr>';
-                                    $i++;
-                                    }
-                                    echo '
+                                    </tr>
+                                    
+                                    <?php $i++; endforeach ?>
                                     <tr>
                                         <td class="product-thumbnail " colspan = "6">Tổng Đơn hàng</td>
                                         
-                                        <td class="product-subtotal">'.number_format($sum, 0, '.', '.').' vnđ</td>
+                                        <td class="product-subtotal"><?= number_format($sum, 0, '.', '.') ?> đ</td>
                                     </tr>
-                                    ';
 
-                                    ?>
-                                    
                                      <!-- <tr>
                                         <td class="product-thumbnail">
                                             <a href="#"><img class="img-responsive ml-15px" src="./user/public/assets/images/product-image/2.jpg" alt="" /></a>
@@ -112,7 +112,7 @@
                                         <a href="index.php?act=home">Tiếp tục mua sắm</a>
                                     </div>
                                     <div class="cart-clear">
-                                        <a href="index.php?act=viewcart" style="margin-right:40px">Cập nhật giỏ hàng</a>
+                                        <!-- <a href="index.php?act=viewcart" style="margin-right:40px">Cập nhật giỏ hàng</a> -->
                                         <a href="index.php?act=del_cart">Xóa giỏ hàng</a>
                                     </div>
                                 </div>
@@ -165,8 +165,7 @@
                                         </ul>
                                     </div>
                                     <h4 class="grand-totall-title">Tổng cộng <span>' . number_format($total, 0, '.', '.') . ' vnđ</span></h4>
-                                    <a href="index.php?act=checkout">Tiến hành thanh toán</a>
-                                    ';
+                                    <a href="index.php?act=checkout_info">Tiến hành thanh toán</a>';
                                     ?>
                                     
                                
@@ -178,3 +177,32 @@
         </div>
     </div>
     <!-- Cart Area End -->
+    <script>
+        function increase(span) {
+        var parentDiv = span.parentElement;
+        var quantityInput = parentDiv.querySelector('.quantity');
+        var currentValue = parseInt(quantityInput.value);
+        var stock = parseInt(quantityInput.getAttribute('data-stock'));
+        
+        // Kiểm tra giới hạn tối đa là max kho
+        if (currentValue < stock) {
+            quantityInput.value = currentValue + 1;
+        } else {
+            quantityInput.value = 1;
+        }
+    }
+
+    function decrease(span) {
+        var parentDiv = span.parentElement;
+        var quantityInput = parentDiv.querySelector('.quantity');
+        var currentValue = parseInt(quantityInput.value);
+        var stock = parseInt(quantityInput.getAttribute('data-stock'));
+
+        // Kiểm tra giới hạn tối thiểu là 1
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+        } else {
+            quantityInput.value = stock;
+        }
+    }
+    </script>

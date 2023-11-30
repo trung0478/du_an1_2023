@@ -10,22 +10,38 @@ function load_product($sp_km)
     return $result;
 }
 
-function get_all_product($sp_km=0) {
-    if ($sp_km == 1) {
+function get_all_product() {
         $sql = "SELECT sanpham.*, bienthe.*, mau_sac.*, kich_co.*
         FROM sanpham 
         JOIN bienthe ON sanpham.ma_sp = bienthe.ma_sp 
         JOIN mau_sac ON bienthe.ma_mau = mau_sac.ma_mau
-        JOIN kich_co ON bienthe.ma_kich_co = kich_co.ma_kich_co WHERE bienthe.gia_km != 0 GROUP BY sanpham.ten_sp";
-    } else {
-        $sql = "SELECT sanpham.*, bienthe.*, mau_sac.*, kich_co.*
-        FROM sanpham 
-        JOIN bienthe ON sanpham.ma_sp = bienthe.ma_sp 
-        JOIN mau_sac ON bienthe.ma_mau = mau_sac.ma_mau
-        JOIN kich_co ON bienthe.ma_kich_co = kich_co.ma_kich_co GROUP BY sanpham.ten_sp";
-    }
+        JOIN kich_co ON bienthe.ma_kich_co = kich_co.ma_kich_co
+        AND bienthe.ma_bien_the IN (
+            SELECT MIN(b.ma_bien_the) AS min_bien_the
+            FROM bienthe b
+            GROUP BY b.ma_sp
+        )
+        GROUP BY sanpham.ten_sp
+        ORDER BY sanpham.ma_sp DESC";
     $products = pdo_query($sql);
     return $products;
+}
+
+function view_most_product() {
+    $sql = "SELECT sanpham.*, bienthe.*, mau_sac.*, kich_co.*
+    FROM sanpham 
+    JOIN bienthe ON sanpham.ma_sp = bienthe.ma_sp 
+    JOIN mau_sac ON bienthe.ma_mau = mau_sac.ma_mau
+    JOIN kich_co ON bienthe.ma_kich_co = kich_co.ma_kich_co
+    AND bienthe.ma_bien_the IN (
+        SELECT MIN(b.ma_bien_the) AS min_bien_the
+        FROM bienthe b
+        GROUP BY b.ma_sp
+    )
+    GROUP BY sanpham.ten_sp
+    ORDER BY sanpham.luot_xem DESC";
+$products = pdo_query($sql);
+return $products;
 }
 
 function load_detail_product($id_product)
@@ -73,6 +89,11 @@ function get_one_variant($idpro) {
     $variant = pdo_query_one($sql);
     return $variant;
 }
+function get_all_variant() {
+    $sql = "SELECT * FROM bienthe ORDER BY ma_sp ASC";
+    $variant = pdo_query($sql);
+    return $variant;
+}
 
 function load_img_by_idpro($id_product)  {
     $sql = "SELECT sanpham.*, bienthe.*  FROM sanpham 
@@ -91,10 +112,22 @@ function load_color_size($id_pro)
     return $result;
 }
 
-function products_in_the_same_catalog($id_pro, $id_catalog){
-    $sql="SELECT * FROM sanpham sp JOIN bienthe bt ON bt.ma_sp=sp.ma_sp WHERE sp.ma_lsp = $id_catalog AND sp.ma_sp <> $id_pro";
-    $result = pdo_query($sql);
-    return $result;
+function similar_products($id_catalog){
+    $sql = "SELECT sanpham.*, bienthe.*, mau_sac.*, kich_co.*
+    FROM sanpham
+    JOIN bienthe ON sanpham.ma_sp = bienthe.ma_sp 
+    JOIN mau_sac ON bienthe.ma_mau = mau_sac.ma_mau
+    JOIN kich_co ON bienthe.ma_kich_co = kich_co.ma_kich_co
+    AND bienthe.ma_bien_the IN (
+        SELECT MIN(b.ma_bien_the) AS min_bien_the
+        FROM bienthe b
+        GROUP BY b.ma_sp
+    )
+    WHERE sanpham.ma_lsp = $id_catalog
+    GROUP BY sanpham.ten_sp
+    ORDER BY sanpham.ma_sp DESC";
+$products = pdo_query($sql);
+return $products;
 }
 
 function product_most_view(){
