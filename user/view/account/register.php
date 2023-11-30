@@ -34,11 +34,11 @@
                             <div id="lg2" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="?act=register" method="post">
-                                            <input type="email" name="email" placeholder="Email" />
-                                            <input type="text" name="username" placeholder="Tài khoản" />
-                                            <input type="password" name="pass" placeholder="Mật khẩu" />
-                                            <input type="password" name="repass" placeholder="Nhập lại mật khẩu" />
+                                        <form id="myForm" action="?act=register" method="post">
+                                            <input style="margin-bottom: 16px;" type="email" name="email" placeholder="Email" />
+                                            <input style="margin-bottom: 16px;" type="text" name="username" placeholder="Tài khoản" />
+                                            <input style="margin-bottom: 16px;" id="pass" type="password" name="pass" placeholder="Mật khẩu" />
+                                            <input style="margin-bottom: 16px;" type="password" name="repass" placeholder="Nhập lại mật khẩu" />
                                             <?php 
                                                 if (isset($message)) {
                                                     echo '<p class="text-danger">'.$message.'</p>';

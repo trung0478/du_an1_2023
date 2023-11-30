@@ -970,7 +970,8 @@
                                     <a href="?act=home&id_pro=<?=$ma_sp; ?>"><a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a></a> 
                                     <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
                                 </div>
-                                <button title="Add To Cart" class=" add-to-cart">Thêm vào giỏ hàng</button>
+                                <?php $link_pockup = "?act=pockup&idpro=$ma_sp"?>
+                                            <a href="<?=$link_pockup?>" class="action quickview add-to-cart" data-link-action="quickview" title="Quick view" data-bs-target="#exampleModal">Thêm vào giỏ hàng</a>
                             </div>
                             <div class="content">
                                 <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>"><?= $ten_sp ?></a></h5>
