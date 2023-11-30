@@ -15,19 +15,21 @@
                             <th scope="col">Số hóa đơn</th>
                             <th scope="col">Địa chỉ</th>
                             <th scope="col">PT thanh toán</th>
-                            <th scope="col">Ghi chú</th>
+                            <th scope="col">Ngày đặt</th>
                             <th scope="col">Trạng thái</th>
                             <th scope="col">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                            foreach ($list_order as $order) :
-                                extract($order);
-                                $pttt = get_payment($pttt);
-                                $del_order = "?act=delete_order&id=$ma";
-                                $confirm_order = "?act=confirm_order&status=$trang_thai&id=$ma";
-                                $trang_thai = get_status($trang_thai);
+                            if (isset($list_order)) {
+                                foreach ($list_order as $order) :
+                                    extract($order);
+                                    $pttt = get_payment($pttt);
+                                    $del_order = "?act=delete_order&id=$ma";
+                                    $edit_order = "?act=edit_order&id_order=$ma";
+                                    $trang_thai = get_status($trang_thai);
+                            
                         ?>
                         <tr>
                             <td class="text-center">
@@ -52,7 +54,7 @@
                                 <?= $pttt ?>
                             </td>
                             <td class="text-center">
-                                <?= $ghi_chu ?>
+                                <?= $ngay_dat ?>
                             </td>
                             <td class="text-center">
                                 <?= $trang_thai ?>
@@ -60,15 +62,15 @@
 
                             <td class="text-center">
                                 <!-- <a href="?act=update_order" class="btn btn-warning">Sửa</a> -->
-                                <a href="<?= $confirm_order ?>" class="btn btn-warning">
-                                    Xác nhận
+                                <a href="<?= $edit_order ?>" class="btn btn-warning">
+                                    Sửa
                                 </a>
                                 <a onclick="return confirm('Bạn có xoá không?')" href="<?= $del_order ?>" class="btn btn-danger">
                                     Xóa
                                 </a>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach; }?>
                     </tbody>
                 </table>
             </div>

@@ -62,7 +62,7 @@
         <div class="row">
             <div class="col-md-12 text-center" data-aos="fade-up">
                 <div class="section-title mb-0">
-                    <h2 class="title">Sản phẩm phổ biến</h2>
+                    <h2 class="title">Sản phẩm Mới nhất</h2>
                     <p class="sub-title mb-30px">Chuyên nghiệp, Sang trọng, Tiện nghi - Nơi hoàn hảo cho không gian sống của bạn.</p>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                                     <!-- Single Product -->
                                     <div class="product">
                                         <div class="thumb">
-                                            <a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>" class="image">
+                                            <a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>" class="image">
                                                 <img src="<?= $link_img . $hinh_anh; ?>" alt="Product" />
                                                 <!-- <img class="hover-image" src="" alt="Product" /> -->
                                             </a>
@@ -944,7 +944,7 @@
         <div class="row">
             <div class="col-md-12" data-aos="fade-up">
                 <div class="section-title text-center mb-11">
-                    <h2 class="title">Sản phẩm khuyến mãi</h2>
+                    <h2 class="title">Sản phẩm yêu thích</h2>
                     <p class="sub-title">Tiết kiệm vô vàn, Trải nghiệm vô tận - Tạo nên không gian sống lý tưởng với Ưu đãi tuyệt vời.</p>
                 </div>
             </div>
@@ -954,7 +954,7 @@
             <div class="new-product-wrapper swiper-wrapper">
                 <!-- Single Prodect -->
                 <?php
-                foreach ($list_product_discount as $value) :
+                foreach ($view_most_product as $value) :
                     extract($value)
                 ?>
                     <div class="new-product-item swiper-slide">
