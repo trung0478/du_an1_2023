@@ -272,15 +272,11 @@ include 'view/header.php';
                 include '../admin/view/comment/detail_cmt.php';
                 break;
 
-<<<<<<< HEAD
                 // Staff
             case 'list_statistical':
                 $statistical_product_seling = statistical_product_seling();
                 $statistical_category = statistical_category();
                 include '../admin/view/statistical/list_statistical.php';
-=======
-                // Begin-order
->>>>>>> 01e7c34897d931f2176a6fd5ebddd41d8a086f0a
             case 'list_order':
                 $list_order = list_order();
                 include '../admin/view/order/list_order.php';
