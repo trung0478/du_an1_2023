@@ -268,7 +268,7 @@ include 'view/header.php';
                     $id = $_GET['id_cmt'];
                     delete_commet($id);
                 }
-                $list_cmt_detail = loadAll_comment($id);
+                $list_cmt_detail = loadAll_comment(0);
                 include '../admin/view/comment/detail_cmt.php';
                 break;
 
@@ -277,6 +277,8 @@ include 'view/header.php';
                 $statistical_product_seling = statistical_product_seling();
                 $statistical_category = statistical_category();
                 include '../admin/view/statistical/list_statistical.php';
+
+                // Begin-order
             case 'list_order':
                 $list_order = list_order();
                 include '../admin/view/order/list_order.php';

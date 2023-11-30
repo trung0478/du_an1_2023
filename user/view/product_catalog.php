@@ -8,7 +8,7 @@
                         <!-- Left Side start -->
                         <?php foreach ($product_count as $value) {
                             extract($value);
-                            echo '<p>Có '.$total_count.' sản phẩm.</p>';
+                            echo '<p>Sản phẩm.</p>';
                         }?>
                         
                         <!-- Left Side End -->
