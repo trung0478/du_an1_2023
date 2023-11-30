@@ -268,7 +268,7 @@ $statistical_category = statistical_category();
                     $id = $_GET['id_cmt'];
                     delete_commet($id);
                 }
-                $list_cmt_detail = loadAll_comment($id);
+                $list_cmt_detail = loadAll_comment(0);
                 include '../admin/view/comment/detail_cmt.php';
                 break;
 
