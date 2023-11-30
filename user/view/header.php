@@ -68,7 +68,7 @@ $product_catalog = getAll_product_catalog();
 
 <style>
     label.error {
-        color: red;
+        color: red !important;
         font-size: 16px;
         /* margin-top: 5px; */
         display: block;

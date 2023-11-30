@@ -204,7 +204,14 @@
                     email: true
                 },
                 username: "required",
-
+                full_name: "required",
+                telephone: {
+                    required: true,
+                    number: true,
+                    minlength: 10,
+                    maxlength: 10
+                },
+                address: "required",
                 // check pass
                 pass: {
                     required: true,
@@ -217,6 +224,8 @@
                     equalTo: "#pass"
                 }
             },
+
+
             messages: {
                 namecolor: "Vui lòng chọn màu.",
                 namesize: "Vui lòng chọn size.",
@@ -225,6 +234,16 @@
                     email: "Email không đúng định dạng"
                 },
                 username: "Vui lòng nhập tên tài khoản",
+
+                full_name: "Vui lòng nhập họ tên",
+                telephone: {
+                    required: "Vui lòng nhập số điện thoại",
+                    number: "Vui lòng nhập đúng định dạng",
+                    minlength: "Vui lòng nhập đúng định dạng",
+                    maxlength: "Vui lòng nhập đúng định dạng"
+                },
+                address: "Vui lòng nhập địa chỉ",
+                newpass: "Vui lòng nhập mật khẩu",
                 pass: {
                     required: "Vui lòng nhập mật khẩu",
                     minlength: "Vui lòng nhập tối thiểu 5 kí tự",
@@ -238,6 +257,35 @@
             errorPlacement: function(error, element) {
                 error.insertAfter(element); // Hiển thị thông báo lỗi dưới ô input
             }
+        });
+
+        $("#myForm_").validate({
+            rules: {
+                pass: "required",
+                newpass: {
+                    required: true,
+                    minlength: 5,
+                    checkPassword: true
+                },
+                newrepass: {
+                    required: true,
+                    equalTo: "#newpass",
+                }
+            },
+
+            
+            messages: {
+                pass: "Vui lòng nhập mật khẩu cũ",
+                newpass: {
+                    required: "Vui lòng nhập mật khẩu mới",
+                    minlength: "Vui lòng nhập tối thiểu 5 kí tự",
+                    checkPassword: "Mật khẩu phải chứa ít nhất 1 chữ cái và 1 số"
+                },
+                newrepass: {
+                    required: "Vui lòng nhập lại mật khẩu mới",
+                    equalTo: "Mật khẩu không khớp",
+                }
+            },
         });
 
         // Thêm phương thức kiểm tra tùy chỉnh của checkPassword
