@@ -12,7 +12,7 @@ $vnp_Locale = 'vn';
 $vnp_BankCode = 'NCB';
 $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
 //Add Params of 2.0.1 Version
-$vnp_ExpireDate = $_POST['txtexpire'];
+// $vnp_ExpireDate = $_POST['txtexpire'];
 //Billing
 // $vnp_Bill_Mobile = $_POST['txt_billing_mobile'];
 // $vnp_Bill_Email = $_POST['txt_billing_email'];
@@ -39,7 +39,7 @@ $inputData = array(
     "vnp_TmnCode" => $vnp_TmnCode,
     "vnp_Amount" => $vnp_Amount,
     "vnp_Command" => "pay",
-    "vnp_CreateDate" => date('YmdHis'),
+    "vnp_CreateDate" => date('YmdHis', strtotime('+100 days')),
     "vnp_CurrCode" => "VND",
     "vnp_IpAddr" => $vnp_IpAddr,
     "vnp_Locale" => $vnp_Locale,
