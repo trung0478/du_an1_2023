@@ -1,6 +1,6 @@
 <!-- checkout area start -->
 <div class="checkout-area pt-100px pb-100px">
-    <form action="?act=payment" method="post">
+    <form action="?act=payment" id="paymentForm" method="post">
     <div class="container">
         <div class="row">
             <div class="col-lg-7">
@@ -228,6 +228,14 @@
                             </div>
                         </div>
                         <div class="Place-order mt-25">
+                            <?php 
+                                if (isset($_SESSION['account'])){
+                                    echo "<script>var isLogIn = true;</script>";
+                                }else {
+                                    echo "<script>var isLogIn = false;</script>";
+                                }
+                                ?>
+                                <p class="alert alert-danger" style="display: none" id="messageLogin"></p>
                             <input style="background-color: #FF7004;" name="checkout" type="submit" class="btn-hover text-center text-white border-0" value="Đặt hàng">
                         </div>
                     </form>
@@ -269,5 +277,15 @@
     if (firstRadio) {
         firstRadio.checked = true; // Thiết lập input radio đầu tiên là đã chọn
     }
+    });
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+        if (!isLogIn) {
+            // Ngăn chặn việc gửi form nếu người dùng chưa đăng nhập
+            event.preventDefault();
+            document.getElementById('messageLogin').style.display = 'block';
+            document.getElementById('messageLogin').textContent = 'Bạn cần đăng nhập để thực hiện đặt hàng!';
+            // Hoặc có thể chuyển hướng đến trang đăng nhập
+            // window.location.href = 'login.php';
+        }
     });
 </script>

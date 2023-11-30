@@ -1,7 +1,7 @@
 <!-- Cart Area Start -->
 <div class="cart-main-area pt-100px pb-100px">
         <div class="container">
-            <h3 class="cart-page-title">Lịch sử mua hàng</h3>
+            <h3 class="cart-page-title">Lịch sử mua hàng chi tiết</h3>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                     <form action="#">
@@ -9,38 +9,33 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Sản phẩm</th>
-                                        <th>Kích cỡ, Màu sắc</th>
-                                        <th>Số lượng</th>
-                                        <th>Đơn giá</th>
+                                        <th>Người nhận</th>
                                         <th>Mã hóa đơn</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Tổng đơn</th>
+                                        <th>Địa chỉ</th>
+                                        <th>PT thanh toán</th>
                                         <th>Tình trạng</th>
-                                        <th>Hoạt động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 
                                     <?php
-                                        if (isset($list_his_order)) {
-                                            foreach ($list_his_order as $history) :
-                                                extract($history);
-                                                $image = $link_img .$hinh_anh;
+                                        if (isset($list_his_detail)) {
+                                            foreach ($list_his_detail as $order) :
+                                                extract($order);
+                                                $payment = method_pay($pttt);
                                                 $status = status($trang_thai);
                                     ?>
                                         
                                     <tr>
-                                        <td class="product-thumbnail">
-                                            <a href="#" style="color: #333;"><img class="img-responsive ml-15px" src="<?= $image ?>" alt="" /><?=$ten_sp?></a>
-                                        </td>
-                                        <td><?php echo $mau_sac .', ' .$kich_co?></td>
-                                        <td class="product-name"><a href="#"><?= $so_luong ?></a></td>
-                                        <td><?=number_format($don_gia, 0, '.', '.')?> đ</td>
+                                        <td><?=$ho_ten?></td>
                                         <td><?=$ma_dh?></td>
+                                        <td><?=$ngay_dat?></td>
+                                        <td><?=number_format($tong_dh, 0, '.', '.')?> đ</td>
+                                        <td><?=$dia_chi .'</br>' .$sdt.'</br>' .$email?></td>
+                                        <td><?=$payment?></td>
                                         <td><?=$status?></td>
-                                       
-                                        <td class="product-remove">
-                                            <a href="?act=detail_history&id_order=<?= $ma ?>" style="color: #ff7004;">Xem chi tiết</a>
-                                        </td>
                                     </tr>
                                     
                                     <?php endforeach; }?>

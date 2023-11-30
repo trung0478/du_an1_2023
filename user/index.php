@@ -120,33 +120,33 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             break;
         case 'payment':
                 if (isset($_POST['checkout']) && $_POST['checkout']) {
-                    $total_order = $_POST['totalorder'];
-                    $id_user = $_POST['id_user'];
-                    $name = $_POST['name'];
-                    $address = $_POST['address'];
-                    $telephone = $_POST['telephone'];
-                    $email = $_POST['email'];
-                    $id_order = 'LTH' .rand(0, 999999);
-                    $note = $_POST['note'];
-                    $date_create = date('Y-m-d H:i:s');
-                    if (isset($_POST['cod'])) {
-                        $method_pay = $_POST['cod'];
-                    } else if (isset($_POST['redirect'])){
-                        $method_pay = $_POST['redirect'];
-                    } else if (isset($_POST['payUrl'])){
-                        $method_pay = $_POST['payUrl'];
-                    } 
-                    $_SESSION['order_info'] = [$total_order, $id_user, $name, $address, $telephone, $email, $id_order, $note, $date_create, $method_pay];
-                    
-                    if (isset($_POST['cod'])) {
-                        echo "<script> window.location.href='index.php?act=bill_success';</script>";
-                    } else if (isset($_POST['redirect'])){
-                        // execPostRequest($url, $data);
-                        include 'view/checkout/checkout_vnpay.php';
-                    } else if (isset($_POST['payUrl'])){
-                        // execPostRequest($url, $data);
-                        include 'view/checkout/checkout_momo.php';
-                    } 
+                        $total_order = $_POST['totalorder'];
+                        $id_user = $_POST['id_user'];
+                        $name = $_POST['name'];
+                        $address = $_POST['address'];
+                        $telephone = $_POST['telephone'];
+                        $email = $_POST['email'];
+                        $id_order = 'LTH' .rand(0, 999999);
+                        $note = $_POST['note'];
+                        $date_create = date('Y-m-d H:i:s');
+                        if (isset($_POST['cod'])) {
+                            $method_pay = $_POST['cod'];
+                        } else if (isset($_POST['redirect'])){
+                            $method_pay = $_POST['redirect'];
+                        } else if (isset($_POST['payUrl'])){
+                            $method_pay = $_POST['payUrl'];
+                        } 
+                        $_SESSION['order_info'] = [$total_order, $id_user, $name, $address, $telephone, $email, $id_order, $note, $date_create, $method_pay];
+                        
+                        if (isset($_POST['cod'])) {
+                            echo "<script> window.location.href='index.php?act=bill_success';</script>";
+                        } else if (isset($_POST['redirect'])){
+                            // execPostRequest($url, $data);
+                            include 'view/checkout/checkout_vnpay.php';
+                        } else if (isset($_POST['payUrl'])){
+                            // execPostRequest($url, $data);
+                            include 'view/checkout/checkout_momo.php';
+                    }
                 }
                 // include "view/checkout/bill_checkout.php";
             break;
@@ -189,7 +189,8 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
 
             // checkout 
         case 'checkout_info':
-            if (isset($_SESSION['id_account']) && $_SESSION['id_account'] > 0) {
+            
+            if (isset($_POST['checkout'])) {
                 $one_account = getOne_account($_SESSION['id_account']);
             }
             include 'view/checkout/checkout_info.php';
@@ -310,12 +311,11 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             include "view/history_order/list_history_order.php";
             break;
         
-        case 'del_his_order':
-            if (isset($_GET['$id_order']) && $_GET['$id_order'] > 0) {
-                del_his_order($_GET['$id_order']);
-                echo "<script>window.location.href='index.php?act=list_history_order'</script>";
+        case 'detail_history':
+            if (isset($_GET['id_order']) && $_GET['id_order'] > 0) {
+                $list_his_detail = list_his_detail($_GET['id_order']);
             }
-            include "view/history_order/list_history_order.php";
+            include "view/history_order/detail_history.php";
             break;
 
         case 'contact':

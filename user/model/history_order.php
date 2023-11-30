@@ -36,10 +36,30 @@
         return $status_message;
     }
 
-    function del_his_order($id_order) {
-        $sql = "DELETE donhang, giohang FROM donhang
-        JOIN giohang ON donhang.ma = giohang.ma_dh WHERE donhang.ma = $id_order";
-        pdo_execute($sql);
+    function method_pay($n) {
+        switch ($n) {
+            case '1':
+                $pay = "Thanh toán khi nhận";
+                break;
+            case '2':
+                $pay = "Thanh toán VNPay";
+                break;
+            case '3':
+                $pay = "Thanh toán Momo";
+                break;
+            
+            default:
+                $pay = "Thanh toán khi nhận";
+                break;
+        }
+        return $pay;
+    }
+
+    function list_his_detail($id_order) {
+        $sql = "SELECT * FROM donhang
+        WHERE ma = $id_order";
+        $order = pdo_query($sql);
+        return $order;
     }
 
     // function count_id_his() {
