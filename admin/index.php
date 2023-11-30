@@ -10,8 +10,8 @@ include "model/voucher.php";
 include "model/statistical.php";
 include "model/order.php";
 include 'view/header.php';
-// $statistical_product_seling = statistical_product_seling();
-// $statistical_category = statistical_category();
+$statistical_product_seling = statistical_product_seling();
+$statistical_category = statistical_category();
 ?>
 
    <?php

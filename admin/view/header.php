@@ -178,10 +178,6 @@
                             <a href="?act=list_account">
                                 <i class="fa-regular fa-user"></i>Tài khoản</a>
                         </li>
-                        <li class="has-submenu">
-                            <a href="?act=list_staff">
-                                <i class="fa-solid fa-people-roof"></i>Nhân viên</a>
-                        </li>
                     </ul>
                     <!-- End navigation menu -->
                 </div>
