@@ -59,7 +59,9 @@
                                     <h5>Welcome</h5>
                                 </div>
                                 <a class="dropdown-item" href="../index.php?act=edit_account">
-                                    <i class="mdi mdi-account-circle m-r-5 text-muted"></i> Xem thông tin </a>
+                                    <i class="mdi mdi-account-circle m-r-5 text-muted"></i> Thông tin </a>
+                                <a class="dropdown-item" href="../index.php?act=home">
+                                    <i class="fa-solid fa-house mdi m-r-5 text-muted"></i>  Trang người dùng </a>
                                 <a class="dropdown-item" href="?act=logout">
                                     <i class="mdi mdi-logout m-r-5 text-muted"></i> Đăng xuất </a>
                             </div>

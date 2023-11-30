@@ -264,10 +264,10 @@
         input.disabled = (button.value === "Sửa");
     }
 
-    // document.addEventListener('DOMContentLoaded', function() {
-    // var firstRadio = document.getElementById('option1'); // Lấy ra input radio đầu tiên
-    // if (firstRadio) {
-        // firstRadio.checked = true; // Thiết lập input radio đầu tiên là đã chọn
-    // }
-    // });
+    document.addEventListener('DOMContentLoaded', function() {
+    var firstRadio = document.getElementById('option1'); // Lấy ra input radio đầu tiên
+    if (firstRadio) {
+        firstRadio.checked = true; // Thiết lập input radio đầu tiên là đã chọn
+    }
+    });
 </script>

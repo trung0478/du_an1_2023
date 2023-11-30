@@ -9,8 +9,8 @@ $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
 $orderInfo = "Thanh toán qua MoMo";
 $amount = 10000; // tổng tiền sẽ hiện trên hoá đơn
 $orderId = time() ."";
-$redirectUrl = "http://localhost/project1/index.php?act=payment";
-$ipnUrl = "http://localhost/project1/index.php?act=payment";
+$redirectUrl = "http://localhost/project1/index.php?act=bill_success";
+$ipnUrl = "http://localhost/project1/index.php?act=bill_success";
 $extraData = "";
 
 
