@@ -9,17 +9,20 @@
     }
 
     function getAll_product($id,$orderCondition){
-        $sql = "SELECT sp.*, bt.* FROM sanpham sp JOIN bienthe bt ON sp.ma_sp = bt.ma_sp WHERE sp.ma_lsp = ".$id." ".$orderCondition." ";
+        $sql = "SELECT sp.*, bt.* FROM sanpham sp JOIN bienthe bt ON sp.ma_sp = bt.ma_sp JOIN ( SELECT ma_sp, MIN(ma_bien_the) AS min_ma_bien_the FROM bienthe GROUP BY ma_sp ) AS min_bt ON bt.ma_sp = min_bt.ma_sp AND bt.ma_bien_the = min_bt.min_ma_bien_the WHERE sp.ma_lsp = ".$id." ".$orderCondition." ";
         $result = pdo_query($sql);
         return $result;
     }
     function loadAll_product($item_per_page, $offset, $orderCondition, $kyw) {
-        $sql = "SELECT sp.*, bt.* FROM sanpham sp JOIN bienthe bt ON sp.ma_sp = bt.ma_sp WHERE `ten_sp` LIKE '%".$kyw."%' ".$orderCondition." LIMIT ".$item_per_page." OFFSET ".$offset."";
-        $result = pdo_query($sql);
-        return $result;
-    }
-    function search_product($kyw){
-        $sql = "SELECT sp.*, bt.* FROM sanpham sp JOIN bienthe bt ON sp.ma_sp = bt.ma_sp WHERE `ten_sp` LIKE '%".$kyw."%'";
+        $sql = "SELECT sp.*, bt.*
+        FROM sanpham sp
+        JOIN bienthe bt ON sp.ma_sp = bt.ma_sp
+        JOIN (
+            SELECT ma_sp, MIN(ma_bien_the) AS min_ma_bien_the
+            FROM bienthe
+            GROUP BY ma_sp
+        ) AS min_bt ON bt.ma_sp = min_bt.ma_sp AND bt.ma_bien_the = min_bt.min_ma_bien_the
+         WHERE `ten_sp` LIKE '%".$kyw."%' ".$orderCondition." LIMIT ".$item_per_page." OFFSET ".$offset."";
         $result = pdo_query($sql);
         return $result;
     }

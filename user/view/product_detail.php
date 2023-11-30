@@ -196,11 +196,7 @@
             <div class="tab-content description-review-bottom">
                 <div id="des-details2" class="tab-pane ">
                     <div class="product-description-wrapper active">
-                        <?php
-
-                        ?>
-                        <p><?= $product_detail['mo_ta'] ?></p>
-
+                        <p ><?= $mo_ta ?></p>
                     </div>
                 </div>
                 <div id="des-details3" class="tab-pane ">
