@@ -25,6 +25,12 @@ function getone_catalog($id_catalog) {
     return $result;
 }
 
+function count_catalog($id_catalog){
+    $sql="SELECT COUNT(*) AS soluong FROM `sanpham` WHERE ma_lsp=$id_catalog";
+    $result = pdo_query_one($sql);
+    return $result;
+}
+
 function delete_catalog($id_catalog)
 {
     $sql = "delete from loaisanpham where ma_lsp=$id_catalog";
