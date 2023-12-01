@@ -24,6 +24,7 @@
                         </div>
                     </div>
                 </div>
+                <?= (isset($message_noDelete))?$message_noDelete:""; ?>
                 <table class="table">
                     <thead>
                         <tr>

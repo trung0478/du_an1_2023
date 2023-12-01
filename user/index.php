@@ -1,7 +1,6 @@
 <?php
 ob_start();
 session_start();
-$_SESSION['user'] = 'Trung';
 include "config/connectdb.php";
 include "user/model/product.php";
 include "model/product_catalog.php";
@@ -16,7 +15,7 @@ include "global/global.php";
 if (!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
 // $list_product = load_product(0);
 $list_product = get_all_product();
-$view_most_product = view_most_product();
+$best_saleProduct = best_saleProduct();
 
 // Load product discount
 $list_product_discount = load_product(1);
@@ -351,7 +350,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 $product_comment = load_comment($_GET['id_pro']);
 
                 // load product in the same catalog
-                $similar_products = similar_products($_GET['id_catalog']);
+                $similar_products = similar_products($product_detail['ma_lsp']);
 
                 // load 10 prouct most view
                 $view_most_product = view_most_product();
