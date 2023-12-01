@@ -67,7 +67,7 @@
                                     Xem chi tiết
                                 </a>
                                 <?php 
-                                if ($trang_thai!="Đã huỷ") {
+                                if ($trang_thai!="Đã huỷ" && $trang_thai!="Đã hoàn thành") {
                                     echo ' <a href=" '.$edit_order.'" class="btn btn-warning">Sửa</a>';
                                 }
 
