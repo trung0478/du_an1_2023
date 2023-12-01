@@ -361,83 +361,190 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 include "view/product_detail.php";
             }
             break;
-            case 'search_product':
-                if(isset($_POST['search'])){
-                    if (isset($_GET['id_lsp'])) {
-                        $id = $_GET['id_lsp'];
-                        $orderCondition = "";
-                        $orderField = isset($_GET['field']) ? $_GET['field'] : "";
-                        $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
-                        if (!empty($orderField) && !empty($orderSort)) {
-                            $orderCondition = "ORDER BY `".$orderField."` ".$orderSort;
-                        }
-                        $product_sum = product_sum($id);
+        //     case 'search_product':
+        //         if(isset($_POST['search'])){
+        //             if (isset($_GET['id_lsp'])) {
+        //                 $id = $_GET['id_lsp'];
+        //                 $orderCondition = "";
+        //                 $orderField = isset($_GET['field']) ? $_GET['field'] : "";
+        //                 $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+        //                 if (!empty($orderField) && !empty($orderSort)) {
+        //                     $orderCondition = "ORDER BY `".$orderField."` ".$orderSort;
+        //                 }
+        //                 $product_sum = product_sum($id);
 
-                        $product = getAll_product($_GET['id_lsp'],$orderCondition);
-                    } else {
-                        $orderCondition = "";
-                        $orderField = isset($_GET['field']) ? $_GET['field'] : "";
-                        $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+        //                 $product = getAll_product($_GET['id_lsp'],$orderCondition);
+        //             } else {
+        //                 $orderCondition = "";
+        //                 $orderField = isset($_GET['field']) ? $_GET['field'] : "";
+        //                 $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
     
-                        if (!empty($orderField) && !empty($orderSort)) {
-                            $orderCondition = "ORDER BY `".$orderField."` ".$orderSort;
-                        }
-                        $item_per_page = !empty($_GET['per_page']) ? $_GET['per_page'] : 9;
-                        $current_page = !empty($_GET['page']) ? $_GET['page'] : 1;
-                        $offset = ($current_page - 1) * $item_per_page;
+        //                 if (!empty($orderField) && !empty($orderSort)) {
+        //                     $orderCondition = "ORDER BY `".$orderField."` ".$orderSort;
+        //                 }
+        //                 $item_per_page = !empty($_GET['per_page']) ? $_GET['per_page'] : 9;
+        //                 $current_page = !empty($_GET['page']) ? $_GET['page'] : 1;
+        //                 $offset = ($current_page - 1) * $item_per_page;
     
-                        if(isset($_POST['kyw']) && ($_POST['kyw'] != "" )){
-                            $kyw = $_POST['kyw'];
+        //                 if(isset($_POST['kyw']) && ($_POST['kyw'] != "" )){
+        //                     $kyw = $_POST['kyw'];
                             
-                        }else{
-                            $kyw = "";
-                        }
-                        if (isset($_GET['min_price']) && isset($_GET['max_price'])) {
+        //                 }else{
+        //                     $kyw = "";
+        //                 }
+        //                 if (isset($_GET['min_price']) && isset($_GET['max_price'])) {
     
-                            $min_price = intval($_GET['min_price']);
-                            $max_price = intval($_GET['max_price']);
+        //                     $min_price = intval($_GET['min_price']);
+        //                     $max_price = intval($_GET['max_price']);
                             
-                        }else {
-                            $min_price = 0;
-                            $max_price = PHP_INT_MAX;
-                        }
+        //                 }else {
+        //                     $min_price = 0;
+        //                     $max_price = PHP_INT_MAX;
+        //                 }
         
                 
-                        $product = loadAll_product($item_per_page, $offset, $orderCondition, $kyw,$min_price,$max_price);
+        //                 $product = loadAll_product($item_per_page, $offset, $orderCondition, $kyw,$min_price,$max_price);
 
-                    }
-                }
-                $product_catalog = getAll_product_catalog();
-                $product_count = product_Count();
+        //             }
+        //         }
+        //         $product_catalog = getAll_product_catalog();
+        //         $product_count = product_Count();
                 
 
-                include "view/product_catalog.php";
-                break;
+        //         include "view/product_catalog.php";
+        //         break;
             
 
-        case 'product_catalog':
-            if (isset($_GET['id_lsp'])) {
-                $id = $_GET['id_lsp'];
-                $orderCondition = "";
-                $orderField = isset($_GET['field']) ? $_GET['field'] : "";
-                $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
-                if (!empty($orderField) && !empty($orderSort)) {
-                    $orderCondition = "ORDER BY `" . $orderField . "` " . $orderSort;
-                }
-                $product_sum = product_sum($id);
-                $product = getAll_product($_GET['id_lsp'], $orderCondition);
-            } else {
-                $orderCondition = "";
-                $orderField = isset($_GET['field']) ? $_GET['field'] : "";
-                $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+        // case 'product_catalog':
+        //     if (isset($_GET['id_lsp'])) {
+        //         $id = $_GET['id_lsp'];
+        //         $orderCondition = "";
+        //         $orderField = isset($_GET['field']) ? $_GET['field'] : "";
+        //         $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+        //         if (!empty($orderField) && !empty($orderSort)) {
+        //             $orderCondition = "ORDER BY `" . $orderField . "` " . $orderSort;
+        //         }
+        //         $product_sum = product_sum($id);
+        //         $product = getAll_product($_GET['id_lsp'], $orderCondition);
+        //     } else {
+        //         $orderCondition = "";
+        //         $orderField = isset($_GET['field']) ? $_GET['field'] : "";
+        //         $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
 
-                if (!empty($orderField) && !empty($orderSort)) {
-                    $orderCondition = "ORDER BY `" . $orderField . "` " . $orderSort;
+        //         if (!empty($orderField) && !empty($orderSort)) {
+        //             $orderCondition = "ORDER BY `" . $orderField . "` " . $orderSort;
+        //         }
+        //         $item_per_page = !empty($_GET['per_page']) ? $_GET['per_page'] : 9;
+        //         $current_page = !empty($_GET['page']) ? $_GET['page'] : 1;
+        //         $offset = ($current_page - 1) * $item_per_page;
+        //         if (isset($_GET['min_price']) && isset($_GET['max_price'])) {
+    
+        //             $min_price = intval($_GET['min_price']);
+        //             $max_price = intval($_GET['max_price']);
+                    
+        //         }else {
+        //             $min_price = 0;
+        //             $max_price = PHP_INT_MAX;
+        //         }
+
+
+
+        //         if (isset($_POST['kyw']) && ($_POST['kyw'] != "")) {
+        //             $kyw = $_POST['kyw'];
+        //         } else {
+        //             $kyw = "";
+        //         }
+                
+        //         $product = loadAll_product($item_per_page, $offset, $orderCondition, $kyw,$min_price,$max_price);
+        //     }
+          
+        //     $product_catalog = getAll_product_catalog();
+
+        //     $product_count = product_Count();
+
+        //     include "view/product_catalog.php";
+        //     break;
+        case 'search_product':
+            if(isset($_POST['search'])){
+                if (isset($_GET['id_lsp'])) {
+                    $id = $_GET['id_lsp'];
+                    $orderCondition = "";
+                    $orderField = isset($_GET['field']) ? $_GET['field'] : "";
+                    $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+                    if (!empty($orderField) && !empty($orderSort)) {
+                        $orderCondition = "ORDER BY `".$orderField."` ".$orderSort;
+                    }
+                    $product_sum = product_sum($id);
+
+                    $product = getAll_product($_GET['id_lsp'],$orderCondition);
+                } else {
+                    $orderCondition = "";
+                    $orderField = isset($_GET['field']) ? $_GET['field'] : "";
+                    $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+
+                    if (!empty($orderField) && !empty($orderSort)) {
+                        $orderCondition = "ORDER BY `".$orderField."` ".$orderSort;
+                    }
+                    $item_per_page = !empty($_GET['per_page']) ? $_GET['per_page'] : 9;
+                    $current_page = !empty($_GET['page']) ? $_GET['page'] : 1;
+                    $offset = ($current_page - 1) * $item_per_page;
+
+                    if(isset($_POST['kyw']) && ($_POST['kyw'] != "" )){
+                        $kyw = $_POST['kyw'];
+                        
+                    }else{
+                        $kyw = "";
+                    }
+                    if (isset($_GET['min_price']) && isset($_GET['max_price'])) {
+    
+                    $min_price = intval($_GET['min_price']);
+                    $max_price = intval($_GET['max_price']);
+                    
+                }else {
+                    $min_price = 0;
+                    $max_price = PHP_INT_MAX;
                 }
-                $item_per_page = !empty($_GET['per_page']) ? $_GET['per_page'] : 9;
-                $current_page = !empty($_GET['page']) ? $_GET['page'] : 1;
-                $offset = ($current_page - 1) * $item_per_page;
-                if (isset($_GET['min_price']) && isset($_GET['max_price'])) {
+            
+                    $product = loadAll_product($item_per_page, $offset, $orderCondition, $kyw,$min_price,$max_price);
+                    $product_quantity = loadAll_product_sum($item_per_page, $offset, $orderCondition, $kyw,$min_price,$max_price);
+
+                }
+            }
+            $product_catalog = getAll_product_catalog();
+            $product_count = product_Count();
+            include "view/product_catalog.php";
+            break;
+        
+
+    case 'product_catalog':
+        if (isset($_GET['id_lsp'])) {
+            $id = $_GET['id_lsp'];
+            $orderCondition = "";
+            $orderField = isset($_GET['field']) ? $_GET['field'] : "";
+            $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+            if (!empty($orderField) && !empty($orderSort)) {
+                $orderCondition = "ORDER BY `" . $orderField . "` " . $orderSort;
+            }
+            $product_sum = product_sum($id);
+            $product = getAll_product($_GET['id_lsp'], $orderCondition);
+        } else {
+            $orderCondition = "";
+            $orderField = isset($_GET['field']) ? $_GET['field'] : "";
+            $orderSort = isset($_GET['sort']) ? $_GET['sort'] : "";
+
+            if (!empty($orderField) && !empty($orderSort)) {
+                $orderCondition = "ORDER BY `" . $orderField . "` " . $orderSort;
+            }
+            $item_per_page = !empty($_GET['per_page']) ? $_GET['per_page'] : 6;
+            $current_page = !empty($_GET['page']) ? $_GET['page'] : 1;
+            $offset = ($current_page - 1) * $item_per_page;
+
+            if (isset($_POST['kyw']) && ($_POST['kyw'] != "")) {
+                $kyw = $_POST['kyw'];
+            } else {
+                $kyw = "";
+            }
+             if (isset($_GET['min_price']) && isset($_GET['max_price'])) {
     
                     $min_price = intval($_GET['min_price']);
                     $max_price = intval($_GET['max_price']);
@@ -447,23 +554,15 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                     $max_price = PHP_INT_MAX;
                 }
 
+            $product = loadAll_product($item_per_page, $offset, $orderCondition, $kyw,$min_price,$max_price);
+            $product_quantity = loadAll_product_sum($item_per_page, $offset, $orderCondition, $kyw,$min_price,$max_price);
+        }
 
+        $product_catalog = getAll_product_catalog();
+        $product_count = product_Count();
 
-                if (isset($_POST['kyw']) && ($_POST['kyw'] != "")) {
-                    $kyw = $_POST['kyw'];
-                } else {
-                    $kyw = "";
-                }
-                
-                $product = loadAll_product($item_per_page, $offset, $orderCondition, $kyw,$min_price,$max_price);
-            }
-          
-            $product_catalog = getAll_product_catalog();
-
-            $product_count = product_Count();
-
-            include "view/product_catalog.php";
-            break;
+        include "view/product_catalog.php";
+        break;
 
         
 

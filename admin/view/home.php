@@ -1,3 +1,59 @@
+<head>
+    <style>
+    
+.card h3 {
+    color: #333;
+    padding: 15px 0px 0px 20px;
+}
+
+.card form {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    padding: 0px 20px 20px;
+}
+
+.card h5 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.card input[type="date"],
+.card input[type="week"],
+.card input[type="month"],
+.card select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
+.card input[type="submit"] {
+ 
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card input[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+.card .chart {
+    height: 360px;
+}
+
+
+    </style>
+</head>
 <div class="wrapper">
         <div class="container-fluid">
             <!-- Page-Title -->
@@ -103,12 +159,65 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-body">
-                        <figure class="highcharts-figure">
-                            <div id="container"></div>
-                            
-                        </figure>
-                        </div>
+                       <div>
+                            <h3>Thống kê doanh thu</h3>
+                            <form action="" method="post">
+                                <h5>Chọn thời gian:</h5 >
+                                <input type="date" name="date">
+                                <input type="week">
+                                <input type="month">
+                                <select name="" id="">
+                                    <?php
+                                    for($i = 2018; $i <= date('Y'); $i++){?>
+                                        <option value=""><?=$i?></option>
+                                    <?php } ?>
+                                    
+                                    
+                                </select>
+                                <input type="submit" value="Tìm kiếm">
+                            </form>
+                       </div>
+                      
+                        <div style="height: 300px;" id="chart"></div>
+                        <script>
+                        CKEDITOR.replace('thongtinlienhe');
+                        CKEDITOR.replace('tomtat');
+                        CKEDITOR.replace('noidung');
+
+                        $(document).ready(function(){
+                            <?php
+                                $statistical_sale = statistical_sale();
+                                $chartData = [];
+
+                                foreach ($statistical_sale as $value) {
+                                    extract($value);
+                                    $chartData[] = [
+                                        'year' => $ngay, // Thay 'year' bằng trường trong $value chứa thông tin năm
+                                        'order' => $so_luong_don_hang, // Thay 'order' bằng trường trong $value chứa thông tin đơn hàng
+                                        'sales' => $doanh_thu, // Thay 'sales' bằng trường trong $value chứa thông tin doanh thu
+                                        'quantity' => $so_luong_ban_ra, // Thay 'quantity' bằng trường trong $value chứa thông tin số lượng bán ra
+                                    ];
+                                }
+                            ?>
+
+                            new Morris.Area({
+                                element: 'chart',
+                                data: <?php echo json_encode($chartData); ?>,
+                                xkey: 'year',
+                                ykeys: ['order', 'sales', 'quantity'],
+                                labels: ['Đơn hàng', 'Doanh thu', 'Số lượng bán ra'],
+                                lineColors: ['#3498db', '#2ecc71', '#e74c3c'],
+                                lineWidth: 2,
+                                pointSize: 4,
+                                hideHover: 'auto',
+                                parseTime: false,
+                                behaveLikeLine: true,
+                                fillOpacity: 0.2,
+                                stacked: true,
+                                smooth: false
+                            });
+                        });
+                    </script>
                     </div>
                 </div>
                 <div class="col-lg-3">
