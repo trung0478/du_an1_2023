@@ -81,14 +81,14 @@
                                     <!-- Single Product -->
                                     <div class="product">
                                         <div class="thumb">
-                                            <a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>" class="image">
+                                            <a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>&id_catalog=<?= $ma_lsp ?>" class="image">
                                                 <img src="<?= $link_img . $hinh_anh; ?>" alt="Product" />
                                                 <!-- <img class="hover-image" src="" alt="Product" /> -->
                                             </a>
 
                                             <div class="actions">
                                                 <a href="#" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                                <a href="index.php?act=home&id_pro=<?= $ma_sp ?>" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
+                                                <a href="index.php?act=home&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
                                                 <a href="#" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
                                             </div>
                                             <!-- <form action="index.php?act=pockup" ></form> -->
@@ -96,7 +96,7 @@
                                             <a href="<?=$link_pockup?>" class="action quickview add-to-cart" data-link-action="quickview" title="Quick view" data-bs-target="#exampleModal">Thêm vào giỏ hàng</a>
                                         </div>
                                         <div class="content">
-                                            <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>"><?= $ten_sp; ?></a></h5>
+                                            <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>"><?= $ten_sp; ?></a></h5>
                                             <span class="price">
                                                 <?php
                                                 if ($gia_km == 0) {   ?>
@@ -185,7 +185,7 @@
                     <div class="new-product-item swiper-slide">
                         <div class="product">
                             <div class="thumb">
-                                <a href="index.php?act=product_detail&id_pro=<?=$ma_sp; ?>" class="image">
+                                <a href="index.php?act=product_detail&id_pro=<?=$ma_sp; ?>&id_catalog=<?= $ma_lsp ?>" class="image">
                                     <img src="<?= $link_img . $hinh_anh ?>" alt="Product" />
                                     <img class="hover-image" src="<?= $link_img . $hinh_anh ?>" alt="Product" />
                                 </a>
@@ -199,7 +199,7 @@
                                             <a href="<?=$link_pockup?>" class="action quickview add-to-cart" data-link-action="quickview" title="Quick view" data-bs-target="#exampleModal">Thêm vào giỏ hàng</a>
                             </div>
                             <div class="content">
-                                <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>"><?= $ten_sp ?></a></h5>
+                                <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>"><?= $ten_sp ?></a></h5>
                                 <span class="price">
                                     <?php
                                     if ($gia_km == 0) {   ?>
