@@ -13,7 +13,7 @@ include 'view/header.php';
 $statistical_product_seling = statistical_product_seling();
 $statistical_category = statistical_category();
 $statistical_Popular = statistical_Popular();
-$statistical_sale = statistical_sale();
+// $statistical_sale = statistical_sale(0, 0, 'date');
 
 
 ?>
@@ -23,14 +23,24 @@ $statistical_sale = statistical_sale();
         $act = $_GET['act'];
         switch ($act) {
            case 'home':
-            // if (isset($_POST['submit']) && ($_POST['submit'])) {
-            //     $day = isset($_POST['day']) ? $_POST['day'] : null;
-            //     // $week = isset($_POST['week']) ? $_POST['week'] : null;
-            //     // $year = isset($_POST['year']) ? $_POST['year'] : null;
-
-            //     $statistical_sale = statistical_sale($day);
+            if (isset($_POST['search']) && ($_POST['search'])) {
+                $start_date = isset($_POST['start_date']) ? $_POST['start_date'] : null;
+                $end_date = isset($_POST['end_date']) ? $_POST['end_date'] : null;
+                $choose_time = isset($_POST['choose_time']) ? $_POST['choose_time'] : null;
+            
+                $statistical_sale = statistical_sale($start_date, $end_date, $choose_time);
+            }
+            
+            // if (isset($_GET['search']) && ($_GET['search'])) {
+            //     $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : null;
+            //     $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : null;
+            //     $choose_time = isset($_GET['choose_time']) ? $_GET['choose_time'] : null;
+            
+            //     $statistical_sale = statistical_sale($start_date, $end_date, $choose_time);
             // }
-           $statistical_sale = statistical_sale();
+            
+            
+           //$statistical_sale = statistical_sale();
 
             include 'view/home.php';
             break;

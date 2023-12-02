@@ -1,14 +1,14 @@
 <head>
     <style>
         .chart{
-            margin: 50px 250px;
+            margin: 10px 250px;
             
         }
-        
+      
     </style>
 </head>
 <div class="thongke">
-    <h3 class="alert">
+    <h3 class="alert" style="text-align: center;">
         THỐNG KÊ SẢN PHẨM THEO DANH MỤC
     </h3>
         <div class="chart">

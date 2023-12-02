@@ -45,7 +45,7 @@
                             chart.draw(data, options);
                         }
                     </script>
-                    <a href="index.php" style="margin:10px 0px 0px -35px ;" class="btn btn-warning">Quay lại</a>
+                    <a href="index.php" style="margin:10px 0px 0px" class="btn btn-warning">Quay lại</a>
                 </div>
             </div>
         </div>

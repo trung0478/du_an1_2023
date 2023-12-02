@@ -35,19 +35,43 @@ function statistical_product_seling(){
     $result = pdo_query($sql);
     return $result;
 }
-function statistical_sale(){
-    //$formattedDay = date('Y-m-d', strtotime($day));
-    $sql = "SELECT DATE(dh.ngay_dat) AS ngay, WEEK(dh.ngay_dat) 
-    AS tuan, MONTH(dh.ngay_dat) 
-    AS thang, COUNT(DISTINCT dh.ma_dh) 
-    AS so_luong_don_hang, SUM(gh.so_luong) 
-    AS so_luong_ban_ra, SUM(dh.tong_dh) AS doanh_thu FROM donhang dh 
-    JOIN giohang gh ON dh.ma = gh.ma_dh WHERE dh.ngay_dat >= '2023-11-01' AND dh.ngay_dat <= CURDATE() GROUP BY ngay, tuan, thang;
+
+
+// function statistical_sale($start_date, $end_date, $choose_time){
+//     $sql = "SELECT 
+//         YEAR(CAST(dh.ngay_dat AS DATE)) AS nam,
+//         MONTH(CAST(dh.ngay_dat AS DATE)) AS thang, 
+//         WEEK(CAST(dh.ngay_dat AS DATE)) AS tuan, 
+//         DATE(CAST(dh.ngay_dat AS DATE)) AS ngay,
+//         COUNT(DISTINCT dh.ma_dh) AS so_luong_don_hang, 
+//         SUM(gh.so_luong) AS so_luong_ban_ra, 
+//         SUM(dh.tong_dh) AS doanh_thu 
+//     FROM donhang dh 
+//     JOIN giohang gh ON dh.ma = gh.ma_dh 
+//     WHERE CAST(dh.ngay_dat AS DATE) BETWEEN '".$start_date."' AND '".$end_date."'
+//     GROUP BY ngay, tuan, thang,nam";
+
+//     $statistical_sale = pdo_query($sql);
+//     return $statistical_sale;
+// }
+function statistical_sale($date_start = 0,$end_date = 0,$choose_time='date'){
+    $sql="WITH RECURSIVE dates AS (
+      SELECT DATE('$date_start') AS date
+      UNION ALL
+      SELECT DATE_ADD(date, INTERVAL 1 DAY)
+      FROM dates
+      WHERE DATE_ADD(date, INTERVAL 1 DAY) <= '$end_date'
+    )
     ";
-    
+    $sql.=" SELECT ".($choose_time == 'MONTH' ? "DATE_FORMAT(dates.date, '%Y-%m')" : "$choose_time(dates.date)")." AS date, COUNT(DISTINCT donhang.ma) AS so_luong_don_hang, SUM(giohang.so_luong) AS so_luong_ban_ra, SUM((donhang.tong_dh)) AS doanh_thu
+    FROM dates
+    LEFT JOIN donhang ON DATE(donhang.ngay_dat) = DATE(dates.date) and donhang.trang_thai = 4
+    LEFT JOIN giohang ON giohang.ma_dh=donhang.ma
+    GROUP BY $choose_time(dates.date)";
     $statistical_sale = pdo_query($sql);
     return $statistical_sale;
 }
+
 
 
 ?>
