@@ -1,16 +1,24 @@
-<!-- Shop Category pages -->
 <div class="shop-category-area pb-100px pt-70px">
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
                     <!-- Shop Top Area Start -->
                     <div class="shop-top-bar d-flex">
-                        <!-- Left Side start -->
-                        <?php foreach ($product_count as $value) {
-                            extract($value);
-                            echo '<p>Sản phẩm.</p>';
-                        }?>
-                        
+                    <?php
+                        if (isset($product_sum) && !empty($product_sum)) {
+                            // Nếu $product_sum tồn tại và không rỗng, sử dụng foreach cho product_sum
+                            foreach ($product_sum as $value) {
+                                extract($value);
+                                echo '<p>Có '.$sum.' sản phẩm.</p>';
+                            }
+                        } else {
+                            // Cuối cùng, sử dụng foreach cho product
+                            foreach ($product_quantity as $value) {
+                                extract($value);
+                                echo '<p>Có '.$tong.' sản phẩm.</p>';
+                            }
+                        }
+                        ?>
                         <!-- Left Side End -->
                         <!-- Right Side Start -->
                         <div class="select-shoing-wrap d-flex align-items-center">
@@ -19,10 +27,10 @@
                             </div>
                             <div class="shop-select">
                                 <select class="shop-sort" onchange="if (this.value) { window.location = this.value; }">
-                                    <option value="?act=product_catalog&field=ten_sp&sort=asc" <?php echo ($orderField == 'ten_sp' && $orderSort == 'asc') ? 'selected' : ''; ?>>Tên, A đến Z</option>
-                                    <option value="?act=product_catalog&field=ten_sp&sort=desc" <?php echo ($orderField == 'ten_sp' && $orderSort == 'desc') ? 'selected' : ''; ?>>Tên, Z đến A</option>
-                                    <option value="?act=product_catalog&field=gia_sp&sort=asc" <?php echo ($orderField == 'gia_sp' && $orderSort == 'asc') ? 'selected' : ''; ?>>Giá, từ thấp đến cao</option>
-                                    <option value="?act=product_catalog&field=gia_sp&sort=desc" <?php echo ($orderField == 'gia_sp' && $orderSort == 'desc') ? 'selected' : ''; ?>>Giá, từ cao đến thấp</option>
+                                    <option value="?act=product_catalog&field=ten_sp&sort=asc" <?php echo ($orderField == 'ten_sp' && $orderSort == 'asc') ? 'selected' : ''; ?>>Tên, A ₫ến Z</option>
+                                    <option value="?act=product_catalog&field=ten_sp&sort=desc" <?php echo ($orderField == 'ten_sp' && $orderSort == 'desc') ? 'selected' : ''; ?>>Tên, Z ₫ến A</option>
+                                    <option value="?act=product_catalog&field=gia_sp&sort=asc" <?php echo ($orderField == 'gia_sp' && $orderSort == 'asc') ? 'selected' : ''; ?>>Giá, từ thấp ₫ến cao</option>
+                                    <option value="?act=product_catalog&field=gia_sp&sort=desc" <?php echo ($orderField == 'gia_sp' && $orderSort == 'desc') ? 'selected' : ''; ?>>Giá, từ cao ₫ến thấp</option>
                                 </select>
                             </div>
                            
@@ -94,7 +102,7 @@
                                 <div class="content">
                                     <h5 class="title"><a href="shop-left-sidebar.html"><?php echo $ten_sp; ?></a></h5>
                                     <span class="price">
-                                    <span class="new"><?php echo number_format($gia_sp, 0, '.', '.'); ?></span>
+                                    <span class="new"><?php echo number_format($gia_sp, 0, '.', '.'); ?> ₫</span>
                                     </span>
                                 </div>
                             </div>
@@ -113,9 +121,9 @@
                                 <li>
                                     <a class="prev" href="#"><i class="ion-ios-arrow-left"></i></a>
                                 </li>
-                                <li><a id="page1" href="?act=product_catalog&per_page=9&page=1">1</a></li>
-                                <li><a id="page2" href="?act=product_catalog&per_page=9&page=2">2</a></li>
-                                <li><a id="page3" href="?act=product_catalog&per_page=9&page=3">3</a></li>
+                                <li><a id="page1" href="?act=product_catalog&per_page=6&page=1">1</a></li>
+                                <li><a id="page2" href="?act=product_catalog&per_page=6&page=2">2</a></li>
+                                <li><a id="page3" href="?act=product_catalog&per_page=6&page=3">3</a></li>
 
                                 <li>
                                     <a class="next" href="#"><i class="ion-ios-arrow-right"></i></a>
@@ -177,87 +185,42 @@
                             </div>
                             <!-- Sidebar single item -->
                             <div class="sidebar-widget">
-                                <h4 class="pro-sidebar-title mt-5">Kích thước </h4>
+                                <h4 class="pro-sidebar-title mt-5">Lọc giá </h4>
                                 <div class="sidebar-widget-list">
                                     <ul>
                                        
-                                                <?php $i = 0?>
-                                                 <?php foreach ($product_catalog as $catalog) :?>
-                                                    <?php extract($catalog);?>    
-                                                    <?php if($i == 0){?>
-                                                        <li>
-                                                            <div class="sidebar-widget-list-left">
-                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Lớn<span>(<?=$soluong?>)</span> </a> </a>
-                                                                <span class="checkmark"></span>
-                                                            </div>
-                                                         </li>
-                                                    <?php }elseif($i == 2){?>
-                                                        <li>
-                                                            <div class="sidebar-widget-list-left">
-                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Trung bình<span>(<?=$soluong?>)</span> </a> </a>
-                                                                <span class="checkmark"></span>
-                                                            </div>
-                                                         </li>
-                                                       
-                                                    <?php }elseif($i == 4){?>
-                                                        <li>
-                                                            <div class="sidebar-widget-list-left">
-                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Nhỏ<span>(<?=$soluong?>)</span> </a> </a>
-                                                                <span class="checkmark"></span>
-                                                            </div>
-                                                         </li>
+                                            <li>
+                                                <div class="sidebar-widget-list-left">
+                                                    <input type="checkbox" /><a href="index.php?act=product_catalog&min_price=0&max_price=250000" class="">Giá từ 0 - 250.000 đ<span></span> </a> </a>
+                                                    <span class="checkmark"></span>
+                                                </div>
+                                                </li>
+                                        
+                                            <li>
+                                                <div class="sidebar-widget-list-left">
+                                                    <input type="checkbox" /><a href="index.php?act=product_catalog&min_price=250000&max_price=500000" class="">Giá từ 250.000 - 500.000 đ<span></span> </a> </a>
+                                                    <span class="checkmark"></span>
+                                                </div>
+                                                </li>
+                                            <li>
+                                                <div class="sidebar-widget-list-left">
+                                                    <input type="checkbox" /><a href="index.php?act=product_catalog&min_price=500000&max_price=750000" class="">Giá từ 500.000 - 750.000 đ<span></span> </a> </a>
+                                                    <span class="checkmark"></span>
+                                                </div>
+                                                </li>
+                                            <li>
+                                                <div class="sidebar-widget-list-left">
+                                                    <input type="checkbox" /><a href="index.php?act=product_catalog&min_price=750000&max_price=1000000" class="">Giá từ 750.000 - 1.000.000 đ<span></span> </a> </a>
+                                                    <span class="checkmark"></span>
+                                                </div>
+                                                </li>
                                                      
-                                                    <?php }?>
-                                                    <?php $i++?>
-                                                <?php endforeach?>
+                                                
                                     </ul>
                                 </div>
                             </div>
                             <!-- Sidebar single item -->
-                            <div class="sidebar-widget no-cba">
-                                <h4 class="pro-sidebar-title">Màu sắc</h4>
-                                <div class="sidebar-widget-list">
-                                    <ul>
-                                    <?php $i = 0?>
-                                                 <?php foreach ($product_catalog as $catalog) :?>
-                                                    <?php extract($catalog);?>    
-                                                    <?php if($i == 1){?>
-                                                        <li>
-                                                            <div class="sidebar-widget-list-left">
-                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Màu xám<span>(<?=$soluong?>)</span> </a> </a>
-                                                                <span class="checkmark grey"></span>
-                                                            </div>
-                                                         </li>
-                                                    <?php }elseif($i == 3){?>
-                                                        <li>
-                                                            <div class="sidebar-widget-list-left">
-                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Màu trắng<span>(<?=$soluong?>)</span> </a> </a>
-                                                                <span class="checkmark white"></span>
-                                                            </div>
-                                                         </li>
-                                                       
-                                                    <?php }elseif($i == 5){?>
-                                                        <li>
-                                                            <div class="sidebar-widget-list-left">
-                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Màu đen<span>(<?=$soluong?>)</span> </a> </a>
-                                                                <span class="checkmark black"></span>
-                                                            </div>
-                                                         </li>
-                                                     
-                                                    <?php }elseif($i == 7){?>
-                                                        <li>
-                                                            <div class="sidebar-widget-list-left">
-                                                                <input type="checkbox" /><a href="index.php?act=product_catalog&id_lsp=<?=$ma_lsp?>" class="">Màu nâu<span>(<?=$soluong?>)</span> </a> </a>
-                                                                <span class="checkmark camel"></span>
-                                                            </div>
-                                                         </li>
-                                                        <?php }?>
-                                                    <?php $i++?>
-                                                <?php endforeach?>
-                                       
-                                    </ul>
-                                </div>
-                            </div>
+
                            
                         </div>
                        

@@ -18,9 +18,19 @@ $statistical_category = statistical_category();
     if (isset($_GET['act']) && $_GET['act'] != "") {
         $act = $_GET['act'];
         switch ($act) {
-            case 'home':
-                include 'view/home.php';
-                break;
+           case 'home':
+            // if (isset($_POST['submit']) && ($_POST['submit'])) {
+            //     $day = isset($_POST['day']) ? $_POST['day'] : null;
+            //     // $week = isset($_POST['week']) ? $_POST['week'] : null;
+            //     // $year = isset($_POST['year']) ? $_POST['year'] : null;
+
+            //     $statistical_sale = statistical_sale($day);
+            // }
+           $statistical_sale = statistical_sale();
+
+            include 'view/home.php';
+            break;
+
                 // Catalog
             case 'list_catalog':
                 $list_catalog = list_catalog();
@@ -299,6 +309,8 @@ $statistical_category = statistical_category();
                 }
                 echo "<script>window.location.href='index.php?act=list_order'</script>";
                 break;
+
+                // Thống kê 
             case 'statistical':
                 $statistical_category = statistical_category();
                 
@@ -307,6 +319,8 @@ $statistical_category = statistical_category();
             case 'product_chart':
                 $statistical_product_seling = statistical_product_seling();
                 include '../admin/view/statistical/product_chart.php';
+                break;
+
             case 'delete_order':
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
                     delete_order($_GET['id']);
