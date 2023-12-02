@@ -12,6 +12,10 @@ include "model/order.php";
 include 'view/header.php';
 $statistical_product_seling = statistical_product_seling();
 $statistical_category = statistical_category();
+$statistical_Popular = statistical_Popular();
+$statistical_sale = statistical_sale();
+
+
 ?>
 
    <?php
@@ -60,11 +64,17 @@ $statistical_category = statistical_category();
                 break;
             case 'delete_catalog':
                 if (isset($_GET['id_catalog'])) {
-                    delete_catalog($_GET['id_catalog']);
-                    echo "<script> window.location.href='index.php?act=list_catalog';</script>";
+                    $count_catalog=count_catalog($_GET['id_catalog']);
+                    if ($count_catalog['soluong']>0) {
+                        $list_catalog = list_catalog();
+                        $message_noDelete='<h6 class="alert alert-danger">Danh mục vẫn chứa sản phẩm, không thể xoá.</h6>';
+                        include '../admin/view/catalog/list_catalog.php';
+                    } else {
+                        delete_catalog($_GET['id_catalog']);
+                        echo "<script> window.location.href='index.php?act=list_catalog';</script>";
+                    }
                 }
-                break;
-
+                break;          
             case 'search_catalog':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $name_catalog = $_POST['name_catalog'];
@@ -309,6 +319,14 @@ $statistical_category = statistical_category();
                 }
                 echo "<script>window.location.href='index.php?act=list_order'</script>";
                 break;
+            case 'detail_order':
+                if (isset($_GET['id_order']) && $_GET['id_order'] > 0) {
+                    $get_one_order = get_one_order($_GET['id_order']);
+                    $detail_order = detail_order($_GET['id_order']);
+                }
+                include '../admin/view/order/detail_order.php';
+                break;    
+
 
                 // Thống kê 
             case 'statistical':
