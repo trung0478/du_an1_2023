@@ -12,7 +12,7 @@
         THỐNG KÊ SẢN PHẨM THEO DANH MỤC
     </h3>
         <div class="chart">
-            <div id="myChart" style="width:1000px; max-width:1000px; height:500px;">>
+            <div id="myChart" style="width:1000px; max-width:1000px; height:500px;">
                 </div>
 
                     <script>

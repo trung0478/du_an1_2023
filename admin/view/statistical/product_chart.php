@@ -1,6 +1,6 @@
 <head>
     <style>
-        .chart{
+        .chart-product{
             margin: 50px 250px;
             
         }
@@ -11,7 +11,7 @@
     <h3 class="alert">
         THỐNG KÊ SẢN PHẨM BÁN CHẠY
     </h3>
-        <div class="chart">
+        <div class="chart-product">
             <div id="myChart" style="width:1000px; max-width:1000px; height:500px;">>
                 </div>
 
