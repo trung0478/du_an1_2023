@@ -93,10 +93,10 @@
                         </ul>
                     </div>
                     <p class="quickview-para"><?= $mo_ta ?></p>
-                    <form action="index.php?act=addtocart" method="post">
+                    <form id="myForm" action="index.php?act=addtocart" method="post">
                         <div class="pro-details-size-color d-flex">
-                            <div class="pro-details-color-wrap">
-                                <span>Màu</span>
+                            <div style="margin-right: 12px;" class="pro-details-color-wrap">
+                                <label>Màu</label>
                                 <select name="namecolor" id="colorSelect" class="form-control">
                                     <option disabled selected>Chọn màu</option>
                                     <?php
@@ -114,8 +114,8 @@
                             </div> -->
                             </div>
 
-                            <div class="product-size">
-                                <span>Kích thước</span>
+                            <div class="pro-details-color-wrap">
+                                <label>Kích thước</label>
                                 <select name="namesize" id="sizeSelect" class="form-control">
                                     <option disabled selected>Chọn kích thước</option>
                                     <?php
@@ -200,11 +200,7 @@
             <div class="tab-content description-review-bottom">
                 <div id="des-details2" class="tab-pane ">
                     <div class="product-description-wrapper active">
-                        <?php
-
-                        ?>
-                        <p><?= $product_detail['mo_ta'] ?></p>
-
+                        <p ><?= $mo_ta ?></p>
                     </div>
                 </div>
                 <div id="des-details3" class="tab-pane ">
@@ -477,7 +473,7 @@
         <div class="row">
             <div class="col-md-12" data-aos="fade-up">
                 <div class="section-title text-center mb-11">
-                    <h2 class="title">Sản phẩm yêu thích</h2>
+                    <h2 class="title">Sản phẩm nhiều lượt xem</h2>
                     <p class="sub-title">Nguyên tắc đơn giản: Yêu thích của bạn là chúng tôi chọn lựa - Sản phẩm độc đáo, được yêu thích mọi lúc.
                     </p>
                 </div>
@@ -511,115 +507,17 @@
                                 <span class="price">
                                     <?php
                                     if ($gia_km == null) {   ?>
-                                        <span class="new fs-5"><?= number_format($gia_sp, 0, '.', '.') ?>vnd</span>
+                                        <span class="new fs-5"><?= number_format($gia_sp, 0, '.', '.'). " ₫" ?></span>
                                     <?php } else { ?>
-                                        <span class="new fs-5 mx-3"><?= number_format($gia_km, 0, '.', '.') ?>vnd</span>
-                                        <span style="text-decoration: line-through; opacity:.5;" class="new"><?= number_format($gia_sp, 0, '.', '.') ?>vnd</span>
+                                        <span class="new fs-5 mx-3"><?= number_format($gia_km, 0, '.', '.'). " ₫" ?></span>
+                                        <span style="text-decoration: line-through; opacity:.5;" class="new"><?= number_format($gia_sp, 0, '.', '.'). " ₫" ?></span>
                                     <?php } ?>
                                 </span>
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
-                <!-- Single Prodect -->
-                <div class="new-product-item swiper-slide">
-                    <div class="product">
-                        <div class="thumb">
-                            <a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>" class="image">
-                                <img src="./user/public/assets/images/product-image/3.jpg" alt="Product" />
-                                <img class="hover-image" src="./user/public/assets/images/product-image/4.jpg" alt="Product" />
-                            </a>
-
-                            <div class="actions">
-                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
-                                <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
-                            </div>
-                            <button title="Add To Cart" name="addtocart" class=" add-to-cart">Thêm vào giỏ hàng</button>
-                        </div>
-                        <div class="content">
-                            <h5 class="title"><a href="index.php?act=product_detail=<?= $ma_sp ?>">Wooden decorations</a></h5>
-                            <span class="price">
-                                <span class="new">$38.50</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Prodect -->
-                <div class="new-product-item swiper-slide">
-                    <div class="product">
-                        <div class="thumb">
-                            <a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>" class="image">
-                                <img src="./user/public/assets/images/product-image/5.jpg" alt="Product" />
-                                <img class="hover-image" src="./user/public/assets/images/product-image/6.jpg" alt="Product" />
-                            </a>
-
-                            <div class="actions">
-                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
-                                <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
-                            </div>
-                            <button title="Add To Cart" class=" add-to-cart">Add
-                                To Cart</button>
-                        </div>
-                        <div class="content">
-                            <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>">High quality vase bottle</a></h5>
-                            <span class="price">
-                                <span class="new">$38.50</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Prodect -->
-                <div class="new-product-item swiper-slide">
-                    <div class="product">
-                        <div class="thumb">
-                            <a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>" class="image">
-                                <img src="./user/public/assets/images/product-image/7.jpg" alt="Product" />
-                                <img class="hover-image" src="./user/public/assets/images/product-image/8.jpg" alt="Product" />
-                            </a>
-
-                            <div class="actions">
-                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
-                                <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
-                            </div>
-                            <button title="Add To Cart" class=" add-to-cart">Add
-                                To Cart</button>
-                        </div>
-                        <div class="content">
-                            <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>">Living & Bedroom Chair</a></h5>
-                            <span class="price">
-                                <span class="new">$38.50</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Prodect -->
-                <div class="new-product-item swiper-slide">
-                    <div class="product">
-                        <div class="thumb">
-                            <a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>" class="image">
-                                <img src="./user/public/assets/images/product-image/9.jpg" alt="Product" />
-                                <img class="hover-image" src="./user/public/assets/images/product-image/10.jpg" alt="Product" />
-                            </a>
-
-                            <div class="actions">
-                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
-                                <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
-                            </div>
-                            <button title="Add To Cart" class=" add-to-cart">Thêm vào giỏ hàng</button>
-                        </div>
-                        <div class="content">
-                            <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>">Living & Bedroom Table</a></h5>
-                            <span class="price">
-                                <span class="new">$38.50</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Prodect -->
+                
             </div>
             <!-- Add Arrows -->
             <div class="swiper-buttons">

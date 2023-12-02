@@ -49,7 +49,7 @@
                                                 extract($_SESSION['account']);
                                             }
                                         ?>
-                                        <form action="?act=edit_account" method="POST">
+                                        <form id="myForm" action="?act=edit_account" method="POST">
                                             <div class="account-info-wrapper">
                                                 <h4>Thông tin tài khoản</h4>
                                                 <h5>Thông tin của bạn</h5>
@@ -58,7 +58,7 @@
                                                 <input type="hidden" name="id" value="<?=$ma_nd?>">
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="billing-info">
-                                                        <label>Họ tên</label>
+                                                        <label for="full_name">Họ tên</label>
                                                         <input type="text" name="full_name" value="<?=$ho_ten?>"/>
                                                     </div>
                                                 </div>
@@ -80,7 +80,7 @@
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="billing-info">
-                                                        <label>Số điện thoại</label>
+                                                        <label for="telephone">Số điện thoại</label>
                                                         <input type="text" name="telephone" value="<?=$sdt?>"/>
                                                     </div>
                                                 </div>
@@ -112,7 +112,7 @@
                             <div id="my-account-2" class="panel-collapse collapse" data-bs-parent="#faq">
                                 <div class="panel-body">
                                     <div class="myaccount-info-wrapper">
-                                        <form action="?act=change_pass" method="POST">
+                                        <form id="myForm_" action="?act=change_pass" method="POST">
                                             <div class="account-info-wrapper">
                                                 <h4>Đổi mật khẩu</h4>
                                                 <h5>Mật khẩu của bạn</h5>
@@ -121,14 +121,14 @@
                                                 <input type="hidden" name="id" value="<?=$ma_nd?>">
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
-                                                        <label>Mật khẩu</label>
+                                                        <label>Mật khẩu cũ</label>
                                                         <input type="password" name="pass"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
                                                         <label>Mật khẩu mới</label>
-                                                        <input type="password" name="newpass"/>
+                                                        <input id="newpass" type="password" name="newpass"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">

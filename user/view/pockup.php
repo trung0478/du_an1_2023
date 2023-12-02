@@ -128,27 +128,27 @@ extract($one_product);
                                     <!-- <img src="" id="imageVariant" alt="no php"> -->
                                 </ul>
                             </div>
-                            <p class="quickview-para"><?= $mo_ta ?></p>
-                            <form action="index.php?act=addtocart" method="post">
-                                <div class="pro-details-size-color d-flex">
-                                    <div class="pro-details-color-wrap">
-                                        <span>Màu</span>
-                                        <select name="namecolor" id="colorSelect" class="form-control">
-                                            <option disabled selected>Chọn màu</option>
-                                            <?php
+                            <p class="quickview-para"><?=$mo_ta?></p>
+                        <form id="myForm" action="index.php?act=addtocart" method="post">
+                            <div class="pro-details-size-color d-flex">
+                                <div style="margin-right: 12px;"  class="pro-details-color-wrap">
+                                    <label for="">Màu</label>
+                                    <select name="namecolor" id="colorSelect" class="form-control">
+                                        <option disabled selected>Chọn màu</option>
+                                        <?php
                                             foreach ($get_color_size as $color) {
                                                 extract($color);
                                                 echo '<option value="' . $ten_mau . '">' . $ten_mau . '</option>';
                                             }
-                                            ?>
-                                        </select>
-
-                                    </div>
-                                    <div class="product-size">
-                                        <span>Kích thước</span>
-                                        <select name="namesize" id="sizeSelect" class="form-control">
-                                            <option disabled selected>Chọn kích thước</option>
-                                            <?php
+                                        ?>
+                                    </select>
+                                    
+                                </div>
+                                <div class="pro-details-color-wrap">
+                                    <label>Kích thước</label>
+                                    <select name="namesize" id="sizeSelect" class="form-control">
+                                        <option disabled selected>Chọn kích thước</option>
+                                        <?php
                                             foreach ($get_color_size as $size) {
                                                 extract($size);
                                                 echo '<option value="' . $ten_kich_co . '">' . $ten_kich_co . '</option>';
