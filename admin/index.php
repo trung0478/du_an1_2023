@@ -12,6 +12,10 @@ include "model/order.php";
 include 'view/header.php';
 $statistical_product_seling = statistical_product_seling();
 $statistical_category = statistical_category();
+$statistical_Popular = statistical_Popular();
+$statistical_sale = statistical_sale();
+
+
 ?>
 
    <?php
@@ -19,6 +23,14 @@ $statistical_category = statistical_category();
         $act = $_GET['act'];
         switch ($act) {
             case 'home':
+                //$statistical_sale = statistical_sale();
+                //$statistical_category = statistical_category();
+                // if(isset($_POST['search'])){
+                //     $day = isset($_POST['date']) ? $_POST['date'] : null;
+                //     $statistical_Popular = statistical_Popular($day);
+                // }
+               
+
                 include 'view/home.php';
                 break;
                 // Catalog
