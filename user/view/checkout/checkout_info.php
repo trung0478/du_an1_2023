@@ -129,7 +129,7 @@
             <div class="col-lg-5 mt-md-30px mt-lm-30px ">
                 <div class="your-order-area">
                     <h3>Thông tin đơn hàng</h3>
-                    <form action="?act=checkout" method="post">
+                    <!-- <form action="?act=checkout" method="post"> -->
                         <div class="your-order-wrap gray-bg-4">
                             <div class="your-order-product-info">
                                 <div class="your-order-top">
@@ -143,16 +143,23 @@
                                         <?php
                                         $tong = 0;
                                         $ship = 30000;
-                                        foreach ($_SESSION['mycart'] as  $value) :
-                                            $thanhtien = $value[3] * $value[4];
+                                        foreach ($select_product as $key) :
+                                            $product = $_SESSION['mycart'][$key];
+                                            
+                                            $thanhtien = $product[3] * $product[4];
                                             $tong += $thanhtien;
-                                            $image = $link_img .$value[2];
+                                            $image = $link_img .$product[2];
+
+                                            // if (isset($_SESSION['mycart'][$key])) {
+                                            //     unset($_SESSION['mycart'][$key]);
+                                            // }
+                                            
                                         ?>
-                                            <li><span class="order-middle-left"><img style="margin-right:12px" width=50 src="<?=$image?>"><?= $value[1] ?> (<?= $value[5] ?>, <?= $value[6] ?>) X <?= $value[4] ?> </span> <span class="order-price"><?= number_format($thanhtien, '0', '.', '.') ?> đ </span></li>
+                                            <li><span class="order-middle-left"><img style="margin-right:12px" width=50 src="<?=$image?>"><?= $product[1] ?> (<?= $product[5] ?>, <?= $product[6] ?>) X <?= $product[4] ?> </span> <span class="order-price"><?= number_format($thanhtien, '0', '.', '.') ?> đ </span></li>
                                             
                                         <?php endforeach; ?>
                                     </ul>
-
+<?php //echo '<pre>'.print_r($_SESSION['select_cart']).'</pre>'; ?>
                                 </div>
 
                                 <div class="your-order-bottom">
@@ -238,7 +245,7 @@
                                 <p class="alert alert-danger" style="display: none" id="messageLogin"></p>
                             <input style="background-color: #FF7004;" name="checkout" type="submit" class="btn-hover text-center text-white border-0" value="Đặt hàng">
                         </div>
-                    </form>
+                    <!-- </form> -->
                 </div>
             </div>
         </div>
