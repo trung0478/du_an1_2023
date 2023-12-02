@@ -1,3 +1,4 @@
+
 <?php
     function getAll_product_catalog(){
         $sql = "SELECT lsp.ma_lsp, COUNT(sp.ma_lsp) AS soluong, lsp.ten_lsp
@@ -13,7 +14,8 @@
         $result = pdo_query($sql);
         return $result;
     }
-    function loadAll_product($item_per_page, $offset, $orderCondition, $kyw) {
+
+        function loadAll_product($item_per_page, $offset, $orderCondition, $kyw,$min_price,$max_price) {
         $sql = "SELECT sp.*, bt.*
         FROM sanpham sp
         JOIN bienthe bt ON sp.ma_sp = bt.ma_sp
@@ -22,13 +24,33 @@
             FROM bienthe
             GROUP BY ma_sp
         ) AS min_bt ON bt.ma_sp = min_bt.ma_sp AND bt.ma_bien_the = min_bt.min_ma_bien_the
-         WHERE `ten_sp` LIKE '%".$kyw."%' ".$orderCondition." LIMIT ".$item_per_page." OFFSET ".$offset."";
+         WHERE `ten_sp` LIKE '%".$kyw."%' AND gia_sp BETWEEN ".$min_price." AND ".$max_price." ".$orderCondition." LIMIT ".$item_per_page." OFFSET ".$offset."
+         ";
+        $result = pdo_query($sql);
+        return $result;
+    }
+        function loadAll_product_sum($item_per_page, $offset, $orderCondition, $kyw,$min_price,$max_price) {
+        $sql = "SELECT sp.*, bt.*,COUNT(bt.so_luong) AS tong
+        FROM sanpham sp
+        JOIN bienthe bt ON sp.ma_sp = bt.ma_sp
+        JOIN (
+            SELECT ma_sp, MIN(ma_bien_the) AS min_ma_bien_the
+            FROM bienthe
+            GROUP BY ma_sp
+        ) AS min_bt ON bt.ma_sp = min_bt.ma_sp AND bt.ma_bien_the = min_bt.min_ma_bien_the
+         WHERE `ten_sp` LIKE '%".$kyw."%' AND gia_sp BETWEEN ".$min_price." AND ".$max_price." ".$orderCondition." LIMIT ".$item_per_page." OFFSET ".$offset."
+         ";
         $result = pdo_query($sql);
         return $result;
     }
    
     function product_Count(){
         $sql = "SELECT COUNT(*) AS total_count FROM sanpham WHERE ma_lsp = ma_lsp";
+        $product_count = pdo_query($sql);
+        return $product_count;
+    }
+        function product_sum($id){
+        $sql = "SELECT COUNT(*) AS sum FROM sanpham  WHERE ma_lsp = $id";
         $product_count = pdo_query($sql);
         return $product_count;
     }
@@ -47,3 +69,4 @@
         return $result;
     }
 ?>
+
