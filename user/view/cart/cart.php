@@ -1,4 +1,26 @@
+<style>
+    .nextPay {
+        background-color: #ff7004;
+        border-radius: 0;
+        color: #fff;
+        display: block;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1;
+        padding: 18px 10px 17px;
+        text-align: center;
+        text-transform: uppercase;
+        text-transform: uppercase;
+        -webkit-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+    .nextPay:hover {
+        color: #fff;
+        background: #212121;
+    }
+</style>
 <!-- Cart Area Start -->
+<form action="index.php?act=checkout_info" method="post" onsubmit="return validateForm();">
 <div class="cart-main-area pt-100px pb-100px">
         <div class="container">
             <h3 class="cart-page-title">Giỏ hàng</h3>
@@ -9,19 +31,18 @@
             
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <form action="#">
                         <div class="table-content table-responsive cart-table-content">
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Hình</th>
-                                        <th>Tên sản phẩm</th>
+                                        <th>Hình ảnh</th>
+                                        <th>Tên SP</th>
                                         <th>Đơn giá</th>
                                         <th>Số lượng</th>
-                                        <th>Màu sắc</th>
-                                        <th>Kích thước</th>
+                                        <th>Màu, kích cỡ</th>
                                         <th>Thành tiền</th>
                                         <th>Hoạt động</th>
+                                        <th>Chọn</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -29,7 +50,7 @@
                                     <?php
                                         $sum = 0;
                                         $i = 0;
-                                        foreach($_SESSION['mycart'] as $cart) :
+                                        foreach($_SESSION['mycart'] as $key => $cart) :
                                             $img = $link_img . $cart[2];
                                             $thanhtien = $cart[3] * $cart[4];
                                             $sum += $thanhtien;
@@ -47,15 +68,14 @@
                                                 <input type="text" max="<?php echo $cart[8]; ?>" class="quantity" data-stock="<?php echo $cart[8]; ?>" name="quantity" id="quantityInput" style="width: 80px;border: none;display: inline-block; padding-left: 10px; text-align:center" value="<?= $cart[4] ?>" readonly>
                                                 <span style="cursor: pointer; padding-right: 15px; font-size:20px" onclick="increase(this)">+</span>
                                             </div>
-                                            
                                         </td>
                                        
-                                        <td class="product-subtotal"><?= $cart[5] ?></td>
-                                        <td class="product-subtotal"><?= $cart[6] ?></td>
+                                        <td class="product-subtotal"><?= $cart[5] .', ' .$cart[6]?></td>
                                         <td class="product-subtotal"><?= number_format($thanhtien, 0, '.', '.') ?> đ</td>
                                         <td class="product-remove">
                                             <a href="index.php?act=del_cart&idcart=<?= $i ?>"><i class="icon-close"></i></a>
                                         </td>
+                                        <td class="product-subtotal"><input style="width: 20px;" type="checkbox" name="select_product[]" value="<?=$key?>"></td>
                                     </tr>
                                     
                                     <?php $i++; endforeach ?>
@@ -118,7 +138,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    
                     <div class="row">
                         
                         <div class="col-lg-4 col-md-6 mb-lm-30px" style="width: 50%;">
@@ -128,8 +148,8 @@
                                 </div>
                                 <div class="discount-code">
                                     <p>Nhập mã phiếu của bạn nếu có.</p>
-                                    <form action="index.php?act=discount">
-                                        <input type="text" required="" name="name" />
+                                    <form>
+                                        <input type="text" name="name" />
                                         <button class="cart-btn-2" type="submit" name="discount">Áp dụng giảm giá</button>
                                     </form>
                                 </div>
@@ -154,27 +174,28 @@
 
                                     $shippingFee = 30000; // Phí vận chuyển
                                     $total = $sum + $shippingFee; // Tổng tiền sau khi trừ phí vận chuyển
-
-                                    echo '<h5>Tổng số sản phẩm <span>' . $total_quantity . '</span></h5>';
-                                    echo '
+                                ?>
+                                    <h5>Tổng số sản phẩm <span><?=$total_quantity?></span></h5>
+                                    
                                     <div class="total-shipping">
                                         <h5>Tổng số vận chuyển</h5>
                                         <ul>
-                                            <li>Tiêu chuẩn <span>' . number_format($sum, 0, '.', '.') . ' vnđ</span></li>
-                                            <li>Vận chuyển <span>' . number_format($shippingFee, 0, '.', '.') . ' vnđ</span></li>
+                                            <li>Tiêu chuẩn <span><?=number_format($sum, 0, '.', '.')?> đ</span></li>
+                                            <li>Vận chuyển <span><?=number_format($shippingFee, 0, '.', '.')?> đ</span></li>
                                         </ul>
                                     </div>
-                                    <h4 class="grand-totall-title">Tổng cộng <span>' . number_format($total, 0, '.', '.') . ' vnđ</span></h4>
-                                    <a href="index.php?act=checkout_info">Tiến hành thanh toán</a>';
-                                    ?>
+                                    <h4 class="grand-totall-title">Tổng cộng <span><?=number_format($total, 0, '.', '.')?> đ</span></h4>
                                     
-                               
+                                        <button name="process_pay" class="nextPay">Tiến hành thanh toán</button>
+                                        <p class="text-danger mt-15px" style="display: none" id="messageLogin"></p>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        
     </div>
     <!-- Cart Area End -->
     <script>
@@ -204,5 +225,24 @@
         } else {
             quantityInput.value = stock;
         }
+    }
+
+    function validateForm() {
+        var checkboxes = document.getElementsByName('select_product[]');
+        var checked = false;
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                checked = true;
+                break;
+            }
+        }
+
+        if (!checked) {
+            document.getElementById('messageLogin').style.display = 'block';
+            document.getElementById('messageLogin').textContent = 'Vui lòng chọn ít nhất một sản phẩm để thanh toán';
+            return false; // Ngăn chặn gửi form nếu không có checkbox nào được chọn
+        }
+        return true; // Gửi form nếu có ít nhất một checkbox được chọn
     }
     </script>

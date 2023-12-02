@@ -1,9 +1,8 @@
 <?php
-    function list_history_order($id_user) {
-        $sql = "SELECT giohang.*, donhang.* FROM donhang
-        JOIN giohang ON donhang.ma = giohang.ma_dh
-        WHERE donhang.ma_nd = $id_user
-        ORDER BY giohang.ma_dh DESC";
+    function list_his_detail($id_order) {
+        $sql = "SELECT giohang.*, donhang.* FROM giohang
+        JOIN donhang ON giohang.ma_dh = donhang.ma
+        WHERE giohang.ma_dh = $id_order";
         $order = pdo_query($sql);
         return $order;
     }
@@ -28,6 +27,9 @@
             case 4:
                 $status_message = "Đã hoàn thành";
                 break;
+            case 5:
+                $status_message = "Đã hủy đơn";
+                break;
             
             default:
                 $status_message = "Chưa xử lý";
@@ -36,9 +38,35 @@
         return $status_message;
     }
 
-    function del_his_order($id_order) {
-        $sql = "DELETE donhang, giohang FROM donhang
-        JOIN giohang ON donhang.ma = giohang.ma_dh WHERE donhang.ma = $id_order";
+    function method_pay($n) {
+        switch ($n) {
+            case '1':
+                $pay = "Thanh toán khi nhận";
+                break;
+            case '2':
+                $pay = "Thanh toán VNPay";
+                break;
+            case '3':
+                $pay = "Thanh toán Momo";
+                break;
+            
+            default:
+                $pay = "Thanh toán khi nhận";
+                break;
+        }
+        return $pay;
+    }
+
+    function list_history_order($id_account) {
+        $sql = "SELECT * FROM donhang
+        WHERE ma_nd = $id_account
+        ORDER BY ma DESC";
+        $order = pdo_query($sql);
+        return $order;
+    }
+
+    function cancel_order($id_order) {
+        $sql = "UPDATE donhang SET trang_thai = 5 WHERE ma = $id_order";
         pdo_execute($sql);
     }
 
