@@ -81,7 +81,7 @@
                                     <!-- Single Product -->
                                     <div class="product">
                                         <div class="thumb">
-                                            <a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>&id_catalog=<?= $ma_lsp ?>" class="image">
+                                            <a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>" class="image">
                                                 <img src="<?= $link_img . $hinh_anh; ?>" alt="Product" />
                                                 <!-- <img class="hover-image" src="" alt="Product" /> -->
                                             </a>

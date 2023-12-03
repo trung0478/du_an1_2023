@@ -22,7 +22,7 @@ function get_all_product() {
             GROUP BY b.ma_sp
         )
         GROUP BY sanpham.ten_sp
-        ORDER BY sanpham.ma_sp DESC";
+        ORDER BY sanpham.ma_sp DESC LIMIT 0,8";
     $products = pdo_query($sql);
     return $products;
 }

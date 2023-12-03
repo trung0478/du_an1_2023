@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-8">
                 <h3>Thêm mới sản phẩm </h3>
-                <form action="index.php?act=add_atribute" method="post" enctype="multipart/form-data">
+                <form id="myForm" action="index.php?act=add_atribute" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <?php
                             if (is_array($product_one)) {
@@ -22,7 +22,7 @@
                             <div>
                                 <label for="name" class="form-label mt-3">Màu sắc</label>
                                 <select class="form-select" name="ma_mau" aria-label="Default select example">
-                                    <option value="0" selected>Chọn màu sắc</option>
+                                    <option disabled selected>Chọn màu sắc</option>
                                     <?php
                                         foreach ($list_color as $color) {
                                             extract($color);
@@ -36,7 +36,7 @@
                             <div>
                                 <label for="name" class="form-label mt-3">Kích cỡ</label>
                                 <select class="form-select" name="ma_kich_co" aria-label="Default select example">
-                                    <option value="0" selected>Chọn kích cỡ</option>
+                                    <option disabled selected>Chọn kích cỡ</option>
                                     <?php
                                         foreach ($list_size as $size) {
                                             extract($size);

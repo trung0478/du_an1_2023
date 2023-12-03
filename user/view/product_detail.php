@@ -248,43 +248,17 @@
                                     echo '<span class="text-danger text-center">' . $message_noComment . '</span>';
                                 }
                                 ?>
-                                <!-- <div class="single-review child-review">
-                                    <div class="review-img">
-                                        <img src="./user/public/assets/images/review-image/2.png" alt="" />
-                                    </div>
-                                    <div class="review-content">
-                                        <div class="review-top-wrap">
-                                            <div class="review-left">
-                                                <div class="review-name">
-                                                    <h4>White Lewis</h4>
-                                                </div>
-                                                <div class="rating-product">
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                </div>
-                                            </div>
-                                            <div class="review-left">
-                                                <a href="#">Reply</a>
-                                            </div>
-                                        </div>
-                                        <div class="review-bottom">
-                                            <p>Vestibulum ante ipsum primis aucibus orci luctustrices posuere cubilia Curae Sus pen disse viverra ed viverra. Mauris ullarper euismod vehicula.</p>
-                                        </div>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="ratting-form-wrapper pl-50">
                                 <h3>Thêm bình luận</h3>
                                 <div class="ratting-form">
-                                    <form method="post" action="?act=product_detail&id_pro=<?= $product_detail['ma_sp'] ?>">
+                                    <form id="myForm_" method="post" action="?act=product_detail&id_pro=<?= $product_detail['ma_sp'] ?>">
                                         <div class="row mt-3">
                                             <div class="col-md-12">
                                                 <div class="rating-form-style form-submit">
+                                                    <label for="comment"></label>
                                                     <textarea name="comment" placeholder="Nội dung"></textarea>
                                                     <button class="btn btn-primary btn-hover-color-primary" name="add_comment" type="submit" value="Submit">Gửi bình luận</button>
                                                 </div>
@@ -354,107 +328,6 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
-                <!-- Single Prodect -->
-                <!-- <div class="new-product-item swiper-slide">
-                    <div class="product">
-                        <div class="thumb">
-                            <a href="" class="image">
-                                <img src="./user/public/assets/images/product-image/3.jpg" alt="Product" />
-                                <img class="hover-image" src="./user/public/assets/images/product-image/4.jpg" alt="Product" />
-                            </a>
-
-                            <div class="actions">
-                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
-                                <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
-                            </div>
-                            <button title="Add To Cart" class=" add-to-cart">Add
-                                To Cart</button>
-                        </div>
-                        <div class="content">
-                            <h5 class="title"><a href="">Wooden decorations</a></h5>
-                            <span class="price">
-                                <span class="new">$38.50</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                Single Prodect
-                <div class="new-product-item swiper-slide">
-                    <div class="product">
-                        <div class="thumb">
-                            <a href="" class="image">
-                                <img src="./user/public/assets/images/product-image/5.jpg" alt="Product" />
-                                <img class="hover-image" src="./user/public/assets/images/product-image/5.jpg" alt="Product" />
-                            </a>
-
-                            <div class="actions">
-                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
-                                <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
-                            </div>
-                            <button title="Add To Cart" class=" add-to-cart">Add
-                                To Cart</button>
-                        </div>
-                        <div class="content">
-                            <h5 class="title"><a href="">High quality vase bottle</a></h5>
-                            <span class="price">
-                                <span class="new">$38.50</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                Single Prodect
-                <div class="new-product-item swiper-slide">
-                    <div class="product">
-                        <div class="thumb">
-                            <a href="" class="image">
-                                <img src="./user/public/assets/images/product-image/9.jpg" alt="Product" />
-                                <img class="hover-image" src="./user/public/assets/images/product-image/10.jpg" alt="Product" />
-                            </a>
-
-                            <div class="actions">
-                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
-                                <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
-                            </div>
-                            <button title="Add To Cart" class=" add-to-cart">Add
-                                To Cart</button>
-                        </div>
-                        <div class="content">
-                            <h5 class="title"><a href="">Living & Bedroom Chair</a></h5>
-                            <span class="price">
-                                <span class="new">$38.50</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                Single Prodect
-                <div class="new-product-item swiper-slide">
-                    <div class="product">
-                        <div class="thumb">
-                            <a href="" class="image">
-                                <img src="./user/public/assets/images/product-image/9.jpg" alt="Product" />
-                                <img class="hover-image" src="./user/public/assets/images/product-image/10.jpg" alt="Product" />
-                            </a>
-
-                            <div class="actions">
-                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="icon-heart"></i></a>
-                                <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
-                                <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
-                            </div>
-                            <button title="Add To Cart" class=" add-to-cart">Add
-                                To Cart</button>
-                        </div>
-                        <div class="content">
-                            <h5 class="title"><a href="">Living & Bedroom Table</a></h5>
-                            <span class="price">
-                                <span class="new">$38.50</span>
-                            </span>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- Single Prodect -->
             </div>
             <!-- Add Arrows -->
             <div class="swiper-buttons">

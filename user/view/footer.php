@@ -261,6 +261,7 @@
 
         $("#myForm_").validate({
             rules: {
+                comment: "required",
                 pass: "required",
                 newpass: {
                     required: true,
@@ -275,6 +276,7 @@
 
             
             messages: {
+                comment: "Vui lòng nhập nội dung bình luận",
                 pass: "Vui lòng nhập mật khẩu cũ",
                 newpass: {
                     required: "Vui lòng nhập mật khẩu mới",
@@ -285,6 +287,36 @@
                     required: "Vui lòng nhập lại mật khẩu mới",
                     equalTo: "Mật khẩu không khớp",
                 }
+            },
+        });
+
+        $("#paymentForm").validate({
+            rules: {
+                name: "required",
+                address: "required",
+                telephone: {
+                    required:true,
+                    number: true,
+                    minlength:10,
+                    maxlength:10
+                },
+                email: {
+                    email:true
+                },
+            },
+
+            messages: {
+                name: "Vui lòng nhập tên người nhận",
+                address: "Vui lòng nhập địa chỉ nhận hàng",
+                telephone: {
+                    required:"Vui lòng nhập số điện thoại nhận hàng",
+                    number:"Vui lòng không nhập chữ cái",
+                    minlength:"Vui lòng nhập đúng định dạng số điện thoại",
+                    maxlength:"Vui lòng nhập đúng định dạng số điện thoại"
+                },                
+                email: {
+                    email:"Vui lòng nhập đúng định dạnh hoặc để trống trường này"
+                },
             },
         });
 

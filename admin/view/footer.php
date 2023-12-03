@@ -43,6 +43,26 @@
                     number: true,
                     min: 1
                 },
+
+                ma_mau:"required",
+                ma_kich_co:"required",
+                gia_sp: {
+                    required: true,
+                    number: true,
+                    min: 1
+                },
+                gia_km: {
+                    required: true,
+                    number: true,
+                    min: 1
+                },
+               
+                so_luong: {
+                    required: true,
+                    number: true,
+                    min: 1
+                },
+                mo_ta: "required",
             },
             messages: {
                 id_catalog: "Vui lòng chọn loại sản phẩm.",
@@ -59,6 +79,26 @@
                     number: "Vui lòng nhập số hợp lệ.",
                     min: "Vui lòng nhập số dương."
                 },
+
+                ma_mau:"Vui lòng chọn màu sắc",
+                ma_kich_co:"Vui lòng chọn kích cỡ",
+                gia_sp: {
+                    required:  "Vui lòng nhập giá.",
+                    number: "Vui lòng nhập số hợp lệ.",
+                    min: "Vui lòng nhập số dương."
+                },
+                gia_km: {
+                    required:  "Vui lòng nhập giá khuyến mãi.",
+                    number: "Vui lòng nhập số hợp lệ.",
+                    min: "Vui lòng nhập số dương."
+                },
+                
+                so_luong: {
+                    required:  "Vui lòng nhập số lượng.",
+                    number: "Vui lòng nhập số hợp lệ.",
+                    min: "Vui lòng nhập số dương."
+                },
+                mo_ta: "Vui lòng nhập mô tả.",
             },
             errorPlacement: function(error, element) {
                 error.insertAfter(element); // Hiển thị thông báo lỗi dưới ô input
