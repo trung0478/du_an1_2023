@@ -13,8 +13,9 @@ include 'view/header.php';
 $statistical_product_seling = statistical_product_seling();
 $statistical_category = statistical_category();
 $statistical_Popular = statistical_Popular();
-// $statistical_sale = statistical_sale(0, 0, 'date');
-
+$statistical_sale = statistical_sale(0, 0, 'date');
+$sum_Oder = sum_Oder();
+$sum_view = sum_view();
 
 ?>
 
@@ -303,10 +304,7 @@ $statistical_Popular = statistical_Popular();
                 break;
 
                 // Staff
-            case 'list_statistical':
-                $statistical_product_seling = statistical_product_seling();
-                $statistical_category = statistical_category();
-                include '../admin/view/statistical/list_statistical.php';
+          
 
                 // Begin-order
             case 'list_order':
@@ -343,6 +341,16 @@ $statistical_Popular = statistical_Popular();
                 $statistical_category = statistical_category();
                 
                 include '../admin/view/statistical/statistical.php';
+                break;
+            case 'statistical_sale':
+                $statisticalDate_ago = statisticalDate_ago();
+                
+                include '../admin/view/statistical/statistical_sale.php';
+                break;
+            case 'statistical_Popular':
+                $statistical_Popular = statistical_Popular();
+                
+                include '../admin/view/statistical/statistical_Popular.php';
                 break;
             case 'product_chart':
                 $statistical_product_seling = statistical_product_seling();

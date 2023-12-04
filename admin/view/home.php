@@ -99,8 +99,8 @@
                                             <i class="fas fa-tasks text-gradient-success"></i>
                                         </div>
                                         <div class="col-10 text-right">
-                                            <h5 class="mt-0 mb-1">190</h5>
-                                            <p class="mb-0 font-12 text-muted">Nhiệm vụ hoạt dộng</p>
+                                            <h5 class="mt-0 mb-1">Tổng đơn hàng</h5>
+                                            <h5 class="mt-0 mb-1"><?php echo $sum_Oder[0]['so_don_hang_da_giao']?></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -116,8 +116,9 @@
                                             <i class="far fa-gem text-gradient-danger"></i>
                                         </div>
                                         <div class="col-10 text-right">
+                                            <h5 class="mt-0 mb-1">Dự án</h5>
                                             <h5 class="mt-0 mb-1">1</h5>
-                                            <p class="mb-0 font-12 text-muted">Dự án</p>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -133,8 +134,9 @@
                                             <i class="fas fa-users text-gradient-warning"></i>
                                         </div>
                                         <div class="col-10 text-right">
+                                            <h5 class="mt-0 mb-1">Thành viên</h5>
                                             <h5 class="mt-0 mb-1">3</h5>
-                                            <p class="mb-0 font-12 text-muted">Nhóm</p>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -147,11 +149,11 @@
                                 <div class="icon-contain">
                                     <div class="row">
                                         <div class="col-2 align-self-center">
-                                            <i class="fas fa-database text-gradient-primary"></i>
+                                            <i class="fa-regular fa-eye text-gradient-primary"></i>
                                         </div>
                                         <div class="col-10 text-right">
-                                            <h5 class="mt-0 mb-1">45 ngày</h5>
-                                            <p class="mb-0 font-12 text-muted">Thời gian</p>
+                                            <h5 class="mt-0 mb-1">Tổng lượt xem</h5>
+                                            <h5 class="mt-0 mb-1"><?php echo $sum_view[0]['tong_luot_xem']?></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +176,7 @@
                             </select>
                             <div class="flex-betwent ">
                             <input type="submit" value="Lọc" name="search">
-                            <a href="?act=statistical" class="btn btn-warning">Xem Chi tiết</a>
+                            <a href="?act=statistical_sale" class="btn btn-warning">Xem Chi tiết</a>
                             </div>
 
                         </form>
@@ -243,36 +245,45 @@
                         <div>
                             <div id="myChart" style="width:300px; height:200px;">
 
-                                <script>
-                                google.charts.load('current', {
-                                    'packages': ['corechart']
-                                });
+                            <script type="text/javascript">
+                                google.charts.load('current', {'packages':['corechart']});
                                 google.charts.setOnLoadCallback(drawChart);
 
                                 function drawChart() {
                                     var data = google.visualization.arrayToDataTable([
-
-                                        ['Tên sản phẩm', 'Số Lượng Sản Phẩm'],
+                                        ['Tên sản phẩm', 'Số lượng bán', 'Doanh thu'],
                                         <?php
-                                $i=1;
-                                    foreach ($statistical_Popular as $tk){
-                                        extract($tk);
-                                        echo "['".$tk['ten_sp']."',".$tk['so_luong_ban']."],";
-                                        $i+=1;
-                                    }
-                                ?>
-
+                                            foreach ($statistical_Popular as $tk){
+                                                extract($tk);
+                                                echo "['".$tk['ten_sp']."', ".$tk['so_luong_ban'].", ".$tk['doanh_thu']."],";
+                                            }
+                                        ?>
                                     ]);
 
                                     var options = {
                                         title: 'Thống kê sản phẩm phổ biến nhất',
+                                        bars: 'vertical',
+                                        series: {
+                                            0: { targetAxisIndex: 0 }, // Số lượng bán
+                                            1: { targetAxisIndex: 1 }  // Doanh thu
+                                        },
+                                        axes: {
+                                            y: {
+                                                0: {label: 'Số lượng bán'},
+                                                1: {label: 'Doanh thu'}
+                                            }
+                                        },
+                                        vAxes: {
+                                            0: {title: 'Số lượng bán'},
+                                            1: {title: 'Doanh thu'}
+                                        },
                                         is3D: true
                                     };
 
-                                    var chart = new google.visualization.PieChart(document.getElementById('myChart'));
+                                    var chart = new google.visualization.ColumnChart(document.getElementById('myChart'));
                                     chart.draw(data, options);
                                 }
-                                </script>
+                            </script>
 
                             </div>
                             <ul class="list-unstyled list-inline text-center mb-0 mt-3">
@@ -286,7 +297,7 @@
                                 </li>
                                 <li class="mb-2 list-inline-item text-muted font-13">
                                     <i
-                                        class="mdi mdi-label text-warning mr-2"></i><?= $statistical_Popular[2]['ten_sp'] ?>
+                                    class="mdi mdi-label text-warning mr-2"></i><?php echo isset($statistical_Popular[2]['ten_sp']) ? $statistical_Popular[2]['ten_sp'] : "";  ?>
 
                                 </li>
 
@@ -312,7 +323,7 @@
                                 <div class="progress-bar bg-gradient3" role="progressbar" style="width: 65%"
                                     aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
-                            <a class="btn btn-primary btn-sm btn-block text-white">Xem thêm</a>
+                            <a href="?act=statistical_Popular" class="btn btn-primary btn-sm btn-block text-white">Xem chi tiết</a>
                         </div>
                     </div>
                 </div>
@@ -329,10 +340,11 @@
                 <table class="table">
                     <thead>
                         <tr class="text-center">
-                            <th style="width: 10%;" scope="col">Mã sản phẩm</th>
-                            <th style="width: 16%;" scope="col">Tên sản phẩm</th>
-                            <th style="width: 8%;" scope="col">Số lần bán</th>
-                            <th style="width: 10%;" scope="col">Số lượng bán</th>
+                            <th style="width: 8%;" scope="col">Mã sản phẩm</th>
+                            <th style="width: 14%;" scope="col">Tên sản phẩm</th>
+                            <th style="width: 8%;" scope="col">Hình ảnh</th>
+                            <th style="width: 10%;" scope="col">Số lần bán</th>
+                            <th style="width: 14%;" scope="col">Số lượng bán</th>
                             <th style="width: 10%;" scope="col">Thành tiền</th>
 
 
@@ -342,10 +354,16 @@
                         <?php foreach ($statistical_product_seling as $value) {
                       
                             extract($value);
-
+                            $target_file = $dir_img .$hinh_anh;
+                            if (is_file($target_file)) {
+                                $img = '<img src="'.$target_file.'" alt="No photo" height="50">';
+                            } else {
+                                $img = "No photo";
+                            }
                             echo '<tr>
                                     <td class="text-center">' . $ma_sp . '</td>
                                     <td class="text-center">' . $ten_sp . '</td>
+                                    <td class="text-center">' . $img . '</td>
                                     <td class="text-center">' . $so_lan_ban . '</td>
                                     
                                     <td class="text-center">' . $so_luong_ban . '</td>
