@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-8">
                 <h3>Cập nhật thuộc tính sản phẩm</h3>
-                <form action="index.php?act=update_atribute" method="post" enctype="multipart/form-data">
+                <form id="myForm" action="index.php?act=update_atribute" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <?php
                             if (is_array($atribute_one)) {
@@ -16,7 +16,7 @@
                                 $hinh_anh = 'No photo';
                             }
                         ?>
-                    
+                        <input type="hidden" name="ma_sp" class="form-control" value="<?=$ma_sp?>" placeholder="Nhập mã sản phẩm muốn thêm thuộc tính" />
                         <input type="hidden" name="ma_bien_the" class="form-control" value="<?=$ma_bien_the?>" placeholder="Nhập mã sản phẩm muốn thêm thuộc tính" />
                         <?php
                             if (isset($message) && $message != "") {
