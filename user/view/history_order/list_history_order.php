@@ -9,11 +9,12 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Sản phẩm</th>
-                                        <th>Kích cỡ, Màu sắc</th>
-                                        <th>Số lượng</th>
-                                        <th>Đơn giá</th>
-                                        <th>Mã hóa đơn</th>
+                                        <th>Người nhận</th>
+                                        <th>Hóa đơn</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Tổng đơn</th>
+                                        <th>Địa chỉ</th>
+                                        <th>PTTT</th>
                                         <th>Tình trạng</th>
                                         <th>Hoạt động</th>
                                     </tr>
@@ -22,25 +23,21 @@
                                 
                                     <?php
                                         if (isset($list_his_order)) {
-                                            foreach ($list_his_order as $history) :
-                                                extract($history);
-                                                $image = $link_img .$hinh_anh;
+                                            foreach ($list_his_order as $order) :
+                                                extract($order);
+                                                $payment = method_pay($pttt);
                                                 $status = status($trang_thai);
                                     ?>
                                         
                                     <tr>
-                                        <td class="product-thumbnail">
-                                            <a href="#"><img class="img-responsive ml-15px" src="<?= $image ?>" alt="" /></a>
-                                        </td>
-                                        <td><?php echo $mau_sac .', ' .$kich_co?></td>
-                                        <td class="product-name"><a href="#"><?= $so_luong ?></a></td>
-                                        <td><?=number_format($don_gia, 0, '.', '.')?> đ</td>
+                                        <td><?=$ho_ten?></td>
                                         <td><?=$ma_dh?></td>
+                                        <td><?=$ngay_dat?></td>
+                                        <td><?=number_format($tong_dh, 0, '.', '.')?> đ</td>
+                                        <td><?=$dia_chi .'</br>' .$sdt.'</br>' .$email?></td>
+                                        <td><?=$payment?></td>
                                         <td><?=$status?></td>
-                                       
-                                        <td class="product-remove">
-                                            <a href="index.php?act=del_his_order&id_order=<?= $ma ?>"><i class="icon-close"></i></a>
-                                        </td>
+                                        <td><a href="?act=detail_history&id_order=<?= $ma ?>">Xem chi tiết</a></td>
                                     </tr>
                                     
                                     <?php endforeach; }?>
@@ -51,9 +48,10 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="cart-shiping-update-wrapper">
-                                    <div class="cart-shiping-update">
+                                    <div class="cart-shiping-update" style="text-align: left">
                                         <a href="index.php?act=home">Tiếp tục mua sắm</a>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
