@@ -7,14 +7,16 @@
 
     .card form {
         display: flex;
-        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        /* flex-direction: row;
         gap: 10px;
         width: 100%;
         background-color: #ffffff;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin: 20px auto;
-        padding: 0px 20px 20px;
+        margin: 20px auto; */
+        padding: 0px 10px 20px; 
     }
 
     .card h5 {
