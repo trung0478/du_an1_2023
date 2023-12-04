@@ -127,7 +127,7 @@ $sum_view = sum_view();
                             $file_name = $dir_img .time() .basename($hinh_anh);
                             move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $file_name);
                             add_atribute($ma_sp, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $file_name, $so_luong, $mo_ta);
-                            echo "<script> window.location.href='index.php?act=list_atribute';</script>";
+                            echo "<script> window.location.href='index.php?act=list_atribute&id=$ma_sp';</script>";
                         }
                 }
                 $list_product = get_product();
@@ -137,10 +137,12 @@ $sum_view = sum_view();
                 break;
             case 'del_atribute':
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    $one_attribute=getone_atribute($_GET['id']);
+                    $ma_sp=$one_attribute['ma_sp'];
                     del_atribute($_GET['id']);
+                    $list_product = get_all_product();
+                    echo "<script> window.location.href='index.php?act=list_atribute&id=$ma_sp';</script>";
                 }
-                $list_product = get_all_product();
-                include 'view/product/list_atribute.php';
                 break;
             case 'edit_atribute':
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -184,6 +186,7 @@ $sum_view = sum_view();
                 break;
             case 'update_atribute':
                 if (isset($_POST['update_atribute'])) {
+                    $ma_sp = $_POST['ma_sp'];
                     $ma_bien_the = $_POST['ma_bien_the'];
                     $ma_mau = $_POST['ma_mau'];
                     $ma_kich_co = $_POST['ma_kich_co'];
@@ -199,7 +202,7 @@ $sum_view = sum_view();
                     // $file_name: tên ảnh từ upload, $hinh_anh: tên ảnh nhập từ form
                     update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $file_name, $hinh_anh);
                 }
-                echo "<script> window.location.href='index.php?act=list_atribute';</script>";
+                echo "<script> window.location.href='index.php?act=list_atribute&id=$ma_sp';</script>";
                 include 'view/product/update_atribute.php';
                 break;
             case 'update_product':
