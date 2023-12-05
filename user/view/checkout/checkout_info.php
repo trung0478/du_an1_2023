@@ -212,7 +212,7 @@
                                 }
                                 ?>
                                 <p class="alert alert-danger" style="display: none" id="messageLogin"></p>
-                            <input style="background-color: #FF7004;" name="checkout" type="submit" class="btn-hover text-center text-white border-0" value="Đặt hàng">
+                            <input style="background-color: #FF7004;" name="checkout" type="submit" class="mb-5 btn-hover text-center text-white border-0" value="Đặt hàng">
                         </div>
                     <!-- </form> -->
                 </div>
