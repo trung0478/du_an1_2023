@@ -223,34 +223,34 @@
 
     
     function increase(element) {
-    var inputElement = element.previousElementSibling;
-    var currentValue = parseInt(inputElement.value);
-    var maxQuantity = parseInt(inputElement.getAttribute('max')); // Lấy giá trị tối đa (tồn kho)
+        var inputElement = element.previousElementSibling;
+        var currentValue = parseInt(inputElement.value);
+        var maxQuantity = parseInt(inputElement.getAttribute('max')); // Lấy giá trị tối đa (tồn kho)
 
-    if (currentValue < maxQuantity) {
-        inputElement.value = currentValue + 1;
-        updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex, currentValue + 1);
-    } else {
-        inputElement.value = 1;
-        updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex);
-        console.log("Số lượng vượt quá tồn kho!");
-        // Hiển thị thông báo hoặc xử lý theo ý muốn của bạn khi số lượng vượt quá tồn kho
+        if (currentValue < maxQuantity) {
+            inputElement.value = currentValue + 1;
+            updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex, currentValue + 1);
+        } else {
+            inputElement.value = 1;
+            updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex);
+            console.log("Số lượng vượt quá tồn kho!");
+            // Hiển thị thông báo hoặc xử lý theo ý muốn của bạn khi số lượng vượt quá tồn kho
+        }
     }
-}
 
-function decrease(element) {
-    var inputElement = element.nextElementSibling;
-    var currentValue = parseInt(inputElement.value);
-    var maxQuantity = parseInt(inputElement.getAttribute('max')); // Lấy giá trị tối đa (tồn kho)
+    function decrease(element) {
+        var inputElement = element.nextElementSibling;
+        var currentValue = parseInt(inputElement.value);
+        var maxQuantity = parseInt(inputElement.getAttribute('max')); // Lấy giá trị tối đa (tồn kho)
 
-    if (currentValue > 1) {
-        inputElement.value = currentValue - 1;
-        updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex, currentValue - 1);
-    } else {
-        inputElement.value = maxQuantity;
-        updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex);
+        if (currentValue > 1) {
+            inputElement.value = currentValue - 1;
+            updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex, currentValue - 1);
+        } else {
+            inputElement.value = maxQuantity;
+            updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex);
+        }
     }
-}
 
     // function increase(span) {
     //     var parentDiv = span.parentElement;
