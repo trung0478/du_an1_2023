@@ -13,7 +13,7 @@ include 'view/header.php';
 $statistical_product_seling = statistical_product_seling();
 $statistical_category = statistical_category();
 $statistical_Popular = statistical_Popular();
-$statistical_sale = statistical_sale(0, 0, 'date');
+$statistical_sale = statistical_sale(date('Y-m-d', time() - (86400 * 7)), date('Y-m-d', time()));
 $sum_Oder = sum_Oder();
 $sum_view = sum_view();
 
