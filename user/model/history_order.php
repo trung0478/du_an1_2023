@@ -16,19 +16,19 @@
     function status($n) {
         switch ($n) {
             case 1:
-                $status_message = "Chưa xử lý";
+                $status_message = "<span class='text-success'>Chưa xử lý</span>";
                 break;
             case 2:
-                $status_message = "Đã xác nhận";
+                $status_message = "<span class='text-success'>Đã xác nhận</span>";
                 break;
             case 3:
-                $status_message = "Đang giao hàng";
+                $status_message = "<span class='text-success'>Đang giao hàng</span>";
                 break;
             case 4:
-                $status_message = "Đã hoàn thành";
+                $status_message = "<span class='text-success'>Đã hoàn thành</span>";
                 break;
             case 5:
-                $status_message = "Đã hủy đơn";
+                $status_message = "<span class='text-danger'>Đã hủy đơn</span>";
                 break;
             
             default:

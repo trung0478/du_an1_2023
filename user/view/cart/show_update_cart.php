@@ -1,27 +1,9 @@
-<style>
-    .nextPay {
-        background-color: #ff7004;
-        border-radius: 0;
-        color: #fff;
-        display: block;
-        font-size: 14px;
-        font-weight: 700;
-        line-height: 1;
-        padding: 18px 10px 17px;
-        text-align: center;
-        text-transform: uppercase;
-        text-transform: uppercase;
-        -webkit-transition: all 0.3s ease 0s;
-        transition: all 0.3s ease 0s;
-    }
-    .nextPay:hover {
-        color: #fff;
-        background: #212121;
-    }
-</style>
-<!-- Cart Area Start -->
+<?php
+session_start();
+include "../../../global/global.php";
+?>
 <form action="index.php?act=checkout_info" method="post" onsubmit="return validateForm();" id="cartSection">
-<div class="cart-main-area pt-100px pb-100px">
+    <div class="cart-main-area pt-100px pb-100px">
         <div class="container">
             <h3 class="cart-page-title">Giỏ hàng</h3>
             <div class="row">
@@ -192,110 +174,5 @@
                     </div>
                 </div>
             </div>
-        
-    </div>
+        </div>
     <!-- Cart Area End -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-    function updateQuantity(productId, cartIndex, newQuantity) {
-        var newQuantity = parseInt(document.getElementById('quantityInput_' + productId).value);
-
-        $.ajax({
-            type: "POST",
-            url: "user/view/cart/update_cart.php",
-            data: {
-                product_id: productId,
-                cart_index: cartIndex,
-                new_quantity: newQuantity,
-            },
-            success: function(response){
-                console.log("Cập nhật thành công!");
-                $.post('user/view/cart/show_update_cart.php', function(data) {
-                    $('#cartSection').html(data);
-                })
-                // Có thể cập nhật thông tin giỏ hàng trên giao diện tại đây (nếu cần)
-            },
-            error: function(){
-                console.log("Đã xảy ra lỗi khi cập nhật!");
-            }
-        });
-    }
-
-    
-    function increase(element) {
-    var inputElement = element.previousElementSibling;
-    var currentValue = parseInt(inputElement.value);
-    var maxQuantity = parseInt(inputElement.getAttribute('max')); // Lấy giá trị tối đa (tồn kho)
-
-    if (currentValue < maxQuantity) {
-        inputElement.value = currentValue + 1;
-        updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex, currentValue + 1);
-    } else {
-        inputElement.value = 1;
-        updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex);
-        console.log("Số lượng vượt quá tồn kho!");
-        // Hiển thị thông báo hoặc xử lý theo ý muốn của bạn khi số lượng vượt quá tồn kho
-    }
-}
-
-function decrease(element) {
-    var inputElement = element.nextElementSibling;
-    var currentValue = parseInt(inputElement.value);
-    var maxQuantity = parseInt(inputElement.getAttribute('max')); // Lấy giá trị tối đa (tồn kho)
-
-    if (currentValue > 1) {
-        inputElement.value = currentValue - 1;
-        updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex, currentValue - 1);
-    } else {
-        inputElement.value = maxQuantity;
-        updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex);
-    }
-}
-
-    // function increase(span) {
-    //     var parentDiv = span.parentElement;
-    //     var quantityInput = parentDiv.querySelector('.quantity');
-    //     var currentValue = parseInt(quantityInput.value);
-    //     var stock = parseInt(quantityInput.getAttribute('data-stock'));
-        
-    //     // Kiểm tra giới hạn tối đa là max kho
-    //     if (currentValue < stock) {
-    //         quantityInput.value = currentValue + 1;
-    //     } else {
-    //         quantityInput.value = 1;
-    //     }
-    // }
-
-    // function decrease(span) {
-    //     var parentDiv = span.parentElement;
-    //     var quantityInput = parentDiv.querySelector('.quantity');
-    //     var currentValue = parseInt(quantityInput.value);
-    //     var stock = parseInt(quantityInput.getAttribute('data-stock'));
-
-    //     // Kiểm tra giới hạn tối thiểu là 1
-    //     if (currentValue > 1) {
-    //         quantityInput.value = currentValue - 1;
-    //     } else {
-    //         quantityInput.value = stock;
-    //     }
-    // }
-
-    function validateForm() {
-        var checkboxes = document.getElementsByName('select_product[]');
-        var checked = false;
-
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
-                checked = true;
-                break;
-            }
-        }
-
-        if (!checked) {
-            document.getElementById('messageLogin').style.display = 'block';
-            document.getElementById('messageLogin').textContent = 'Vui lòng chọn ít nhất một sản phẩm để thanh toán';
-            return false; // Ngăn chặn gửi form nếu không có checkbox nào được chọn
-        }
-        return true; // Gửi form nếu có ít nhất một checkbox được chọn
-    }
-    </script>
