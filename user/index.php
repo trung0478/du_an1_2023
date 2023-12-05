@@ -152,13 +152,16 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
         case 'bill_success':
             if (isset($_SESSION['order_info']) && !empty($_SESSION['order_info']) && isset($_SESSION['mycart']) && count($_SESSION['mycart']) > 0) {
                 $order_info = $_SESSION['order_info'];
+
                 // Tạo đơn hàng
                 // $item = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total]
                 $create_order_id = create_order($order_info[6], $order_info[0], $order_info[1], $order_info[2], $order_info[3], $order_info[4], $order_info[5], $order_info[9], $order_info[7], $order_info[8]);
                 $_SESSION['id_order'] = $create_order_id;
                 foreach ($_SESSION['select_cart'] as $key) {
                     $cart_product = $_SESSION['mycart'][$key];
-                    add_order_detail($create_order_id, $cart_product[0], $cart_product[1], $cart_product[2], $cart_product[5], $cart_product[6], $cart_product[4], $cart_product[3]);
+                    // Thêm vào đơn hàng chi tiết
+                    $total_price_pro = $cart_product[4] * $cart_product[3];
+                    add_order_detail($create_order_id, $cart_product[0], $cart_product[1], $cart_product[2], $cart_product[5], $cart_product[6], $cart_product[4], $total_price_pro);
                     if (isset($_SESSION['mycart'][$key])) {
                         unset($_SESSION['mycart'][$key]);
                     }

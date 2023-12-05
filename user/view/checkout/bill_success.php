@@ -66,11 +66,10 @@
                                             $get_show_pro = get_show_bill_cart($_SESSION['id_order']);
                                             if ($get_show_pro && count($get_show_pro) > 0) {
                                             foreach ($get_show_pro as  $item) :
-                                                $thanhtien = $item['so_luong'] * $item['don_gia'];
-                                                $tong += $thanhtien;
+                                                $tong += $item['don_gia'];
                                                 $image = $link_img .$item['hinh_anh'];
                                         ?>
-                                            <li><span class="order-middle-left"><img style="margin-right:12px" width=50 src="<?=$image?>"><?= $item['ten_sp'] ?> (<?= $item['mau_sac'] ?>, <?= $item['kich_co'] ?>) X <?= $item['so_luong'] ?> </span> <span class="order-price"><?= number_format($thanhtien, '0', '.', '.') ?> đ </span></li>
+                                            <li><span class="order-middle-left"><img style="margin-right:12px" width=50 src="<?=$image?>"><?= $item['ten_sp'] ?> (<?= $item['mau_sac'] ?>, <?= $item['kich_co'] ?>) X <?= $item['so_luong'] ?> </span> <span class="order-price"><?= number_format($item['don_gia'], '0', '.', '.') ?> đ </span></li>
                                             
                                         <?php 
                                             endforeach; 
