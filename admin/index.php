@@ -13,8 +13,9 @@ include 'view/header.php';
 $statistical_product_seling = statistical_product_seling();
 $statistical_category = statistical_category();
 $statistical_Popular = statistical_Popular();
-$statistical_sale = statistical_sale();
-
+$statistical_sale = statistical_sale(date('Y-m-d', time() - (86400 * 7)), date('Y-m-d', time()));
+$sum_Oder = sum_Oder();
+$sum_view = sum_view();
 
 ?>
 
@@ -23,14 +24,24 @@ $statistical_sale = statistical_sale();
         $act = $_GET['act'];
         switch ($act) {
            case 'home':
-            // if (isset($_POST['submit']) && ($_POST['submit'])) {
-            //     $day = isset($_POST['day']) ? $_POST['day'] : null;
-            //     // $week = isset($_POST['week']) ? $_POST['week'] : null;
-            //     // $year = isset($_POST['year']) ? $_POST['year'] : null;
-
-            //     $statistical_sale = statistical_sale($day);
+            if (isset($_POST['search']) && ($_POST['search'])) {
+                $start_date = isset($_POST['start_date']) ? $_POST['start_date'] : null;
+                $end_date = isset($_POST['end_date']) ? $_POST['end_date'] : null;
+                $choose_time = isset($_POST['choose_time']) ? $_POST['choose_time'] : null;
+            
+                $statistical_sale = statistical_sale($start_date, $end_date, $choose_time);
+            }
+            
+            // if (isset($_GET['search']) && ($_GET['search'])) {
+            //     $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : null;
+            //     $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : null;
+            //     $choose_time = isset($_GET['choose_time']) ? $_GET['choose_time'] : null;
+            
+            //     $statistical_sale = statistical_sale($start_date, $end_date, $choose_time);
             // }
-           $statistical_sale = statistical_sale();
+            
+            
+           //$statistical_sale = statistical_sale();
 
             include 'view/home.php';
             break;
@@ -116,7 +127,7 @@ $statistical_sale = statistical_sale();
                             $file_name = $dir_img .time() .basename($hinh_anh);
                             move_uploaded_file($_FILES['hinh_anh']['tmp_name'], $file_name);
                             add_atribute($ma_sp, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $file_name, $so_luong, $mo_ta);
-                            echo "<script> window.location.href='index.php?act=list_atribute';</script>";
+                            echo "<script> window.location.href='index.php?act=list_atribute&id=$ma_sp';</script>";
                         }
                 }
                 $list_product = get_product();
@@ -126,10 +137,12 @@ $statistical_sale = statistical_sale();
                 break;
             case 'del_atribute':
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    $one_attribute=getone_atribute($_GET['id']);
+                    $ma_sp=$one_attribute['ma_sp'];
                     del_atribute($_GET['id']);
+                    $list_product = get_all_product();
+                    echo "<script> window.location.href='index.php?act=list_atribute&id=$ma_sp';</script>";
                 }
-                $list_product = get_all_product();
-                include 'view/product/list_atribute.php';
                 break;
             case 'edit_atribute':
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -173,6 +186,7 @@ $statistical_sale = statistical_sale();
                 break;
             case 'update_atribute':
                 if (isset($_POST['update_atribute'])) {
+                    $ma_sp = $_POST['ma_sp'];
                     $ma_bien_the = $_POST['ma_bien_the'];
                     $ma_mau = $_POST['ma_mau'];
                     $ma_kich_co = $_POST['ma_kich_co'];
@@ -188,7 +202,7 @@ $statistical_sale = statistical_sale();
                     // $file_name: tên ảnh từ upload, $hinh_anh: tên ảnh nhập từ form
                     update_atribute($ma_bien_the, $ma_mau, $ma_kich_co, $gia_sp, $gia_km, $so_luong, $mo_ta, $file_name, $hinh_anh);
                 }
-                echo "<script> window.location.href='index.php?act=list_atribute';</script>";
+                echo "<script> window.location.href='index.php?act=list_atribute&id=$ma_sp';</script>";
                 include 'view/product/update_atribute.php';
                 break;
             case 'update_product':
@@ -293,10 +307,7 @@ $statistical_sale = statistical_sale();
                 break;
 
                 // Staff
-            case 'list_statistical':
-                $statistical_product_seling = statistical_product_seling();
-                $statistical_category = statistical_category();
-                include '../admin/view/statistical/list_statistical.php';
+          
 
                 // Begin-order
             case 'list_order':
@@ -333,6 +344,16 @@ $statistical_sale = statistical_sale();
                 $statistical_category = statistical_category();
                 
                 include '../admin/view/statistical/statistical.php';
+                break;
+            case 'statistical_sale':
+                $statisticalDate_ago = statisticalDate_ago();
+                
+                include '../admin/view/statistical/statistical_sale.php';
+                break;
+            case 'statistical_Popular':
+                $statistical_Popular = statistical_Popular();
+                
+                include '../admin/view/statistical/statistical_Popular.php';
                 break;
             case 'product_chart':
                 $statistical_product_seling = statistical_product_seling();

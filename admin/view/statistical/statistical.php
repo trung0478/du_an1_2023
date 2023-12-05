@@ -1,16 +1,16 @@
 <head>
     <style>
         .chart{
-            margin: 50px 250px;
+            margin: 10px 250px;
             
         }
-        
+        .thongke{
+            margin-top: 150px;
+        }
+      
     </style>
 </head>
 <div class="thongke">
-    <h3 class="alert">
-        THỐNG KÊ SẢN PHẨM THEO DANH MỤC
-    </h3>
         <div class="chart">
             <div id="myChart" style="width:1000px; max-width:1000px; height:500px;">
                 </div>
