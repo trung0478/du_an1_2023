@@ -61,10 +61,6 @@
     }
  
     function best_saleProduct() {
-        // $sql="SELECT bienthe.*, giohang.*, COUNT(giohang.ma_sp) AS sl FROM giohang 
-        // JOIN sanpham ON giohang.ma_sp=sanpham.ma_sp 
-        // JOIN bienthe ON bienthe.ma_sp = sanpham.ma_sp 
-        // WHERE 1 GROUP BY giohang.ten_sp ORDER BY sl DESC LIMIT 0,10";
         $sql="SELECT bienthe.*, giohang.*,donhang.trang_thai, COUNT(giohang.ma_sp) AS sl FROM donhang 
         JOIN giohang ON donhang.ma= giohang.ma_dh 
         JOIN sanpham ON giohang.ma_sp=sanpham.ma_sp 
