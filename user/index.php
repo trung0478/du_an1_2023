@@ -268,12 +268,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
         case 'forgot_pass':
             if (isset($_POST['send_email'])) {
                 $email = $_POST['email'];
-                $check_email = check_email($email);
-                if (is_array($check_email)) {
-                    $message = "Mật khẩu của bạn là: " . $check_email['mat_khau'];
-                } else {
-                    $message = "Email không tồn tại!";
-                }
+                $message = check_email($email);
             }
             include "view/account/forgot_pass.php";
             break;
