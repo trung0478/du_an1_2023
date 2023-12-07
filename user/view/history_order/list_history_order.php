@@ -37,7 +37,7 @@
                                         <td><?=$dia_chi .'</br>' .$sdt.'</br>' .$email?></td>
                                         <td><?=$payment?></td>
                                         <td><?=$status?></td>
-                                        <td><a href="?act=detail_history&id_order=<?= $ma ?>">Xem chi tiết</a></td>
+                                        <td><a href="?act=detail_history&id_order=<?= $ma ?>&id_account=<?= $_SESSION['account']['ma_nd'] ?>">Xem chi tiết</a></td>
                                     </tr>
                                     
                                     <?php endforeach; }?>

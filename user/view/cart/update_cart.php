@@ -5,8 +5,6 @@ if(isset($_POST['product_id']) && isset($_POST['cart_index']) && isset($_POST['n
     $productId = $_POST['product_id'];
     $cartIndex = $_POST['cart_index'];
     $newQuantity = $_POST['new_quantity'];
-    $newPrice = $_POST['new_price'];
-    $newTotalPrice = $_POST['new_total_price'];
 
     // Thực hiện cập nhật số lượng sản phẩm trong giỏ hàng
     $_SESSION['mycart'][$cartIndex][4] = $newQuantity;

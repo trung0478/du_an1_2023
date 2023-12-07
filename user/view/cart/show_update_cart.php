@@ -54,14 +54,13 @@ include "../../../global/global.php";
                                         <td class="product-remove">
                                             <a href="index.php?act=del_cart&idcart=<?= $i ?>"><i class="icon-close"></i></a>
                                         </td>
-                                        <td class="product-subtotal"><input style="width: 20px;" type="checkbox" name="select_product[]" value="<?=$key?>"></td>
+                                        <td class="product-subtotal"><input style="width: 20px;" type="checkbox" name="select_product[]" id="checkbox_<?=$cart[0]?>" data-key="<?= $thanhtien ?>" value="<?=$key?>" onchange="updateTotal(<?=$cart[0]?>)"></td>
                                     </tr>
                                     
                                     <?php $i++; endforeach ?>
                                     <tr>
                                         <td class="product-thumbnail " colspan = "6">Tổng Đơn hàng</td>
-                                        
-                                        <td class="product-subtotal"><?= number_format($sum, 0, '.', '.') ?> đ</td>
+                                        <td><span class="total_order">0 đ</span></td>
                                     </tr>
 
                                      <!-- <tr>
@@ -159,11 +158,11 @@ include "../../../global/global.php";
                                     <div class="total-shipping">
                                         <h5>Tổng số vận chuyển</h5>
                                         <ul>
-                                            <li>Tiêu chuẩn <span><?=number_format($sum, 0, '.', '.')?> đ</span></li>
+                                            <li>Tiêu chuẩn <span class="total_order">0 đ</span></li>
                                             <li>Vận chuyển <span><?=number_format($shippingFee, 0, '.', '.')?> đ</span></li>
                                         </ul>
                                     </div>
-                                    <h4 class="grand-totall-title">Tổng cộng <span><?=number_format($total, 0, '.', '.')?> đ</span></h4>
+                                        <h4 class="grand-totall-title">Tổng cộng <span id="shipping">0</span></h4>
                                     
                                         <button name="process_pay" class="nextPay">Tiến hành thanh toán</button>
                                         <p class="text-danger mt-15px" style="display: none" id="messageLogin"></p>
