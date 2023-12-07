@@ -25,9 +25,12 @@
                 $status_message = "<span class='text-success'>Đang giao hàng</span>";
                 break;
             case 4:
-                $status_message = "<span class='text-success'>Đã hoàn thành</span>";
+                $status_message = "<span class='text-success'>Đã giao hàng</span>";
                 break;
             case 5:
+                $status_message = "<span class='text-success'>Đã nhận hàng</span>";
+                break;
+            case 0:
                 $status_message = "<span class='text-danger'>Đã hủy đơn</span>";
                 break;
             
@@ -64,9 +67,20 @@
         $order = pdo_query($sql);
         return $order;
     }
+    function list_one_history_order($id_account, $id_order) {
+        $sql = "SELECT * FROM donhang
+        WHERE ma_nd = $id_account AND ma = $id_order
+        ORDER BY ma DESC";
+        $order = pdo_query($sql);
+        return $order;
+    }
 
-    function cancel_order($id_order) {
-        $sql = "UPDATE donhang SET trang_thai = 5 WHERE ma = $id_order";
+    function update_status($id_order, $status) {
+        if ($status == 1) {
+            $sql = "UPDATE donhang SET trang_thai = 0 WHERE ma = $id_order";
+        } else if($status==4) {
+            $sql = "UPDATE donhang SET trang_thai = 5 WHERE ma = $id_order";
+        }
         pdo_execute($sql);
     }
 
