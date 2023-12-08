@@ -9,6 +9,10 @@ function add_order_detail($create_order_id, $id_pro, $name_pro, $image, $color, 
     VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
     pdo_execute($sql, $create_order_id, $id_pro, $name_pro, $image, $color, $size, $quantity, $price);
 }
+function reduce_quantity_pro($id_pro, $buy_quantity) {
+    $sql = "UPDATE bienthe SET so_luong = so_luong - $buy_quantity WHERE ma_sp = $id_pro";
+    pdo_execute($sql);
+}
 
 function get_show_bill_cart($create_order_id){
     $sql="SELECT * FROM giohang WHERE ma_dh = $create_order_id";

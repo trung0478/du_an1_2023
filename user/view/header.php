@@ -130,7 +130,7 @@ $product_catalog = getAll_product_catalog();
 
                             </div>
                             <!-- Single Wedge End -->
-                            <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
+                            <a href="?act=viewcart" class="header-action-btn header-action-btn-cart pr-0">
                                 <i class="icon-handbag"></i>
                                 <span class="header-action-num"><?php (isset($_SESSION['mycart'])) ? $count = count($_SESSION['mycart']) : $count = 0; echo $count ?></span>
                                 <!-- <span class="cart-amount">€30.00</span> -->
