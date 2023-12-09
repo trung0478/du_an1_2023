@@ -157,11 +157,13 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 // $item = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total]
                 $create_order_id = create_order($order_info[6], $order_info[0], $order_info[1], $order_info[2], $order_info[3], $order_info[4], $order_info[5], $order_info[9], $order_info[7], $order_info[8]);
                 $_SESSION['id_order'] = $create_order_id;
+                // Lấy từ checkout_info
                 foreach ($_SESSION['select_cart'] as $key) {
                     $cart_product = $_SESSION['mycart'][$key];
                     // Thêm vào đơn hàng chi tiết
                     $total_price_pro = $cart_product[4] * $cart_product[3];
                     add_order_detail($create_order_id, $cart_product[0], $cart_product[1], $cart_product[2], $cart_product[5], $cart_product[6], $cart_product[4], $total_price_pro);
+                    // reduce_quantity_pro($cart_product[0], $cart_product[4]);
                     if (isset($_SESSION['mycart'][$key])) {
                         unset($_SESSION['mycart'][$key]);
                     }
@@ -268,12 +270,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
         case 'forgot_pass':
             if (isset($_POST['send_email'])) {
                 $email = $_POST['email'];
-                $check_email = check_email($email);
-                if (is_array($check_email)) {
-                    $message = "Mật khẩu của bạn là: " . $check_email['mat_khau'];
-                } else {
-                    $message = "Email không tồn tại!";
-                }
+                $message = check_email($email);
             }
             include "view/account/forgot_pass.php";
             break;
@@ -319,14 +316,16 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
         case 'detail_history':
             if (isset($_GET['id_order']) && $_GET['id_order'] > 0) {
                 $list_his_detail = list_his_detail($_GET['id_order']);
+                $list_his_order = list_one_history_order($_GET['id_account'], $_GET['id_order']);
             }
             include "view/history_order/detail_history.php";
             break;
 
-        case 'cancel_order':
-            if (isset($_POST['cancel'])) {
+        case 'update_status_order':
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $id_order = $_POST['id_order'];
-                cancel_order($id_order);
+                $status = $_POST['status'];
+                update_status($id_order, $status);
                 echo '<script>window.location.href="index.php?act=list_history_order&id_account=' . $_SESSION['account']['ma_nd'] . '"</script>';
             }
             include "view/history_order/detail_history.php";

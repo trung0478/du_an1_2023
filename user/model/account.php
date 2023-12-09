@@ -17,8 +17,47 @@ function check_account($username="", $pass) {
 function check_email($email) {
     $sql = "SELECT * FROM nguoidung WHERE email = '".$email."'";
     $email = pdo_query_one($sql);
-    return $email;
+    if ($email!=false) {
+        sendMail($email['email'],$email['ho_ten'],$email['mat_khau']);
+        return "Gửi mail thành công.";
+    }else {
+        return "Email không tồn tại trong hệ thống.";
+    }
 }
+
+function sendMail($email, $username, $pass){
+    require 'PHPMailer-master/src/Exception.php';
+    require 'PHPMailer-master/src/PHPMailer.php';
+    require 'PHPMailer-master/src/SMTP.php';
+
+    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+
+    try {
+        //Server settings
+        $mail->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_OFF;                      //Enable verbose debug output
+        $mail->isSMTP();                                            //Send using SMTP
+        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+        $mail->Username   = 'dangquoctrung88888888@gmail.com';                     //SMTP username
+        $mail->Password   = 'qgbz ztrv lijq gili';                               //SMTP password
+        $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
+        $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+        //Recipients ngưởi nhận
+        $mail->setFrom('dangquoctrung88888888@gmail.com', 'LTH Furniture');
+        $mail->addAddress($email, $username);     //Add a recipient
+
+        //Content
+        $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->Subject = 'BAN YEU CAU LAY LAI MAT KHAU.';
+
+        $mail->Body    = 'Mật khẩu của bạn là: ' . $pass ;
+        $mail->send();
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+}
+
 
 function getOne_account($id) {
     $sql = "SELECT * FROM nguoidung WHERE ma_nd = ?";
