@@ -150,7 +150,7 @@
                                             
                                         <?php endforeach; ?>
                                     </ul>
-<?php //echo '<pre>'.print_r($_SESSION['select_cart']).'</pre>'; ?>
+                                <?php //echo '<pre>'.print_r($_SESSION['select_cart']).'</pre>'; ?>
                                 </div>
 
                                 <div class="your-order-bottom">
