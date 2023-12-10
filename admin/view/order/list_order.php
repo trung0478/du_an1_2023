@@ -29,8 +29,7 @@
                                     $del_order = "?act=delete_order&id=$ma";
                                     $edit_order = "?act=edit_order&id_order=$ma";
                                     $detail_order = "?act=detail_order&id_order=$ma";
-                                    $trang_thai = get_status($trang_thai);
-                            
+                                    $status = get_status($trang_thai);
                         ?>
                         <tr>
                             <td class="text-center">
@@ -58,7 +57,7 @@
                                 <?= $ngay_dat ?>
                             </td>
                             <td class="text-center">
-                                <?= $trang_thai ?>
+                                <?= $status ?>
                             </td>
 
                             <td class="text-center">
@@ -67,11 +66,11 @@
                                     Xem chi tiết
                                 </a>
                                 <?php 
-                                if ($trang_thai!="Đã huỷ" && $trang_thai!="Đã hoàn thành") {
+                                if ($trang_thai!=0 && $trang_thai!=5 && $trang_thai!=4) {
                                     echo ' <a href=" '.$edit_order.'" class="btn btn-warning">Sửa</a>';
                                 }
 
-                                if ($trang_thai=="Đã hoàn thành" || $trang_thai=="Đã huỷ") {
+                                if ($trang_thai==5) {
                                     echo '<a style="margin-left: 3px;" onclick="return confirm(\'Bạn có xoá không?\')" href="'.$del_order.'" class="btn btn-danger">Xóa</a>';
                                 }
                                 ?>

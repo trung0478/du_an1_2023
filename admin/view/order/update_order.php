@@ -50,10 +50,12 @@
                     <div>
                         <label for="name" class="form-label mt-3">Trạng thái</label>
                         <select class="form-control" name="status" aria-label="Default select example">
-                            <option value="1" <?= ($get_one_order['trang_thai'] == 1) ? "selected" : "" ?>>Đang xử lý</option>
+                            <option value="0" <?= ($get_one_order['trang_thai'] == 0) ? "selected" : "" ?>>Đã hủy đơn</option>
+                            <option value="1" <?= ($get_one_order['trang_thai'] == 1) ? "selected" : "" ?>>Chưa xử lý</option>
                             <option value="2" <?= ($get_one_order['trang_thai'] == 2) ? "selected" : "" ?>>Đã xác nhận</option>
                             <option value="3" <?= ($get_one_order['trang_thai'] == 3) ? "selected" : "" ?>>Đang giao hàng</option>
-                            <option value="4" <?= ($get_one_order['trang_thai'] == 4) ? "selected" : "" ?>>Đã hoàn thành</option>
+                            <option value="4" <?= ($get_one_order['trang_thai'] == 4) ? "selected" : "" ?>>Đã giao hàng</option>
+                            <option value="5" <?= ($get_one_order['trang_thai'] == 5) ? "selected" : "" ?>>Đã nhận hàng</option>
                         </select>
                     </div>
                     <input type="hidden" name="idorder" value="<?= $get_one_order['ma'] ?>">

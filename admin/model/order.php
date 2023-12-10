@@ -9,27 +9,30 @@ function list_order()
 function get_status($n)
 {
     switch ($n) {
-        case '1':
-            $status = "Chưa xử lý";
+        case 1:
+            $status_message = "<span class='text-success'>Chưa xử lý</span>";
             break;
-        case '2':
-            $status = "Đã xác nhận";
+        case 2:
+            $status_message = "<span class='text-success'>Đã xác nhận</span>";
             break;
-        case '3':
-            $status = "Đang giao hàng";
+        case 3:
+            $status_message = "<span class='text-success'>Đang giao hàng</span>";
             break;
-        case '4':
-            $status = "Đã hoàn thành";
+        case 4:
+            $status_message = "<span class='text-success'>Đã giao hàng</span>";
             break;
-        case '5':
-            $status = "Đã huỷ";
+        case 5:
+            $status_message = "<span class='text-success'>Đã nhận hàng</span>";
             break;
-
+        case 0:
+            $status_message = "<span class='text-danger'>Đã hủy đơn</span>";
+            break;
+        
         default:
-            $status = "Chưa xử lý";
+            $status_message = "Chưa xử lý";
             break;
     }
-    return $status;
+    return $status_message;
 }
 function get_payment($n)
 {

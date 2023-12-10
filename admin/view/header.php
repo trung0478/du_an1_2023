@@ -180,10 +180,10 @@
                             <a href="?act=list_cmt">
                                 <i class="fa-regular fa-comment"></i></i>Bình luận </a>
                         </li>
-                        <li class="has-submenu">
+                        <!-- <li class="has-submenu">
                             <a href="?act=list_voucher">
                                 <i class="fa-solid fa-gift"></i>Khuyến mại</a>
-                        </li>
+                        </li> -->
                         <li class="has-submenu">
                             <a href="?act=list_order">
                                 <i class="dripicons-copy"></i>Đơn hàng</a>
