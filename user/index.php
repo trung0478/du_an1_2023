@@ -219,8 +219,8 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 $username = $_POST['username'];
                 $full_name = $username;
                 $pass = $_POST['pass'];
-                add_account($full_name, $email, $username, $pass);
-                $message = "Đăng ký thành công!";
+                // add_account($full_name, $email, $username, $pass);
+                $message = add_account($full_name, $email, $username, $pass);
             }
             include "view/account/register.php";
             break;
