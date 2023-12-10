@@ -1,6 +1,8 @@
 <?php
 session_start();
 include "../../../global/global.php";
+include "../../model/checkout.php";
+include "../../../config/connectdb.php";
 ?>
 <form action="index.php?act=checkout_info" method="post" onsubmit="return validateForm();" id="cartSection">
     <div class="cart-main-area pt-100px pb-100px">
@@ -31,6 +33,12 @@ include "../../../global/global.php";
                                             $img = $link_img . $cart[2];
                                             $thanhtien = $cart[3] * $cart[4];
                                             $sum += $thanhtien;
+                                            $update_quantity = updateCartFromDatabase($cart[9]);
+                                            $new_quantity = $update_quantity[0]['so_luong'];
+                                            if ($new_quantity == 0) {
+                                                $cart[4] = $new_quantity;
+                                                $mess_update = 'Đã hết hàng';
+                                            } 
                                             
                                             
                                     ?>
@@ -44,9 +52,10 @@ include "../../../global/global.php";
                                         <td>
                                             <div style="margin-left: 12px;width: 140px;height:40px;display:flex; align-items:center;border:1px solid #ccc; border-radius: 5px;">
                                                 <span style="cursor: pointer; padding-left: 15px; font-size:20px" onclick="decrease(this)">-</span>
-                                                <input style="border: none; text-align: center; padding: 0" type="text" value="<?=$cart[4]?>" min="1" max="<?=$cart[8]?>" id="quantityInput_<?=$cart[0]?>" data-product-id="<?=$cart[0]?>" data-cart-index="<?=$key?>" onchange="updateQuantity(this.dataset.productId, this.dataset.cartIndex, this.value)" disabled>
+                                                <input style="border: none; text-align: center; padding: 0" type="text" value="<?=$cart[4]?>" min="0" max="<?=$new_quantity?>" id="quantityInput_<?=$cart[0]?>" data-product-id="<?=$cart[0]?>" data-cart-index="<?=$key?>" onchange="updateQuantity(this.dataset.productId, this.dataset.cartIndex, this.value)" disabled>
                                                 <span style="cursor: pointer; padding-right: 15px; font-size:18px" onclick="increase(this)">+</span>
                                             </div>
+                                            <p class="text-danger"><?php if (isset($mess_update) && $new_quantity == 0) {echo $mess_update;}?></p>
                                         </td>
                                        
                                         <td class="product-subtotal"><?= $cart[5] .', ' .$cart[6]?></td>
@@ -54,7 +63,7 @@ include "../../../global/global.php";
                                         <td class="product-remove">
                                             <a href="index.php?act=del_cart&idcart=<?= $i ?>"><i class="icon-close"></i></a>
                                         </td>
-                                        <td class="product-subtotal"><input style="width: 20px;" type="checkbox" name="select_product[]" id="checkbox_<?=$cart[0]?>" data-key="<?= $thanhtien ?>" value="<?=$key?>" onchange="updateTotal(<?=$cart[0]?>)"></td>
+                                        <td class="product-subtotal"><input style="width: 20px;" type="checkbox" name="select_product[]" id="checkbox_<?=$cart[0]?>" data-key="<?= $thanhtien ?>" value="<?=$key?>" onchange="updateTotal()"></td>
                                     </tr>
                                     
                                     <?php $i++; endforeach ?>
