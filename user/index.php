@@ -56,7 +56,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                         } else {
                             $stock = $_POST['quantity_variant'];
                             $idpro = $_POST['idpro'];
-                            // $id_variant = $_POST['id_variant'];
+                            $id_variant = $_POST['id_variant'];
                             $name = $_POST['name'];
                             ($_POST['image_variant']) ? $image = $_POST['image_variant'] : $image = $_POST['imagedefault'];
                             ($_POST['price_variant']) ? $price = $_POST['price_variant'] : $price = $_POST['pricedefault'];
@@ -79,7 +79,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                             }
                         }
                         if (!$product_exists) {
-                            $add_product = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total, $stock];
+                            $add_product = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total, $stock, $id_variant];
                             // array_push($_SESSION['mycart'], $add_product);
                             $_SESSION['mycart'][] = $add_product;
                         }
@@ -184,6 +184,12 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             include 'view/pockup.php';
             break;
         case 'viewcart':
+            // $id_variant = $_POST['id_variant'];
+            // echo $id_variant;
+            // $update_quantity = updateCartFromDatabase($id_variant);
+            // foreach($_SESSION['mycart'] as $key => $cart) {
+            //     echo $cart[9];
+            // }
             include 'view/cart/cart.php';
             break;
 
@@ -340,7 +346,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             if (isset($_POST['add_comment'])) {
                 $noi_dung = $_POST['comment'];
                 if (isset($_SESSION['account'])) {
-                    insert_comment($_GET['id_pro'],  $_SESSION['id_account'], $noi_dung);
+                    insert_comment($_GET['id_pro'],  $_SESSION['account']['ma_nd'], $noi_dung);
                 } else {
                     $message_noLogin = "Bạn chưa đăng nhập - Vui lòng đăng nhập để thực hiện bình luận";
                 }
