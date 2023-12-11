@@ -39,7 +39,7 @@
                             extract($variant);
                             $image = $link_img . $hinh_anh;
                             echo '<div class="swiper-slide">
-                                        <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\'' . $hinh_anh . '\', ' . $gia_km . ', ' . $gia_sp . ', ' . $so_luong . ')">
+                                        <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\'' . $hinh_anh . '\', ' . $gia_km . ', ' . $gia_sp . ', ' . $so_luong . ', '.$ma_bien_the.')">
                                     </div>';
                         }
                         ?>
@@ -54,7 +54,7 @@
                             extract($variant);
                             $image = $link_img . $hinh_anh;
                             echo '<div class="swiper-slide">
-                                        <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\'' . $hinh_anh . '\', ' . $gia_km . ', ' . $gia_sp . ', ' . $so_luong . ')">
+                                        <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\'' . $hinh_anh . '\', ' . $gia_km . ', ' . $gia_sp . ', ' . $so_luong . ', '.$ma_bien_the.')">
                                     </div>';
                         }
                         ?>
@@ -127,7 +127,7 @@
                                 </select>
                             </div>
                         </div>
-
+                        <p style="position: relative; top: 20px; color: red; font-size: 15px;" id="error"></p>
                         <div class="pro-details-quality">
                             <div style="height:50px;display:flex; align-items:center;border:1px solid #ccc; border-radius: 5px; margin-right:30px">
                                 <span style="cursor: pointer; padding-left: 20px; font-size:20px" onclick="decrease()">-</span>
@@ -136,6 +136,7 @@
                             </div>
                             <div class="pro-details-cart">
                                 <input type="hidden" name="idpro" value="<?= $ma_sp ?>">
+                                <input type="hidden" id="idVariant" name="id_variant" value="<?= $ma_bien_the ?>">
                                 <input type="hidden" name="name" value="<?= $ten_sp ?>">
                                 <input type="hidden" name="imagedefault" value="<?= $check_variant[0]['hinh_anh'] ?>">
                                 <input type="hidden" name="pricedefault" value="<?= $check_variant[0]['gia_km'] ?>">
@@ -144,8 +145,14 @@
                                 <input type="hidden" name="image_variant" id="imageVariant">
                                 <input type="hidden" name="quantity_variant" id="quantityVariant">
 
-                                <button title="Add To Cart" class="add-cart btn btn-primary btn-hover-primary ml-4" name="addtocart">Thêm vào giỏ hàng</button>
+                                <!-- <button title="Add To Cart" class="add-cart btn btn-primary btn-hover-primary ml-4" name="addtocart">Thêm vào giỏ hàng</button> -->
 
+                                <?php if($so_luong > 0){?>
+                                    <button title="Add To Cart" class="add-cart btn btn-primary btn-hover-primary ml-4" name="addtocart">Thêm vào giỏ hàng</button>
+                                <?php }else{?>
+                                 <p class="add-cart btn btn-primary btn-hover-primary ml-4" style=" background-color: #ff7004; color: #ffffff; border-radius: 5px;">Đã hết hàng</p>
+                                               
+                                 <?php }?>
                             </div>
                         </div>
                     </form>
@@ -404,25 +411,31 @@
      function increase() {
         var maxQuantity = document.getElementById('quantityVariant').value;
         var input = document.getElementById('quantityInput');
+        var error = document.getElementById('error');
         var currentValue = parseInt(input.value, 10);
         // Kiểm tra giới hạn tối đa là 5
         if (currentValue < maxQuantity) {
             input.value = currentValue + 1;
         } else {
-            input.value = 1;
+            input.value = maxQuantity;
+            error.innerText = "Số lượng bạn chọn đã đạt mức tối đa của sản phẩm này";
         }
     }
 
     function decrease() {
         var maxQuantity = document.getElementById('quantityVariant').value;
         var input = document.getElementById('quantityInput');
+        var error = document.getElementById('error');
         var currentValue = parseInt(input.value, 10);
 
         // Kiểm tra giới hạn tối thiểu là 1
         if (currentValue > 1) {
             input.value = currentValue - 1;
+            error.innerText = "";
+
         } else {
-            input.value = maxQuantity
+            input.value = 1;
+            
         }
     }
 
@@ -437,7 +450,7 @@
     }
 
     // Xử lý khi người dùng chọn biến thể
-    function selectVariant(imageVariant, priceVariant, priceVariantSub, quantityVariant) {
+    function selectVariant(imageVariant, priceVariant, priceVariantSub, quantityVariant, idVariant) {
         // var sizeSelect = document.getElementById('sizeSelect');
         // var colorSelect = document.getElementById('colorSelect');
 
@@ -479,6 +492,7 @@
         document.getElementById('priceDisplay').textContent = formatPrice;
         document.getElementById('priceDisplaySub').textContent = formatPriceSub;
         document.getElementById('quantityDisplay').textContent = 'Tồn kho: ' + quantityVariant;
+        document.getElementById('idVariant').value = idVariant;
     }
 
     var variants = <?php echo json_encode($check_variant); ?>;

@@ -93,12 +93,8 @@
                                             </div>
                                             <!-- <form action="index.php?act=pockup" ></form> -->
                                             <?php $link_pockup = "?act=pockup&idpro=$ma_sp"?>
-                                            <?php if($so_luong > 0){?>
                                             <a href="<?=$link_pockup?>" class="action quickview add-to-cart" data-link-action="quickview" title="Quick view" data-bs-target="#exampleModal">Thêm vào giỏ hàng</a>
-                                            <?php }else{?>
-                                                <p class="action quickview add-to-cart" data-link-action="quickview" title="Quick view" data-bs-target="#exampleModal" style=" background-color: #ff7004; color: #ffffff; border-radius: 5px;">Đã hết hàng</p>
-                                               
-                                            <?php }?>
+                                      
                                         </div>
                                         <div class="content">
                                             <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>"><?= $ten_sp; ?></a></h5>
