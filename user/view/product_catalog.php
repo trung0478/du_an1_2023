@@ -191,20 +191,20 @@
                                        
                                             <li>
                                                 <div class="sidebar-widget-list-left">
-                                                    <input type="checkbox" /><a href="index.php?act=product_catalog&min_price=0&max_price=250000" class="">Giá từ 0 - 250.000 đ<span></span> </a> </a>
+                                                <input id="page1" type="checkbox" /><a href="index.php?act=product_catalog&min_price=0&max_price=250000" class="">Giá từ 0 - 250.000 đ<span></span> </a> </a>
                                                     <span class="checkmark"></span>
                                                 </div>
                                                 </li>
                                         
                                             <li>
                                                 <div class="sidebar-widget-list-left">
-                                                    <input type="checkbox" /><a href="index.php?act=product_catalog&min_price=250000&max_price=500000" class="">Giá từ 250.000 - 500.000 đ<span></span> </a> </a>
+                                                <input id="page2" type="checkbox" /><a href="index.php?act=product_catalog&min_price=250000&max_price=500000" class="">Giá từ 250.000 - 500.000 đ<span></span> </a> </a>
                                                     <span class="checkmark"></span>
                                                 </div>
                                                 </li>
                                             <li>
                                                 <div class="sidebar-widget-list-left">
-                                                    <input type="checkbox" /><a href="index.php?act=product_catalog&min_price=500000&max_price=750000" class="">Giá từ 500.000 - 750.000 đ<span></span> </a> </a>
+                                                <input id="page3" type="checkbox" /><a href="index.php?act=product_catalog&min_price=500000&max_price=750000" class="">Giá từ 500.000 - 750.000 đ<span></span> </a> </a>
                                                     <span class="checkmark"></span>
                                                 </div>
                                                 </li>
@@ -230,3 +230,18 @@
         </div>
     </div>
     </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy tất cả các ô checkbox trong danh sách
+        var checkboxes = document.querySelectorAll('.sidebar-widget-list-left input[type="checkbox"]');
+
+        // Thêm sự kiện click cho từng ô checkbox
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('click', function () {
+                // Gửi yêu cầu load lại trang khi có sự kiện click
+                window.location.href = this.parentElement.querySelector('a').getAttribute('href');
+            });
+        });
+    });
+</script>
+

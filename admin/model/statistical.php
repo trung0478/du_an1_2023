@@ -63,6 +63,7 @@ function statistical_sale($date_start = 0,$end_date = 0,$choose_time='date'){
     $statistical_sale = pdo_query($sql);
     return $statistical_sale;
 }
+
 function statisticalDate_ago(){
     $sql = "SELECT gh.ma_sp, gh.ten_sp, gh.hinh_anh,DATE(dh.ngay_dat) 
     AS ngay_dat_hang, COUNT(DISTINCT dh.ma) 
@@ -71,12 +72,10 @@ function statisticalDate_ago(){
     AS tong_don_hang, MONTH(DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) 
     AS thang FROM giohang gh JOIN donhang dh 
     ON gh.ma_dh = dh.ma WHERE dh.ngay_dat > (CURRENT_DATE - 30) 
-    GROUP BY ngay_dat_hang, gh.ma_sp, gh.ten_sp, gh.hinh_anh;;
-    ORDER BY ngay_dat_hang DESC;
-";
+    GROUP BY ngay_dat_hang, gh.ma_sp, gh.ten_sp, gh.hinh_anh
+    ORDER BY ngay_dat_hang DESC";
     $statistical_sale = pdo_query($sql);
     return $statistical_sale;
 }
-
 
 ?>

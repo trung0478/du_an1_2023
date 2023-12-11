@@ -1,8 +1,28 @@
 <?php
-function add_account($full_name, $email, $username, $pass){
-    $sql = "INSERT INTO nguoidung (ho_ten, email, tai_khoan, mat_khau) VALUES(?, ?, ?, ?)";
-    pdo_execute($sql, $full_name, $email, $username, $pass);
+// function add_account($full_name, $email, $username, $pass){
+//     $sql = "INSERT INTO nguoidung (ho_ten, email, tai_khoan, mat_khau) VALUES(?, ?, ?, ?)";
+//     pdo_execute($sql, $full_name, $email, $username, $pass);
+// }
+
+function add_account($full_name, $email, $username, $pass) {
+       // Kiểm tra xem email đã tồn tại hay chưa
+       $check_email_query = "SELECT COUNT(*) AS email_count FROM nguoidung WHERE email = '".$email."'";
+       $email_count = pdo_query_one($check_email_query);
+
+       if ($email_count['email_count'] > 0) {
+           // Email đã tồn tại, thông báo và ngăn chặn đăng ký
+           return "Email đã tồn tại. Vui lòng chọn email khác.";
+       } else {
+           // Thêm mới người dùng vì email chưa tồn tại
+           $insert_user_query = "INSERT INTO nguoidung (ho_ten, email, tai_khoan, mat_khau) VALUES (?, ?, ?, ?)";
+           pdo_execute($insert_user_query, $full_name, $email, $username, $pass);
+
+           return "Đăng ký tài khoản thành công!";
+       }
+    
 }
+
+
 
 function check_account($username="", $pass) {
     if (!empty($username)) {
