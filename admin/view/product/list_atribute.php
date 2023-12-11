@@ -47,7 +47,11 @@
                                     } else {
                                         $img = "No photo";
                                     }
-                                    $status = ($trang_thai == 1) ? "Còn hàng" : "Hết hàng";
+                                    if ($so_luong > 0) {
+                                        $status = "Còn hàng";
+                                    } else {
+                                        $status = "Hết hàng";
+                                    }
                                     echo '<tr>
                                             <td class="text-center">'.$ma_sp.'</td>
                                             <td class="text-center">'.$ten_sp.'</td>

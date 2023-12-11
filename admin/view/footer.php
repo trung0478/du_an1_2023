@@ -41,7 +41,7 @@
                 quantity: {
                     required: true,
                     number: true,
-                    min: 1
+                    min: 0
                 },
 
                 ma_mau:"required",
@@ -60,7 +60,7 @@
                 so_luong: {
                     required: true,
                     number: true,
-                    min: 1
+                    min: 0
                 },
                 mo_ta: "required",
             },
