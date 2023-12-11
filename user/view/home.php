@@ -184,7 +184,6 @@
                
                 foreach ($best_saleProduct as $value) :
                     extract($value);
-                    echo $so_luong;
                 ?>
                     <div class="new-product-item swiper-slide">
                         <div class="product">
