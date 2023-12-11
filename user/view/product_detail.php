@@ -70,7 +70,8 @@
 
                 <div class="product-details-content quickview-content">
                     <h2><?= $product_detail['ten_sp'] ?></h2>
-                    <p class="reference" id="quantityDisplay">Tồn kho: <span><?= $so_luong ?></span></p>
+                    <p class="reference" id="quantityDisplay">Tồn kho:</p>
+                    <input type="hidden" id="valueQuantity" value="0">
                     <div class="pro-details-rating-wrap">
                         <div class="rating-product">
                             <i class="ion-android-star"></i>
@@ -145,8 +146,9 @@
                                 <input type="hidden" name="image_variant" id="imageVariant">
                                 <input type="hidden" name="quantity_variant" id="quantityVariant">
 
-                                <button title="Add To Cart" class="add-cart btn btn-primary btn-hover-primary ml-4" name="addtocart">Thêm vào giỏ hàng</button>
-
+                                <button title="Add To Cart" id="addToCart" class="add-cart btn btn-primary btn-hover-primary ml-4" name="addtocart">Thêm vào giỏ hàng</button>
+                                <p id="outStock" style="display: none; color: #fff; background-color:#ccc" class="btn btn-primary">Đã hết hàng</p>
+                                
                             </div>
                         </div>
                     </form>
@@ -486,7 +488,18 @@
         document.getElementById('priceDisplay').textContent = formatPrice;
         document.getElementById('priceDisplaySub').textContent = formatPriceSub;
         document.getElementById('quantityDisplay').textContent = 'Tồn kho: ' + quantityVariant;
+        var valueQuantity = document.getElementById('valueQuantity').value = quantityVariant;
         document.getElementById('idVariant').value = idVariant;
+
+        var addToCart = document.getElementById('addToCart');
+        var outStock = document.getElementById('outStock');
+        if (valueQuantity == 0) {
+            document.getElementById('addToCart').style.display = 'none';
+            document.getElementById('outStock').style.display = 'block';
+        } else {
+            document.getElementById('addToCart').style.display = 'block';
+            document.getElementById('outStock').style.display = 'none';
+        }
     }
 
     var variants = <?php echo json_encode($check_variant); ?>;
@@ -511,7 +524,19 @@
         document.getElementById('priceDisplay').textContent = formatPrice;
         document.getElementById('priceDisplaySub').textContent = formatPriceSub;
         document.getElementById('quantityDisplay').textContent = 'Tồn kho: ' + currentVariant.so_luong;
+        var valueQuantity = document.getElementById('valueQuantity').value = currentVariant.so_luong;
+        console.log(valueQuantity);
         document.getElementById('imageVariant').src = 'upload/' + currentVariant.hinh_anh;
+
+        var addToCart = document.getElementById('addToCart');
+        var outStock = document.getElementById('outStock');
+        if (valueQuantity == 0) {
+            document.getElementById('addToCart').style.display = 'none';
+            document.getElementById('outStock').style.display = 'block';
+        } else {
+            document.getElementById('addToCart').style.display = 'block';
+            document.getElementById('outStock').style.display = 'none';
+        }
     }
 
     function nextVariant() {
