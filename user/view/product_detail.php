@@ -127,7 +127,7 @@
                                 </select>
                             </div>
                         </div>
-
+                        <p style="position: relative; top: 20px; color: red; font-size: 15px;" id="error"></p>
                         <div class="pro-details-quality">
                             <div style="height:50px;display:flex; align-items:center;border:1px solid #ccc; border-radius: 5px; margin-right:30px">
                                 <span style="cursor: pointer; padding-left: 20px; font-size:20px" onclick="decrease()">-</span>
@@ -404,25 +404,31 @@
      function increase() {
         var maxQuantity = document.getElementById('quantityVariant').value;
         var input = document.getElementById('quantityInput');
+        var error = document.getElementById('error');
         var currentValue = parseInt(input.value, 10);
         // Kiểm tra giới hạn tối đa là 5
         if (currentValue < maxQuantity) {
             input.value = currentValue + 1;
+            error.innerText = "Số lượng bạn chọn đã đạt mức tối đa của sản phẩm này";
         } else {
-            input.value = 1;
+            input.value = maxQuantity;
         }
     }
 
     function decrease() {
         var maxQuantity = document.getElementById('quantityVariant').value;
         var input = document.getElementById('quantityInput');
+        var error = document.getElementById('error');
         var currentValue = parseInt(input.value, 10);
 
         // Kiểm tra giới hạn tối thiểu là 1
         if (currentValue > 1) {
             input.value = currentValue - 1;
+            error.innerText = "";
+
         } else {
-            input.value = maxQuantity
+            input.value = 1;
+            
         }
     }
 
