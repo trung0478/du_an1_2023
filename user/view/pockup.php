@@ -160,7 +160,7 @@ extract($one_product);
 
                                 <div class="pro-details-quality">
                                     <input type="hidden" name="idpro" value="<?= $ma_sp ?>">
-                                    <input type="text" id="idVariant" name="id_variant" value="<?= $ma_bien_the ?>">
+                                    <input type="hidden" id="idVariant" name="id_variant" value="<?= $ma_bien_the ?>">
                                     <input type="hidden" name="name" value="<?= $ten_sp ?>">
                                     <input type="hidden" name="quantity_variant" id="quantityVariant" value="<?= $so_luong ?>">
                                     <input type="hidden" name="imagedefault" value="<?= $check_variant[0]['hinh_anh'] ?>">
