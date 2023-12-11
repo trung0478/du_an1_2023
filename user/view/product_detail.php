@@ -39,7 +39,7 @@
                             extract($variant);
                             $image = $link_img . $hinh_anh;
                             echo '<div class="swiper-slide">
-                                        <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\'' . $hinh_anh . '\', ' . $gia_km . ', ' . $gia_sp . ', ' . $so_luong . ')">
+                                        <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\'' . $hinh_anh . '\', ' . $gia_km . ', ' . $gia_sp . ', ' . $so_luong . ', '.$ma_bien_the.')">
                                     </div>';
                         }
                         ?>
@@ -54,7 +54,7 @@
                             extract($variant);
                             $image = $link_img . $hinh_anh;
                             echo '<div class="swiper-slide">
-                                        <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\'' . $hinh_anh . '\', ' . $gia_km . ', ' . $gia_sp . ', ' . $so_luong . ')">
+                                        <img class="img-responsive m-auto" src="' . $image . '" onclick="selectVariant(\'' . $hinh_anh . '\', ' . $gia_km . ', ' . $gia_sp . ', ' . $so_luong . ', '.$ma_bien_the.')">
                                     </div>';
                         }
                         ?>
@@ -136,6 +136,7 @@
                             </div>
                             <div class="pro-details-cart">
                                 <input type="hidden" name="idpro" value="<?= $ma_sp ?>">
+                                <input type="hidden" id="idVariant" name="id_variant" value="<?= $ma_bien_the ?>">
                                 <input type="hidden" name="name" value="<?= $ten_sp ?>">
                                 <input type="hidden" name="imagedefault" value="<?= $check_variant[0]['hinh_anh'] ?>">
                                 <input type="hidden" name="pricedefault" value="<?= $check_variant[0]['gia_km'] ?>">
@@ -409,9 +410,9 @@
         // Kiểm tra giới hạn tối đa là 5
         if (currentValue < maxQuantity) {
             input.value = currentValue + 1;
-            error.innerText = "Số lượng bạn chọn đã đạt mức tối đa của sản phẩm này";
         } else {
             input.value = maxQuantity;
+            error.innerText = "Số lượng bạn chọn đã đạt mức tối đa của sản phẩm này";
         }
     }
 
@@ -443,7 +444,7 @@
     }
 
     // Xử lý khi người dùng chọn biến thể
-    function selectVariant(imageVariant, priceVariant, priceVariantSub, quantityVariant) {
+    function selectVariant(imageVariant, priceVariant, priceVariantSub, quantityVariant, idVariant) {
         // var sizeSelect = document.getElementById('sizeSelect');
         // var colorSelect = document.getElementById('colorSelect');
 
@@ -485,6 +486,7 @@
         document.getElementById('priceDisplay').textContent = formatPrice;
         document.getElementById('priceDisplaySub').textContent = formatPriceSub;
         document.getElementById('quantityDisplay').textContent = 'Tồn kho: ' + quantityVariant;
+        document.getElementById('idVariant').value = idVariant;
     }
 
     var variants = <?php echo json_encode($check_variant); ?>;
