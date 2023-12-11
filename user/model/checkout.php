@@ -1,4 +1,10 @@
 <?php
+function updateCartFromDatabase($id_variant) {
+    $sql = "SELECT * FROM bienthe WHERE ma_bien_the = $id_variant";
+    $result = pdo_query($sql);
+    return $result;
+}
+
 function create_order($id_order, $total_order, $id_user, $name, $address, $telephone, $email, $method_pay, $note, $date_create) {
     $sql = "INSERT INTO donhang (ma_dh, tong_dh, ma_nd, ho_ten, dia_chi, sdt, email, pttt, ghi_chu, ngay_dat)
     VALUES('".$id_order."', '".$total_order."', '".$id_user."', '".$name."', '".$address."', '".$telephone."', '".$email."', '".$method_pay."', '".$note."', '".$date_create."')";

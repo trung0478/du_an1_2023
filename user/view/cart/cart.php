@@ -20,7 +20,7 @@
     }
 </style>
 <!-- Cart Area Start -->
-<form action="index.php?act=checkout_info" method="post" onsubmit="return validateForm();" id="cartSection">
+<form action="index.php?act=checkout_info" method="post"  id="cartSection">
 <div class="cart-main-area pt-100px pb-100px">
         <div class="container">
             <h3 class="cart-page-title">Giỏ hàng</h3>
@@ -49,8 +49,12 @@
                                             $img = $link_img . $cart[2];
                                             $thanhtien = $cart[3] * $cart[4];
                                             $sum += $thanhtien;
-                                            
-                                            
+                                            $update_quantity = updateCartFromDatabase($cart[9]);
+                                            $new_quantity = $update_quantity[0]['so_luong'];
+                                            if ($new_quantity == 0) {
+                                                $cart[4] = $new_quantity;
+                                                $mess_update = 'Đã hết hàng';
+                                            } 
                                     ?>
                                         
                                         <tr>
@@ -62,9 +66,10 @@
                                         <td>
                                             <div style="margin-left: 12px;width: 140px;height:40px;display:flex; align-items:center;border:1px solid #ccc; border-radius: 5px;">
                                                 <span style="cursor: pointer; padding-left: 15px; font-size:20px" onclick="decrease(this)">-</span>
-                                                <input style="border: none; text-align: center; padding: 0" type="text" value="<?=$cart[4]?>" min="1" max="<?=$cart[8]?>" onchange="updateQuantity(<?=$cart[0]?>, <?=$key?>, this.value)" disabled>
+                                                <input style="border: none; text-align: center; padding: 0" type="text" value="<?=$cart[4]?>" min="0" max="<?=$new_quantity?>" onchange="updateQuantity(<?=$cart[0]?>, <?=$key?>, this.value)" disabled>
                                                 <span style="cursor: pointer; padding-right: 15px; font-size:18px" onclick="increase(this)">+</span>
                                             </div>
+                                            <p class="text-danger"><?php if (isset($mess_update) && $new_quantity == 0) {echo $mess_update;}?></p>
                                         </td>
                                        
                                         <td class="product-subtotal"><?= $cart[5] .', ' .$cart[6]?></td>
@@ -72,7 +77,7 @@
                                         <td class="product-remove">
                                             <a href="index.php?act=del_cart&idcart=<?= $i ?>"><i class="icon-close"></i></a>
                                         </td>
-                                        <td class="product-subtotal"><input style="width: 20px;" type="checkbox" name="select_product[]" id="checkbox_<?=$cart[0]?>" data-key="<?= $thanhtien ?>" value="<?=$key?>" onchange="updateTotal(<?=$cart[0]?>)"></td>
+                                        <td class="product-subtotal"><input data-quantity="<?=$new_quantity?>" style="width: 20px;" type="checkbox" name="select_product[]" id="checkbox_<?=$cart[0]?>" data-key="<?= $thanhtien ?>" value="<?=$key?>" onchange="updateTotal(); displayQuantity(this)"></td>
                                     </tr>
                                     
                                     <?php $i++; endforeach ?>
@@ -171,7 +176,7 @@
                                     </div>
                                     <h4 class="grand-totall-title">Tổng cộng <span id="shipping">0 đ</span></h4>
                                     
-                                        <button name="process_pay" class="nextPay">Tiến hành thanh toán</button>
+                                        <button name="process_pay" class="nextPay" onclick="return validateForm()">Tiến hành thanh toán</button>
                                         <p class="text-danger mt-15px" style="display: none" id="messageLogin"></p>
                                     </form>
                                 </div>
@@ -254,9 +259,10 @@
         }
     }
 
-    function updateTotal() {
+    function updateTotal(quantity) {
         var checkboxes = document.getElementsByName("select_product[]");
         var selectedTotal = 0;
+            
 
         checkboxes.forEach(function(checkbox) {
             if (checkbox.checked) {
@@ -273,22 +279,37 @@
         document.getElementById("shipping").textContent = totalAll.toLocaleString('vi-VN') + ' đ';
     }
 
-    function validateForm() {
-        var checkboxes = document.getElementsByName('select_product[]');
-        var checked = false;
+    function displayQuantity(checkbox) {
+    var input = checkbox.parentNode.parentNode.querySelector('input[type="text"]');
+    var quantity = parseInt(input.value);
 
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
-                checked = true;
-                break;
+    if (checkbox.checked) {
+        console.log(quantity);
+    }
+}
+
+function validateForm() {
+    var checkboxes = document.getElementsByName('select_product[]');
+    var checked = false;
+
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            var quantity = parseInt(checkboxes[i].getAttribute('data-quantity'));
+            checked = true;
+            
+            if (quantity === 0) {
+                document.getElementById('messageLogin').style.display = 'block';
+                document.getElementById('messageLogin').textContent = 'Số lượng đã được cập nhật, vui lòng kiểm tra lại';
+                return false; // Ngăn chặn thêm sản phẩm có số lượng 0
             }
         }
-
-        if (!checked) {
-            document.getElementById('messageLogin').style.display = 'block';
-            document.getElementById('messageLogin').textContent = 'Vui lòng chọn ít nhất một sản phẩm để thanh toán';
-            return false; // Ngăn chặn gửi form nếu không có checkbox nào được chọn
-        }
-        return true; // Gửi form nếu có ít nhất một checkbox được chọn
     }
+
+    if (!checked) {
+        document.getElementById('messageLogin').style.display = 'block';
+        document.getElementById('messageLogin').textContent = 'Vui lòng chọn ít nhất một sản phẩm để thanh toán';
+        return false; // Ngăn chặn gửi form nếu không có checkbox nào được chọn
+    }
+    return true; // Gửi form nếu có ít nhất một checkbox được chọn và không có sản phẩm nào hết hàng
+}
     </script>
