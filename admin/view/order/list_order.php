@@ -2,8 +2,16 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="d-flex justify-content-between my-md-2 my-2">
+            <div class="d-flex justify-content-between my-md-2 my-2">
                     <h3 class="fs-1">Danh sách đơn hàng</h3>
+                    <div class="row my-2">
+                        <div class="col-md-20">
+                            <form method="POST" action="index.php?act=list_order_search" style="display: inline-block;">
+                                <input type="text" name="keyword" class="form-control" placeholder="Tìm kiếm sản phẩm" />
+                        </div>
+                        <input class="btn btn-primary my-md-0 my-1" style="height: 38px; margin-left: 10px" name="btn_search" type="submit" value="Tìm kiếm">
+                        </form>
+                    </div>
                 </div>
                 <table class="table">
                     <thead>

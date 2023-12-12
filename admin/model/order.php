@@ -77,3 +77,14 @@ function update_order($id_order, $status)
     $sql = "UPDATE donhang SET trang_thai = '" . $status . "' WHERE ma = $id_order";
     pdo_execute($sql);
 }
+
+
+function list_order_search($keyword=""){
+    $sql =  "SELECT * FROM donhang";
+    if (!empty($keyword)) {
+        $sql .= " WHERE ho_ten LIKE '%".$keyword."%'";
+    }
+    $account = pdo_query($sql);
+    return $account;
+}
+?>

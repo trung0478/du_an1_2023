@@ -67,6 +67,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                             $product_exists = false;
                             $i = 0;
                             foreach ($_SESSION['mycart'] as $item) {
+                               
                                 if ($item[0] == $idpro && $item[1] == $name && $item[2] == $image && $item[3] == $price && $item[5] == $name_color && $item[6] == $name_size) {
                                     $_SESSION['mycart'][$i][4] += $quantity;
                                     if ($_SESSION['mycart'][$i][4] > $_SESSION['mycart'][$i][8]) {

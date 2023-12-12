@@ -290,6 +290,7 @@ $sum_view = sum_view();
                 $list_cmt = list_comment();
                 include '../admin/view/comment/list_cmt.php';
                 break;
+            
             case 'detail_cmt':
                 if(($_GET['id_cmt']) && ($_GET['id_cmt']>0)){
                     $id = $_GET['id_cmt'];
@@ -314,6 +315,17 @@ $sum_view = sum_view();
                 $list_order = list_order();
                 include '../admin/view/order/list_order.php';
                 break;
+
+            case 'list_order_search':
+                if (isset($_POST['btn_search']) && $_POST['btn_search']) {
+                    $keyword = $_POST['keyword'];
+                } else {
+                    $keyword = "";
+                }
+                $list_order = list_order_search($keyword);
+             include '../admin/view/order/list_order.php';
+
+            break;
             case 'edit_order':
                 if (isset($_GET['id_order']) && $_GET['id_order'] > 0) {
                     $get_one_order = get_one_order($_GET['id_order']);
