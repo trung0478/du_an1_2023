@@ -232,8 +232,8 @@ extract($one_product);
         // Kiểm tra giới hạn tối đa là 5
         if (currentValue < maxQuantity) {
             input.value = currentValue + 1;
-            error.innerText = "Số lượng bạn chọn đã đạt mức tối đa của sản phẩm này";
         } else {
+            error.innerText = "Số lượng bạn chọn đã đạt mức tối đa của sản phẩm này";
             input.value = maxQuantity;
         }
     }

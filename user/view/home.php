@@ -93,9 +93,8 @@
                                             </div>
                                             <!-- <form action="index.php?act=pockup" ></form> -->
                                             <?php $link_pockup = "?act=pockup&idpro=$ma_sp"?>
-                                            
                                             <a href="<?=$link_pockup?>" class="action quickview add-to-cart" data-link-action="quickview" title="Quick view" data-bs-target="#exampleModal">Thêm vào giỏ hàng</a>
-                                            
+                                      
                                         </div>
                                         <div class="content">
                                             <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>"><?= $ten_sp; ?></a></h5>
@@ -184,7 +183,6 @@
                
                 foreach ($best_saleProduct as $value) :
                     extract($value);
-                    echo $so_luong;
                 ?>
                     <div class="new-product-item swiper-slide">
                         <div class="product">

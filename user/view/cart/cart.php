@@ -239,9 +239,8 @@
             inputElement.value = currentValue + 1;
             updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex, currentValue + 1);
         } else {
-            inputElement.value = 1;
-            updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex, 1);
-            console.log("Số lượng vượt quá tồn kho!");
+            updateQuantity(inputElement.dataset.productId, inputElement.dataset.cartIndex);
+            alert("Số lượng vượt quá tồn kho!");
             // Hiển thị thông báo hoặc xử lý theo ý muốn của bạn khi số lượng vượt quá tồn kho
         }
     }

@@ -61,7 +61,7 @@
  
     function best_saleProduct() {
         $sql="SELECT bienthe.ma_bien_the, bienthe.ma_sp, bienthe.so_luong AS sl, giohang.*, donhang.trang_thai FROM donhang JOIN giohang ON donhang.ma = giohang.ma_dh JOIN sanpham ON giohang.ma_sp = sanpham.ma_sp 
-        JOIN bienthe ON bienthe.ma_sp = sanpham.ma_sp WHERE donhang.trang_thai = 4 GROUP BY bienthe.ma_sp ORDER BY sl DESC LIMIT 0, 10 ";
+        JOIN bienthe ON bienthe.ma_sp = sanpham.ma_sp WHERE donhang.trang_thai = 5 GROUP BY bienthe.ma_sp ORDER BY sl DESC LIMIT 0, 10";
         $result = pdo_query($sql);
         return $result;
     }
