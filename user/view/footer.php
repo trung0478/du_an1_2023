@@ -141,7 +141,7 @@
 <!-- Main Js -->
 <script src="./user/public/assets/js/main.js"></script>
 
-<!-- <script>
+<script>
     var currentURL = window.location.href;
     var page1 = document.getElementById("page1");
     var page2 = document.getElementById("page2");
@@ -191,7 +191,7 @@
     }
 
     typingEffect();
-</script> -->
+</script>
 
 <script>
     $(document).ready(function() {

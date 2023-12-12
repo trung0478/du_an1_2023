@@ -70,9 +70,9 @@
                                     echo ' <a href=" '.$edit_order.'" class="btn btn-warning">Sửa</a>';
                                 }
 
-                                if ($trang_thai==5) {
-                                    echo '<a style="margin-left: 3px;" onclick="return confirm(\'Bạn có xoá không?\')" href="'.$del_order.'" class="btn btn-danger">Xóa</a>';
-                                }
+                                // if ($trang_thai==5) {
+                                //     echo '<a style="margin-left: 3px;" onclick="return confirm(\'Bạn có xoá không?\')" href="'.$del_order.'" class="btn btn-danger">Xóa</a>';
+                                // }
                                 ?>
                             </td>
                         </tr>

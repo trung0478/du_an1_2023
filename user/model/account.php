@@ -1,8 +1,53 @@
 <?php
-function add_account($full_name, $email, $username, $pass){
-    $sql = "INSERT INTO nguoidung (ho_ten, email, tai_khoan, mat_khau) VALUES(?, ?, ?, ?)";
-    pdo_execute($sql, $full_name, $email, $username, $pass);
+
+
+function add_account($full_name, $email, $username, $pass) {
+       // Kiểm tra xem email đã tồn tại hay chưa
+       $check_email_query = "SELECT COUNT(email) AS email_count FROM nguoidung WHERE email = '".$email."' ";
+       $check_taikhoan_query = "SELECT COUNT(tai_khoan) AS acount_count FROM nguoidung WHERE tai_khoan = '".$username."'";
+       $email_count = pdo_query_one($check_email_query);
+
+       $check_taikhoan = pdo_query_one($check_taikhoan_query);
+
+       if ($email_count['email_count'] > 0) {
+        // Email đã tồn tại, thông báo và ngăn chặn đăng ký
+        return "Email đã tồn tại. Vui lòng chọn email khác.";
+       }else if($check_taikhoan['acount_count'] > 0){
+        // Kiểm tra tài khoản đã tồn tại và ngăn chặn đăng ký
+        return "Tài khoản đã tồn tại. Vui lòng chọn tài khoản khác.";
+       }
+        else {
+           // Thêm mới người dùng vì email chưa tồn tại
+           $insert_user_query = "INSERT INTO nguoidung (ho_ten, email, tai_khoan, mat_khau) VALUES (?, ?, ?, ?)";
+           pdo_execute($insert_user_query, $full_name, $email, $username, $pass);
+
+           return "Đăng ký tài khoản thành công!";
+       }
+    
 }
+// function add_account($full_name, $email, $username, $pass) {
+//     // Kiểm tra xem email hoặc tài khoản đã tồn tại hay chưa
+//     $check_duplicate_query = "SELECT COUNT(*) AS duplicate_count FROM nguoidung WHERE email = ? OR tai_khoan = ?";
+//     $duplicate_count = pdo_query_one($check_duplicate_query, $email, $username);
+
+//     if ($duplicate_count['duplicate_count'] > 0) {
+//         // Email hoặc tài khoản đã tồn tại, thông báo và ngăn chặn đăng ký
+//         if ($duplicate_count['duplicate_count'] > 0) {
+//             return "Email đã tồn tại. Vui lòng chọn email khác.";
+//         } else {
+//             return "Tài khoản đã tồn tại. Vui lòng chọn tài khoản khác.";
+//         }
+//     } else {
+//         // Thêm mới người dùng vì email và tài khoản chưa tồn tại
+//         $insert_user_query = "INSERT INTO nguoidung (ho_ten, email, tai_khoan, mat_khau) VALUES (?, ?, ?, ?)";
+//         pdo_execute($insert_user_query, $full_name, $email, $username, $pass);
+
+//         return "Đăng ký tài khoản thành công!";
+//     }
+// }
+
+
+
 
 function check_account($username="", $pass) {
     if (!empty($username)) {

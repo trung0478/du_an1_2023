@@ -94,6 +94,7 @@
                                             <!-- <form action="index.php?act=pockup" ></form> -->
                                             <?php $link_pockup = "?act=pockup&idpro=$ma_sp"?>
                                             <a href="<?=$link_pockup?>" class="action quickview add-to-cart" data-link-action="quickview" title="Quick view" data-bs-target="#exampleModal">Thêm vào giỏ hàng</a>
+                                      
                                         </div>
                                         <div class="content">
                                             <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>"><?= $ten_sp; ?></a></h5>
@@ -128,7 +129,7 @@
         <div class="row">
             <!-- Banner Start -->
             <div class="col-lg-6 col-12 mb-md-30px mb-lm-30px" data-aos="fade-up" data-aos-delay="200">
-                <a href="index.php" class="banner">
+                <a href="index.php?act=product_catalog" class="banner">
                     <img src="./user/public/assets/images/banner/1.jpg" alt="" />
                     <div class="info justify-content-end">
                         <div class="content align-self-center">
@@ -144,7 +145,7 @@
 
             <!-- Banner Start -->
             <div class="col-lg-6 col-12" data-aos="fade-up" data-aos-delay="400">
-                <a href="index.php" class="banner">
+                <a href="index.php?act=product_catalog" class="banner">
                     <img src="./user/public/assets/images/banner/2.jpg" alt="" />
                     <div class="info justify-content-start">
                         <div class="content align-self-center">
@@ -179,9 +180,9 @@
             <div class="new-product-wrapper swiper-wrapper">
                 <!-- Single Prodect -->
                 <?php
+               
                 foreach ($best_saleProduct as $value) :
                     extract($value);
-                    echo $so_luong;
                 ?>
                     <div class="new-product-item swiper-slide">
                         <div class="product">
@@ -197,7 +198,12 @@
                                     <a href="compare.html" class="action compare" title="Compare"><i class="icon-refresh"></i></a>
                                 </div>
                                 <?php $link_pockup = "?act=pockup&idpro=$ma_sp"?>
+                                <?php if($sl > 0){?>
                                             <a href="<?=$link_pockup?>" class="action quickview add-to-cart" data-link-action="quickview" title="Quick view" data-bs-target="#exampleModal">Thêm vào giỏ hàng</a>
+                                            <?php }else{?>
+                                                <p class="action quickview add-to-cart" data-link-action="quickview" title="Quick view" data-bs-target="#exampleModal" style=" background-color: #ff7004; color: #ffffff; border-radius: 5px;">Đã hết hàng</p>
+                                               
+                                            <?php }?>
                             </div>
                             <div class="content">
                                 <h5 class="title"><a href="index.php?act=product_detail&id_pro=<?= $ma_sp ?>&id_catalog=<?= $ma_lsp ?>"><?= $ten_sp ?></a></h5>

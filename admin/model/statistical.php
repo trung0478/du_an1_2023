@@ -19,7 +19,7 @@ function statistical_Popular(){
     AS so_don_hang, SUM(gh.so_luong) AS so_luong_ban, SUM(dh.tong_dh) AS doanh_thu 
     FROM giohang gh JOIN sanpham sp ON gh.ma_sp = sp.ma_sp 
     JOIN donhang dh ON gh.ma_dh = dh.ma 
-    WHERE dh.trang_thai = 4 GROUP BY gh.ma_sp, gh.ten_sp,sp.luot_xem, gh.hinh_anh 
+    WHERE dh.trang_thai = 5 GROUP BY gh.ma_sp, gh.ten_sp,sp.luot_xem, gh.hinh_anh 
     ORDER BY so_luong_ban DESC LIMIT 3";
     $result = pdo_query($sql);
     return $result;
@@ -29,14 +29,14 @@ function statistical_product_seling(){
     AS ma_don_hang, COUNT(dh.ma) AS so_lan_ban, SUM(gh.so_luong) 
     AS so_luong_ban, SUM(dh.tong_dh) AS thanh_tien FROM sanpham sp 
     JOIN giohang gh ON sp.ma_sp = gh.ma_sp JOIN donhang dh ON dh.ma = gh.ma_dh 
-    WHERE dh.trang_thai = 4 
+    WHERE dh.trang_thai = 5 
     GROUP BY sp.ma_sp, sp.ten_sp, gh.hinh_anh 
     ORDER BY so_luong_ban DESC;";
     $result = pdo_query($sql);
     return $result;
 }
 function sum_Oder(){
-    $sql = "SELECT COUNT(*) AS so_don_hang_da_giao FROM donhang WHERE trang_thai = 4;";
+    $sql = "SELECT COUNT(*) AS so_don_hang_da_giao FROM donhang WHERE trang_thai = 5;";
     $result_order = pdo_query($sql);
     return $result_order;
 }
@@ -57,21 +57,26 @@ function statistical_sale($date_start = 0,$end_date = 0,$choose_time='date'){
     ";
     $sql.=" SELECT ".($choose_time == 'MONTH' ? "DATE_FORMAT(dates.date, '%Y-%m')" : "$choose_time(dates.date)")." AS date, COUNT(DISTINCT donhang.ma) AS so_luong_don_hang, SUM(giohang.so_luong) AS so_luong_ban_ra, SUM((donhang.tong_dh)) AS doanh_thu
     FROM dates
-    LEFT JOIN donhang ON DATE(donhang.ngay_dat) = DATE(dates.date) and donhang.trang_thai = 4
+    LEFT JOIN donhang ON DATE(donhang.ngay_dat) = DATE(dates.date) and donhang.trang_thai = 5
     LEFT JOIN giohang ON giohang.ma_dh=donhang.ma
     GROUP BY $choose_time(dates.date)";
     $statistical_sale = pdo_query($sql);
     return $statistical_sale;
 }
+
 function statisticalDate_ago(){
-    $sql = "SELECT *,DATE(dh.ngay_dat) AS ngay_dat_hang, 
-    COUNT(DISTINCT dh.id) AS so_luong_don_hang, SUM(gh.so_luong) AS so_luong_ban,
-     SUM(dh.tong_dh) AS tong_don_hang, MONTH(DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) AS thang
-      FROM chi_tiet_don_hang gh JOIN san_pham sp ON gh.id_san_pham = sp.id JOIN don_hang dh ON gh.id_don_dat_hang = dh.id
-      WHERE dh.ngay_dat > (CURRENT_DATE - 30) GROUP BY ngay_dat_hang";
+    $sql = "SELECT gh.ma_sp, gh.ten_sp, gh.hinh_anh,DATE(dh.ngay_dat) 
+    AS ngay_dat_hang, COUNT(DISTINCT dh.ma) 
+    AS so_luong_don_hang, SUM(gh.so_luong) 
+    AS so_luong_ban, SUM(dh.tong_dh) 
+    AS tong_don_hang, MONTH(DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) 
+    AS thang FROM giohang gh JOIN donhang dh 
+    ON gh.ma_dh = dh.ma WHERE dh.ngay_dat > (CURRENT_DATE - 30) AND dh.trang_thai = 5
+    GROUP BY ngay_dat_hang, gh.ma_sp, gh.ten_sp, gh.hinh_anh;;
+    ORDER BY ngay_dat_hang DESC;
+";
     $statistical_sale = pdo_query($sql);
     return $statistical_sale;
 }
-
 
 ?>
