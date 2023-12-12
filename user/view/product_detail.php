@@ -80,7 +80,7 @@
                             <i class="ion-android-star"></i>
                             <i class="ion-android-star"></i>
                         </div>
-                        <span class="read-review"><a class="reviews" href="#">Lượt đánh giá: <span>0</a></span>
+                        <span class="read-review"><a class="reviews" href="#">Lượt đánh giá: <span><?php echo $count_comment['comment_count'] ?></a></span>
 
 
                     </div>
