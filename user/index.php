@@ -350,6 +350,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 } else {
                     $message_noLogin = "Bạn chưa đăng nhập - Vui lòng đăng nhập để thực hiện bình luận";
                 }
+                echo '<script>window.location.href = window.location.href;</script>';
             }
 
             if (isset($_GET['id_pro'])) {
