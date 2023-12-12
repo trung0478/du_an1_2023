@@ -263,7 +263,15 @@
                                                 <div class="rating-form-style form-submit">
                                                     <label for="comment"></label>
                                                     <textarea name="comment" placeholder="Nội dung"></textarea>
-                                                    <button class="btn btn-primary btn-hover-color-primary" name="add_comment" type="submit" value="Submit">Gửi bình luận</button>
+                                                    <p class="mt-15px" style="display: none; color: red; font-size: 16px" id="messageLogin"></p>
+                                                    <button class="btn btn-primary btn-hover-color-primary" name="add_comment" type="submit">Gửi bình luận</button>
+                                                    <?php
+                                                        if (isset($_SESSION['account'])){
+                                                            echo "<script>var isCancel = true;</script>";
+                                                        }else {
+                                                            echo "<script>var isCancel = false;</script>";
+                                                        }    
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -415,6 +423,9 @@
         } else {
             input.value = maxQuantity;
             error.innerText = "Số lượng bạn chọn đã đạt mức tối đa của sản phẩm này";
+            if (input.value == 0) {
+                input.value = 1;
+            }
         }
     }
 
@@ -552,4 +563,15 @@
     }
 
     displayVariant(variantIndex);
+
+        document.getElementById('myForm_').addEventListener('submit', function(event) {
+        if (!isCancel) {
+            // Ngăn chặn việc gửi form nếu người dùng chưa đăng nhập
+            event.preventDefault();
+            document.getElementById('messageLogin').style.display = 'block';
+            document.getElementById('messageLogin').textContent = 'Yêu cầu đăng nhập để bình luận';
+            // Hoặc có thể chuyển hướng đến trang đăng nhập
+            // window.location.href = 'login.php';
+        }
+    });
 </script>
