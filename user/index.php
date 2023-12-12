@@ -45,48 +45,36 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
             // Giỏ hàng
         case 'addtocart':
             if (isset($_POST['addtocart'])) {
-                if (!isset($_POST['namecolor']) && !isset($_POST['namesize'])) {
-                    $message = '<p class="alert alert-danger">Vui lòng chọn màu sắc và kích thước để thêm vào giỏ hàng!</p>';
-                } else {
-                    if (!isset($_POST['namecolor'])) {
-                        $message = '<p class="alert alert-danger">Vui lòng chọn màu sắc để thêm vào giỏ hàng!</p>';
-                    } else {
-                        if (!isset($_POST['namesize'])) {
-                            $message = '<p class="alert alert-danger">Vui lòng chọn kích cỡ để thêm vào giỏ hàng!</p>';
-                        } else {
-                            $stock = $_POST['quantity_variant'];
-                            $idpro = $_POST['idpro'];
-                            $id_variant = $_POST['id_variant'];
-                            $name = $_POST['name'];
-                            ($_POST['image_variant']) ? $image = $_POST['image_variant'] : $image = $_POST['imagedefault'];
-                            ($_POST['price_variant']) ? $price = $_POST['price_variant'] : $price = $_POST['pricedefault'];
-                            $quantity = $_POST['quantity'];
-                            $name_color = $_POST['namecolor'];
-                            $name_size = $_POST['namesize'];
-                            $total = $price * $quantity;
-                            $product_exists = false;
-                            $i = 0;
-                            foreach ($_SESSION['mycart'] as $item) {
-                               
-                                if ($item[0] == $idpro && $item[1] == $name && $item[2] == $image && $item[3] == $price && $item[5] == $name_color && $item[6] == $name_size) {
-                                    $_SESSION['mycart'][$i][4] += $quantity;
-                                    if ($_SESSION['mycart'][$i][4] > $_SESSION['mycart'][$i][8]) {
-                                        $_SESSION['mycart'][$i][4] = $_SESSION['mycart'][$i][8];
-                                    }
-                                    $product_exists = true;
-                                    break;
-                                }
-                                $i++;
-                            }
+                $stock = $_POST['quantity_variant'];
+                $idpro = $_POST['idpro'];
+                $id_variant = $_POST['id_variant'];
+                $name = $_POST['name'];
+                ($_POST['image_variant']) ? $image = $_POST['image_variant'] : $image = $_POST['imagedefault'];
+                ($_POST['price_variant']) ? $price = $_POST['price_variant'] : $price = $_POST['pricedefault'];
+                $quantity = $_POST['quantity'];
+                $name_color = $_POST['namecolor'];
+                $name_size = $_POST['namesize'];
+                $total = $price * $quantity;
+                $product_exists = false;
+                $i = 0;
+                foreach ($_SESSION['mycart'] as $item) {
+                    if ($item[0] == $idpro && $item[1] == $name && $item[2] == $image && $item[3] == $price && $item[5] == $name_color && $item[6] == $name_size) {
+                        $_SESSION['mycart'][$i][4] += $quantity;
+                        if ($_SESSION['mycart'][$i][4] > $_SESSION['mycart'][$i][8]) {
+                            $_SESSION['mycart'][$i][4] = $_SESSION['mycart'][$i][8];
                         }
-                        if (!$product_exists) {
-                            $add_product = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total, $stock, $id_variant];
-                            // array_push($_SESSION['mycart'], $add_product);
-                            $_SESSION['mycart'][] = $add_product;
-                        }
-                        echo '<script>window.location.href = window.location.href;</script>';
+                        $product_exists = true;
+                        break;
                     }
+                    $i++;
                 }
+            
+                if (!$product_exists) {
+                    $add_product = [$idpro, $name, $image, $price, $quantity, $name_color, $name_size, $total, $stock, $id_variant];
+                    // array_push($_SESSION['mycart'], $add_product);
+                    $_SESSION['mycart'][] = $add_product;
+                }
+                echo '<script>window.location.href = window.location.href;</script>';
             }
             include "view/cart/cart.php";
             break;
@@ -351,6 +339,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 } else {
                     $message_noLogin = "Bạn chưa đăng nhập - Vui lòng đăng nhập để thực hiện bình luận";
                 }
+                echo '<script>window.location.href = window.location.href;</script>';
             }
 
             if (isset($_GET['id_pro'])) {
