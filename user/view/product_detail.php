@@ -80,7 +80,7 @@
                             <i class="ion-android-star"></i>
                             <i class="ion-android-star"></i>
                         </div>
-                        <span class="read-review"><a class="reviews" href="#">Lượt đánh giá: <span>0</a></span>
+                        <span class="read-review"><a class="reviews" href="#">Lượt đánh giá: <span><?php echo $count_comment['comment_count'] ?></a></span>
 
 
                     </div>
@@ -201,12 +201,12 @@
                 <a data-bs-toggle="tab" href="#des-details3">Bình luận (<?php echo $count_comment['comment_count'] ?>)</a>
             </div>
             <div class="tab-content description-review-bottom">
-                <div id="des-details2" class="tab-pane ">
+                <div id="des-details2" class="tab-pane <?= !isset($_GET['tab']) || $_GET['tab'] !== 'comments' ? 'active' : ''; ?>">
                     <div class="product-description-wrapper active">
                         <p ><?= $mo_ta ?></p>
                     </div>
                 </div>
-                <div id="des-details3" class="tab-pane ">
+                <div id="des-details3" class="tab-pane <?= isset($_GET['tab']) && $_GET['tab'] === 'comments' ? 'active' : ''; ?>">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="review-wrapper">

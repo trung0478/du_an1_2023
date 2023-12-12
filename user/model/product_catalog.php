@@ -1,4 +1,3 @@
-
 <?php
     function getAll_product_catalog(){
         $sql = "SELECT lsp.ma_lsp, COUNT(sp.ma_lsp) AS soluong, lsp.ten_lsp
